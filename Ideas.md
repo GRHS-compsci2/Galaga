@@ -1,1 +1,0 @@
-stover suggested something pretty simple and known, such as galaga.
