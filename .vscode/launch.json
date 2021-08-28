@@ -12,10 +12,10 @@
         },
         {
             "type": "java",
-            "name": "Launch App",
+            "name": "Launch Main",
             "request": "launch",
             "vmArgs": "-XstartOnFirstThread",
-            "mainClass": "com.github.grhscompsci2.App",
+            "mainClass": "com.github.grhscompsci2.Main",
             "projectName": "Bibble"
         }
     ]
