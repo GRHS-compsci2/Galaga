@@ -2,7 +2,6 @@ package com.github.grhscompsci2.engine;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE;
 import static org.lwjgl.glfw.GLFW.GLFW_MAXIMIZED;
 import static org.lwjgl.glfw.GLFW.GLFW_RESIZABLE;
 import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
@@ -42,11 +41,16 @@ public class Window {
 
     public static Window window = null;
 
+    private float r, g, b, a;
+
     private Window() {
         this.height = 480;
         this.width = 640;
         this.name = "Bibble!";
-
+        r = 0;
+        g = 0;
+        b = 0;
+        a = 0;
     }
 
     public static Window get() {
@@ -122,11 +126,10 @@ public class Window {
             // Poll events
             glfwPollEvents();
 
-            glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+            glClearColor(r, g, b, a);
             glClear(GL_COLOR_BUFFER_BIT);
 
             glfwSwapBuffers(glfwWindow);
-
         }
 
     }
