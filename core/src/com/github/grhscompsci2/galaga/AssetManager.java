@@ -2,7 +2,7 @@ package com.github.grhscompsci2.galaga;
 
 import com.badlogic.gdx.Game;
 
-public class MyAssetManager extends Game{
+public class AssetManager extends Game{
 
     Assets myAssets = new Assets();
 
