@@ -3,7 +3,7 @@ package com.github.grhscompsci2.galaga.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
-import com.github.grhscompsci2.galaga.AssetManager;
+import com.github.grhscompsci2.galaga.MyGdxGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
@@ -15,6 +15,6 @@ public class DesktopLauncher {
 		config.title = "Galaga";
 		config.vSyncEnabled = true;
 		config.width = 288;
-		new LwjglApplication(new AssetManager(), config);
+		new LwjglApplication(new MyGdxGame(), config);
 	}
 }

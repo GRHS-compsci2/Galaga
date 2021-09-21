@@ -19,7 +19,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class PreferencesScreen implements Screen {
 
-  /*  private MyGdxGame parent;
+  public PreferencesScreen(MyGdxGame myGdxGame) {
+    }
+
+    /*  private MyGdxGame parent;
     private Stage stage;
 
     private Label titleLabel;
