@@ -8,7 +8,6 @@ public class LoadingScreen implements Screen {
     public LoadingScreen(MyGdxGame myGdxGame) {
         parent = myGdxGame;
     }
-
     @Override
     public void show() {
 
