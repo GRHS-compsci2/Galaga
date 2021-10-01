@@ -14,7 +14,7 @@ public class ArcadeScreen extends ScreenAdapter {
 	private Background background;
 	private SpriteBatch batch  = new SpriteBatch();
 	private Texture img;
-	private Sprite sprite;
+	private Sprite sprte;
 	private Player player;
 	Assets myAssets = new Assets();
 	
