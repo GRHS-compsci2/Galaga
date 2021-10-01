@@ -1,0 +1,314 @@
+
+Galaga.png
+size: 256, 128
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Beetle090
+  rotate: false
+  xy: 61, 16
+  size: 11, 12
+  orig: 11, 12
+  offset: 0, 0
+  index: -1
+Beetle105
+  rotate: false
+  xy: 86, 18
+  size: 11, 12
+  orig: 11, 12
+  offset: 0, 0
+  index: -1
+Beetle120
+  rotate: false
+  xy: 194, 114
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+Beetle135
+  rotate: false
+  xy: 102, 11
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+Beetle150
+  rotate: false
+  xy: 166, 114
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+Beetle165
+  rotate: false
+  xy: 222, 115
+  size: 12, 11
+  orig: 12, 11
+  offset: 0, 0
+  index: -1
+Beetle180
+  rotate: false
+  xy: 98, 37
+  size: 12, 11
+  orig: 12, 11
+  offset: 0, 0
+  index: -1
+Dragonfly090
+  rotate: false
+  xy: 134, 114
+  size: 15, 12
+  orig: 15, 12
+  offset: 0, 0
+  index: -1
+Dragonfly105
+  rotate: false
+  xy: 98, 65
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: -1
+Dragonfly120
+  rotate: false
+  xy: 151, 114
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: -1
+Dragonfly135
+  rotate: false
+  xy: 68, 31
+  size: 13, 13
+  orig: 13, 13
+  offset: 0, 0
+  index: -1
+Dragonfly150
+  rotate: false
+  xy: 98, 50
+  size: 12, 13
+  orig: 12, 13
+  offset: 0, 0
+  index: -1
+Dragonfly165
+  rotate: false
+  xy: 54, 30
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: -1
+Dragonfly180
+  rotate: false
+  xy: 35, 12
+  size: 12, 15
+  orig: 12, 15
+  offset: 0, 0
+  index: -1
+Manta090
+  rotate: false
+  xy: 89, 5
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+Manta105
+  rotate: false
+  xy: 236, 115
+  size: 12, 11
+  orig: 12, 11
+  offset: 0, 0
+  index: -1
+Manta120
+  rotate: false
+  xy: 180, 114
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+Manta135
+  rotate: false
+  xy: 99, 24
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+Manta150
+  rotate: false
+  xy: 83, 32
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+Manta165
+  rotate: false
+  xy: 63, 2
+  size: 11, 12
+  orig: 11, 12
+  offset: 0, 0
+  index: -1
+Manta180
+  rotate: false
+  xy: 158, 101
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+Scorpion090
+  rotate: false
+  xy: 145, 101
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+Scorpion105
+  rotate: false
+  xy: 76, 4
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+Scorpion120
+  rotate: false
+  xy: 74, 17
+  size: 10, 12
+  orig: 10, 12
+  offset: 0, 0
+  index: -1
+Scorpion135
+  rotate: false
+  xy: 49, 2
+  size: 12, 10
+  orig: 12, 10
+  offset: 0, 0
+  index: -1
+Scorpion150
+  rotate: false
+  xy: 49, 14
+  size: 10, 13
+  orig: 10, 13
+  offset: 0, 0
+  index: -1
+Scorpion165
+  rotate: false
+  xy: 208, 115
+  size: 12, 11
+  orig: 12, 11
+  offset: 0, 0
+  index: -1
+Scorpion180
+  rotate: false
+  xy: 132, 99
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+Spinner5
+  rotate: false
+  xy: 98, 111
+  size: 16, 15
+  orig: 16, 15
+  offset: 0, 0
+  index: -1
+Spinner2
+  rotate: false
+  xy: 98, 111
+  size: 16, 15
+  orig: 16, 15
+  offset: 0, 0
+  index: -1
+Spinner6
+  rotate: false
+  xy: 98, 95
+  size: 16, 14
+  orig: 16, 14
+  offset: 0, 0
+  index: -1
+Spinner3
+  rotate: false
+  xy: 98, 95
+  size: 16, 14
+  orig: 16, 14
+  offset: 0, 0
+  index: -1
+Spinner7
+  rotate: false
+  xy: 20, 29
+  size: 16, 15
+  orig: 16, 15
+  offset: 0, 0
+  index: -1
+Spinner1
+  rotate: false
+  xy: 20, 29
+  size: 16, 15
+  orig: 16, 15
+  offset: 0, 0
+  index: -1
+Spinner4
+  rotate: false
+  xy: 20, 29
+  size: 16, 15
+  orig: 16, 15
+  offset: 0, 0
+  index: -1
+Starfighter090
+  rotate: false
+  xy: 2, 11
+  size: 15, 16
+  orig: 15, 16
+  offset: 0, 0
+  index: -1
+Starfighter105
+  rotate: false
+  xy: 19, 11
+  size: 14, 16
+  orig: 14, 16
+  offset: 0, 0
+  index: -1
+Starfighter120
+  rotate: false
+  xy: 38, 29
+  size: 14, 15
+  orig: 14, 15
+  offset: 0, 0
+  index: -1
+Starfighter135
+  rotate: false
+  xy: 116, 96
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+Starfighter150
+  rotate: false
+  xy: 98, 79
+  size: 15, 14
+  orig: 15, 14
+  offset: 0, 0
+  index: -1
+Starfighter165
+  rotate: false
+  xy: 116, 112
+  size: 16, 14
+  orig: 16, 14
+  offset: 0, 0
+  index: -1
+Starfighter180
+  rotate: false
+  xy: 2, 29
+  size: 16, 15
+  orig: 16, 15
+  offset: 0, 0
+  index: -1
+TractorBeam1
+  rotate: false
+  xy: 2, 46
+  size: 46, 80
+  orig: 46, 80
+  offset: 0, 0
+  index: -1
+TractorBeam2
+  rotate: false
+  xy: 50, 46
+  size: 46, 80
+  orig: 46, 80
+  offset: 0, 0
+  index: -1
