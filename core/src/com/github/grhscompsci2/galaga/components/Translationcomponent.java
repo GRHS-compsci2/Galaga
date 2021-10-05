@@ -1,4 +1,4 @@
-package com.github.grhscompsci2.galaga;
+package com.github.grhscompsci2.galaga.components;
 
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.Vector2;
