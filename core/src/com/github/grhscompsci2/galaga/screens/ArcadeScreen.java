@@ -1,4 +1,4 @@
-package com.github.grhscompsci2.galaga;
+package com.github.grhscompsci2.galaga.screens;
 
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
@@ -9,6 +9,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.github.grhscompsci2.galaga.KeyboardController;
+import com.github.grhscompsci2.galaga.MyGdxGame;
+import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.b2d.B2dContactListener;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.entities.BeeGalagaEntity;
