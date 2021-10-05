@@ -9,10 +9,22 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.github.grhscompsci2.galaga.KeyboardController;
+import com.github.grhscompsci2.galaga.MyGdxGame;
+import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.b2d.B2dContactListener;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
-import com.github.grhscompsci2.galaga.entities.GalagaEntity;
+import com.github.grhscompsci2.galaga.entities.BeeGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.BirdGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.ButterflyGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.DragonflyGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.GreenBatGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.PhantomGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.PinheadGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.PlayerEntity;
+import com.github.grhscompsci2.galaga.entities.ProbeGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.PurpleBatGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.ScorpionGalagaEntity;
 import com.github.grhscompsci2.galaga.systems.AnimationSystem;
 import com.github.grhscompsci2.galaga.systems.CollisionSystem;
 import com.github.grhscompsci2.galaga.systems.PhysicsDebugSystem;
@@ -23,7 +35,7 @@ import com.github.grhscompsci2.galaga.systems.RenderingSystem;
 public class ArcadeScreen extends ScreenAdapter {
 
 	private MyGdxGame parent;
-	//private SpriteBatch batch;
+	// private SpriteBatch batch;
 	private PooledEngine engine;
 	private OrthographicCamera cam;
 	private BodyFactory bodyFactory;
@@ -38,7 +50,6 @@ public class ArcadeScreen extends ScreenAdapter {
 		bodyFactory = BodyFactory.getInstance(world);
 		controller = new KeyboardController();
 		arcadeStage = new Stage(new FitViewport(288, 244, new OrthographicCamera()));
-		
 
 		RenderingSystem renderingSystem = new RenderingSystem(arcadeStage.getBatch());
 		cam = renderingSystem.getCamera();
@@ -89,7 +100,6 @@ public class ArcadeScreen extends ScreenAdapter {
 		sc.init(engine, bodyFactory);
 		engine.addEntity(sc);
 
-
 		// add all the relevant systems our engine should run
 		engine.addSystem(renderingSystem);
 		engine.addSystem(new AnimationSystem());
@@ -118,8 +128,14 @@ public class ArcadeScreen extends ScreenAdapter {
 	}
 
 	@Override
+	public void resize(int width, int height) {
+		arcadeStage.getViewport().update(width, height);
+		// arcadeStage.getCamera().position.set(Gdx.graphics.getWidth() / 2,
+		// Gdx.graphics.getHeight() / 2, 0);
+	}
+
+	@Override
 	public void dispose() {
 		arcadeStage.dispose();
 	}
-
 }

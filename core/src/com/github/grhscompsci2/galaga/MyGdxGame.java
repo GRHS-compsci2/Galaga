@@ -7,20 +7,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.github.grhscompsci2.galaga.screens.ArcadeScreen;
 import com.github.grhscompsci2.galaga.screens.LoadingScreen;
-import com.github.grhscompsci2.galaga.screens.MenuScreen;
 import com.github.grhscompsci2.galaga.screens.PreferencesScreen;
 
-public class MyGdxGame extends Game{
-    private static ArcadeScreen arcadeScreen;
-    private static PreferencesScreen preferencesScreen;
-    private static LoadingScreen loadingScreen;
-	private static MenuScreen menuScreen;
-	private AppPreferences pref;
+public class MyGdxGame extends Game {
+	private static ArcadeScreen arcadeScreen;
+	private static PreferencesScreen preferencesScreen;
+	private static LoadingScreen loadingScreen;
 
-	public static enum ScreenType{
-		Arcade,
-		Preferences,
-		Loading
+	public static enum ScreenType {
+		Arcade, Preferences, Loading
 	}
 
 	public Screen getScreenType(ScreenType screenType) {
