@@ -1,6 +1,7 @@
-package com.github.grhscompsci2.galaga;
+package com.github.grhscompsci2.galaga.screens;
 
 import com.badlogic.gdx.Screen;
+import com.github.grhscompsci2.galaga.MyGdxGame;
 
 public class LoadingScreen implements Screen {
     private MyGdxGame parent;
