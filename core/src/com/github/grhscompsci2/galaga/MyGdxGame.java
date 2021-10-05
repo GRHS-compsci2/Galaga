@@ -2,6 +2,9 @@ package com.github.grhscompsci2.galaga;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.github.grhscompsci2.galaga.screens.ArcadeScreen;
+import com.github.grhscompsci2.galaga.screens.LoadingScreen;
+import com.github.grhscompsci2.galaga.screens.PreferencesScreen;
 
 public class MyGdxGame extends Game{
     private static ArcadeScreen arcadeScreen;
