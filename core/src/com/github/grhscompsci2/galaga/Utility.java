@@ -18,13 +18,15 @@ public final class Utility {
     private static InternalFileHandleResolver _filePathResolver=new InternalFileHandleResolver();
 
     // need to add file paths for the textures
-    private final static String STATUSUI_TEXTURE_ATLAS_PATH = "skins/galagaSkin.atlas";
-    private final static String STATUSUI_SKIN_PATH = "skins/galagaSkin.json";
-   
+    private final static String STATUSUI_TEXTURE_ATLAS_PATH = null;
+    private final static String STATUSUI_SKIN_PATH = null;
+    private final static String ITEMS_TEXTURE_ATLAS_PATH = null;
+    private final static String ITEMS_SKIN_PATH = null;
+
     public static TextureAtlas STATUSUI_TEXTUREATLAS=new TextureAtlas(STATUSUI_TEXTURE_ATLAS_PATH);
+    public static TextureAtlas ITEMS_TEXTUREATLAS=new TextureAtlas(ITEMS_TEXTURE_ATLAS_PATH);
     public static Skin STATUSUI_SKIN=new Skin(Gdx.files.internal(STATUSUI_SKIN_PATH),STATUSUI_TEXTUREATLAS);
 
-    public static Background background=new Background();
     public static void unloadAsset(String assetFilenamePath) {
         if(_assetManager.isLoaded(assetFilenamePath)) {
             _assetManager.unload(assetFilenamePath);
