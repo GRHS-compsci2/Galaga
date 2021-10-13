@@ -10,25 +10,29 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public final class Utility {
-    public static final AssetManager _assetManager = new AssetManager();
-    private static final String TAG = Utility.class.getSimpleName();
-    private static InternalFileHandleResolver _filePathResolver = new InternalFileHandleResolver();
+    public static final AssetManager _assetManager=new AssetManager(); 
+    private static final String TAG=Utility.class.getSimpleName();
+    private static InternalFileHandleResolver _filePathResolver=new InternalFileHandleResolver();
 
-    private final static String SPRITES_TEXTURE_ATLAS_PATH = "images/galaga.atlas";
-    // public static TextureAtlas STATUSUI_TEXTUREATLAS=new
-    // TextureAtlas(STATUSUI_TEXTURE_ATLAS_PATH);
+     private final static String SPRITES_TEXTURE_ATLAS_PATH = "images/galaga.atlas";
     public static TextureAtlas SPRITES_TEXTUREATLAS = new TextureAtlas(SPRITES_TEXTURE_ATLAS_PATH);
-    // public static Skin STATUSUI_SKIN=new
-    // Skin(Gdx.files.internal(STATUSUI_SKIN_PATH),STATUSUI_TEXTUREATLAS);
+ 
+    private final static String STATUSUI_TEXTURE_ATLAS_PATH = "skins/galagaSkin.atlas";
+    private final static String STATUSUI_SKIN_PATH = "skins/galagaSkin.json";
+   
+    public static TextureAtlas STATUSUI_TEXTUREATLAS=new TextureAtlas(STATUSUI_TEXTURE_ATLAS_PATH);
+    public static Skin STATUSUI_SKIN=new Skin(Gdx.files.internal(STATUSUI_SKIN_PATH),STATUSUI_TEXTUREATLAS);
 
     public static Background background=new Background();
     public static void unloadAsset(String assetFilenamePath) {
-        if (_assetManager.isLoaded(assetFilenamePath)) {
+        if(_assetManager.isLoaded(assetFilenamePath)) {
             _assetManager.unload(assetFilenamePath);
-        } else {
-            Gdx.app.debug(TAG, "Asset is not loaded; Nothing to unload: " + assetFilenamePath);
+        }
+        else {
+            Gdx.app.debug(TAG, "Asset is not loaded; Nothing to unload: "+assetFilenamePath);
         }
     }
 
