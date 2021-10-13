@@ -8,8 +8,9 @@
 	<inherits name='com.badlogic.gdx.ai' />
 	<inherits name='com.badlogic.gdx.controllers' />
 	<inherits name='com.badlogic.gdx.controllers.controllers-gwt' />
-
+	<inherits name='com.ray3k.tenpatch.tenpatch'/>
 	<inherits name='MyGdxGame' />
+
 	<entry-point class='com.github.grhscompsci2.galaga.client.HtmlLauncher' />
 	<set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
 	<set-configuration-property name="gdx.assetpath" value="../core/assets" />

@@ -119,7 +119,6 @@
 },
 "CheckBoxStyle": {
 	"default": {
-		"parent": "default",
 		"checkboxOn": "playerShip8",
 		"checkboxOff": "enemyShip8",
 		"font": "Emulogic",
@@ -165,6 +164,12 @@
 	"default-vertical": {
 		"background": "redPixel",
 		"knob": "butterflyAnimationUp"
+	}
+},
+"TextButtonStyle": {
+	"default": {
+		"font": "Emulogic",
+		"fontColor": "WHITE"
 	}
 },
 "TextFieldStyle": {
