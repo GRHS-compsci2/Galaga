@@ -9,12 +9,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.grhscompsci2.galaga.Assets;
 import com.github.grhscompsci2.galaga.Background;
 import com.github.grhscompsci2.galaga.MyGdxGame;
+import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.entities.Player;
 
 public class ArcadeScreen extends ScreenAdapter {
 
 	private MyGdxGame parent;
-	private Background background;
 	private SpriteBatch batch  = new SpriteBatch();
 	private Texture img;
 	private Sprite sprte;
@@ -24,7 +24,6 @@ public class ArcadeScreen extends ScreenAdapter {
 	
 	public ArcadeScreen(MyGdxGame myGdxGame) {
 		parent=myGdxGame;
-		background=new Background();
 		player=new Player();
 	}
 
@@ -37,7 +36,7 @@ public class ArcadeScreen extends ScreenAdapter {
 	public void render (float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		//ScreenUtils.clear(1, 0, 0, 1);
-		background.render(delta);
+		Utility.background.render(delta);
 		batch.begin();
 		//sprite.draw(batch);
 		player.draw(batch);
