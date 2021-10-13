@@ -1,6 +1,7 @@
 package com.github.grhscompsci2.galaga.screens;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 /*
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 */
 import com.github.grhscompsci2.galaga.MyGdxGame;
 
-public class PreferencesScreen implements Screen {
+public class PreferencesScreen extends ScreenAdapter {
 
   public PreferencesScreen(MyGdxGame myGdxGame) {
     }
