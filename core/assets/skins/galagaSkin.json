@@ -1,0 +1,181 @@
+{
+"BitmapFont": {
+	"Emulogic": {
+		"file": "Emulogic.fnt"
+	},
+	"Game_Over": {
+		"file": "Game_Over.fnt"
+	}
+},
+"Color": {
+	"RED": {
+		"r": 1,
+		"g": 0,
+		"b": 0,
+		"a": 1
+	},
+	"WHITE": {
+		"r": 1,
+		"g": 1,
+		"b": 1,
+		"a": 1
+	}
+},
+"TintedDrawable": {
+	"redPixel": {
+		"name": "white-pixel",
+		"color": "RED"
+	}
+},
+"com.ray3k.tenpatch.TenPatchDrawable": {
+	"beeAnimation": {
+		"region": "bee1",
+		"horizontalStretchAreas": [ 0, 15 ],
+		"verticalStretchAreas": [ 0, 15 ],
+		"tiling": false,
+		"minWidth": 16,
+		"minHeight": 16,
+		"rightWidth": 0,
+		"leftWidth": 0,
+		"bottomHeight": 0,
+		"topHeight": 0,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 0.25,
+		"regions": [
+			"bee10",
+			"bee9"
+		],
+		"playMode": 2
+	},
+	"butterflyAnimation": {
+		"region": "butterfly10",
+		"horizontalStretchAreas": [ 0, 15 ],
+		"verticalStretchAreas": [ 0, 15 ],
+		"tiling": false,
+		"minWidth": 16,
+		"minHeight": 16,
+		"rightWidth": 0,
+		"leftWidth": 0,
+		"bottomHeight": 0,
+		"topHeight": 0,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 0.25,
+		"regions": [
+			"butterfly10",
+			"butterfly9"
+		],
+		"playMode": 2
+	},
+	"butterflyAnimationUp": {
+		"region": "butterfly2",
+		"horizontalStretchAreas": [ 0, 15 ],
+		"verticalStretchAreas": [ 0, 15 ],
+		"tiling": false,
+		"minWidth": 16,
+		"minHeight": 16,
+		"rightWidth": 0,
+		"leftWidth": 0,
+		"bottomHeight": 0,
+		"topHeight": 0,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 0.25,
+		"regions": [
+			"butterfly2",
+			"butterfly1"
+		],
+		"playMode": 2
+	},
+	"beeAnimationUp": {
+		"region": "bee2",
+		"horizontalStretchAreas": [ 0, 15 ],
+		"verticalStretchAreas": [ 0, 15 ],
+		"tiling": false,
+		"minWidth": 16,
+		"minHeight": 16,
+		"rightWidth": 0,
+		"leftWidth": 0,
+		"bottomHeight": 0,
+		"topHeight": 0,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 0.25,
+		"regions": [
+			"bee1",
+			"bee2"
+		],
+		"playMode": 2
+	}
+},
+"CheckBoxStyle": {
+	"default": {
+		"parent": "default",
+		"checkboxOn": "playerShip8",
+		"checkboxOff": "enemyShip8",
+		"font": "Emulogic",
+		"fontColor": "WHITE",
+		"downFontColor": "WHITE",
+		"overFontColor": "WHITE",
+		"focusedFontColor": "WHITE",
+		"disabledFontColor": "WHITE",
+		"checkedFontColor": "WHITE",
+		"checkedDownFontColor": "WHITE",
+		"checkedOverFontColor": "WHITE",
+		"checkedFocusedFontColor": "WHITE"
+	}
+},
+"ImageButtonStyle": {
+	"default": {
+		"imageUp": "greenBat9",
+		"imageDown": "purpleBat9",
+		"imageChecked": "purpleBat9"
+	}
+},
+"LabelStyle": {
+	"default": {
+		"font": "Emulogic",
+		"fontColor": "WHITE"
+	}
+},
+"ProgressBarStyle": {
+	"default-horizontal": {
+		"background": "redPixel",
+		"knob": "beeAnimation"
+	},
+	"default-vertical": {
+		"background": "redPixel",
+		"knob": "beeAnimationUp"
+	}
+},
+"SliderStyle": {
+	"default-horizontal": {
+		"background": "redPixel",
+		"knob": "butterflyAnimation"
+	},
+	"default-vertical": {
+		"background": "redPixel",
+		"knob": "butterflyAnimationUp"
+	}
+},
+"TextFieldStyle": {
+	"default": {
+		"font": "Emulogic",
+		"fontColor": "WHITE"
+	}
+},
+"TextTooltipStyle": {
+	"default": {
+		"label": "default"
+	}
+}
+}
