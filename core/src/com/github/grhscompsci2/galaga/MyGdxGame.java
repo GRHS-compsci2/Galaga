@@ -1,7 +1,9 @@
 package com.github.grhscompsci2.galaga;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.github.grhscompsci2.galaga.screens.ArcadeScreen;
 import com.github.grhscompsci2.galaga.screens.LoadingScreen;
@@ -21,7 +23,7 @@ public class MyGdxGame extends Game{
 		Loading
 	}
 
-	public Screen getScreenType(ScreenType screenType){
+		public Screen getScreenType(ScreenType screenType){
 		switch(screenType){
 			case Arcade:
 				return arcadeScreen;
@@ -37,12 +39,16 @@ public class MyGdxGame extends Game{
 
 	@Override
 	public void create(){
-		pref=new AppPreferences();
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
         arcadeScreen=new ArcadeScreen(this);
         preferencesScreen=new PreferencesScreen(this);
         loadingScreen=new LoadingScreen(this);
-		menuScreen=new MenuScreen(this);
-		setScreen(menuScreen);
+		Utility.loadTextureAtlasAsset();
+		while(!Utility._assetManager.update()){
+			System.out.println(Utility._assetManager.getQueuedAssets()+"|");
+		}
+
+		setScreen(arcadeScreen);
 	}
 	
 	@Override
