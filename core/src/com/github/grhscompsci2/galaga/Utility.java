@@ -136,6 +136,8 @@ public final class Utility {
         // once the asset manager is done loading
         if (_assetManager.isLoaded(SPRITES_TEXTURE_ATLAS_PATH)) {
             region = _assetManager.get(SPRITES_TEXTURE_ATLAS_PATH, TextureAtlas.class).findRegion(textureName);
+            Gdx.app.debug(TAG, "Region: " + region);
+
         } else {
             // System.out.println("Texture is not loaded: " + SPRITES_TEXTURE_ATLAS_PATH);
             Gdx.app.debug(TAG, "Texture is not loaded: " + SPRITES_TEXTURE_ATLAS_PATH);

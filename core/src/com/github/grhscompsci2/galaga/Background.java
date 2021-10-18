@@ -1,12 +1,11 @@
 package com.github.grhscompsci2.galaga;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
-public class Background implements Screen {
+public class Background{
     ShapeRenderer shaper;
     int width;
     int height;
@@ -36,13 +35,6 @@ public class Background implements Screen {
 
     }
 
-    @Override
-    public void show() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void render(float delta) {
         shaper.begin(ShapeType.Filled);
 
@@ -71,34 +63,4 @@ public class Background implements Screen {
 		shaper.end();
     }
 
-    @Override
-    public void resize(int width, int height) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void pause() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void resume() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void hide() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void dispose() {
-        // TODO Auto-generated method stub
-
-    }
-
-}
+ }
