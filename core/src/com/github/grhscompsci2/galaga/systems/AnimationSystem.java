@@ -9,32 +9,33 @@ import com.github.grhscompsci2.galaga.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
 
-public class AnimationSystem extends IteratingSystem{
+public class AnimationSystem extends IteratingSystem {
 
-    ComponentMapper<TextureComponent> textureManager;
-    ComponentMapper<AnimationComponent> animationMapper;
-    ComponentMapper<StateComponent> stateMapper;
+    ComponentMapper<TextureComponent> tm;
+    ComponentMapper<AnimationComponent> am;
+    ComponentMapper<StateComponent> sm;
 
-    public AnimationSystem() {
-        super(Family.all(TextureComponent.class, AnimationComponent.class, StateComponent.class).get());
+    @SuppressWarnings("unchecked")
+	public AnimationSystem(){
+        super(Family.all(TextureComponent.class,
+                AnimationComponent.class).get());
 
-        textureManager = ComponentMapper.getFor(TextureComponent.class);
-        animationMapper = ComponentMapper.getFor(AnimationComponent.class);
-        stateMapper = ComponentMapper.getFor(StateComponent.class);
+        tm = ComponentMapper.getFor(TextureComponent.class);
+        am = ComponentMapper.getFor(AnimationComponent.class);
+        sm = ComponentMapper.getFor(StateComponent.class);
     }
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
 
-        AnimationComponent animation = animationMapper.get(entity);
-        StateComponent state = stateMapper.get(entity);
+        AnimationComponent ani = am.get(entity);
+        StateComponent state = sm.get(entity);
 
-        if(animation.animations.containsKey(state.get())){
-            TextureComponent texture = textureManager.get(entity);
-            texture.region = (TextureRegion) animation.animations.get(state.get()).getKeyFrame(state.time, state.isLooping);
+        if(ani.animations.containsKey(state.get())){
+            TextureComponent tex = tm.get(entity);
+            tex.region = (TextureRegion) ani.animations.get(state.get()).getKeyFrame(state.time, state.isLooping);
         }
 
         state.time += deltaTime;
     }
-
 }
