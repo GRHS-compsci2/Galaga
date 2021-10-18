@@ -60,6 +60,7 @@ public class RenderingSystem extends SortedIteratingSystem {
     public RenderingSystem(SpriteBatch batch) {
         // gets all entities with a TranslationComponent and TextureComponent
         super(Family.all(TranslationComponent.class, TextureComponent.class).get(), new ZComparator());
+        comparator=new ZComparator();
         Gdx.app.debug(TAG, "Screen Resolution: "+getScreenSizeInMeters());
         // creates out componentMappers
         textureM = ComponentMapper.getFor(TextureComponent.class);
