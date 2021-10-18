@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.grhscompsci2.galaga.entities.GalagaEntity;
 import com.github.grhscompsci2.galaga.entities.PlayerEntity;
+import com.github.grhscompsci2.galaga.systems.AnimationSystem;
 import com.github.grhscompsci2.galaga.systems.RenderingSystem;
 
 public class ArcadeScreen extends ScreenAdapter {
@@ -32,12 +33,13 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addEntity(player);
 
 		GalagaEntity galagaBoss=new GalagaEntity();
-		galagaBoss.setTexture(engine);
+		galagaBoss.setAnimation(engine);
 		galagaBoss.setStart(engine);
 		engine.addEntity(galagaBoss);
 
 		// add all the relevant systems our engine should run
 		engine.addSystem(renderingSystem);
+		engine.addSystem(new AnimationSystem());
 	}
 
 	@Override
