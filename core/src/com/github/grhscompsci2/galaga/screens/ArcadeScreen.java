@@ -6,6 +6,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.github.grhscompsci2.galaga.entities.GalagaEntity;
 import com.github.grhscompsci2.galaga.entities.PlayerEntity;
 import com.github.grhscompsci2.galaga.systems.RenderingSystem;
 
@@ -19,17 +20,21 @@ public class ArcadeScreen extends ScreenAdapter {
 	public ArcadeScreen(MyGdxGame myGdxGame) {
 		parent = myGdxGame;
 		
-		/// background=new Background();
-		// player=new Player();
 		batch = new SpriteBatch();
 		RenderingSystem renderingSystem = new RenderingSystem(batch);
 		cam = renderingSystem.getCamera();
 		batch.setProjectionMatrix(cam.combined);
 		engine = new PooledEngine();
+
 		PlayerEntity player=new PlayerEntity();
 		player.setTexture(engine);
 		player.setStart(engine);
 		engine.addEntity(player);
+
+		GalagaEntity galagaBoss=new GalagaEntity();
+		galagaBoss.setTexture(engine);
+		galagaBoss.setStart(engine);
+		engine.addEntity(galagaBoss);
 
 		// add all the relevant systems our engine should run
 		engine.addSystem(renderingSystem);
