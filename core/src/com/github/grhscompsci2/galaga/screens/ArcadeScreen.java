@@ -26,10 +26,13 @@ public class ArcadeScreen extends ScreenAdapter {
 		cam = renderingSystem.getCamera();
 		batch.setProjectionMatrix(cam.combined);
 		engine = new PooledEngine();
+		PlayerEntity player=new PlayerEntity();
+		player.setTexture(engine);
+		player.setStart(engine);
+		engine.addEntity(player);
 
 		// add all the relevant systems our engine should run
 		engine.addSystem(renderingSystem);
-		engine.addEntity(new PlayerEntity());
 	}
 
 	@Override
