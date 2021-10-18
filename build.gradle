@@ -27,6 +27,7 @@ allprojects {
         ashleyVersion = '1.7.4'
         aiVersion = '1.8.2'
         gdxControllersVersion = '2.1.0'
+        tenPatchVersion = '5.2.2'
     }
 
     repositories {
@@ -36,6 +37,7 @@ allprojects {
         gradlePluginPortal()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -74,7 +76,7 @@ project(":html") {
         api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion:sources"
         api "com.badlogicgames.gdx-controllers:gdx-controllers-gwt:$gdxControllersVersion"
         api "com.badlogicgames.gdx-controllers:gdx-controllers-gwt:$gdxControllersVersion:sources"
-        
+        api "com.github.raeleus.TenPatch:tenpatch:$tenPatchVersion:sources"
     }
 }
 
@@ -89,6 +91,6 @@ project(":core") {
         api "com.badlogicgames.ashley:ashley:$ashleyVersion"
         api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
-        
+        api "com.github.raeleus.TenPatch:tenpatch:5.2.2"
     }
 }
