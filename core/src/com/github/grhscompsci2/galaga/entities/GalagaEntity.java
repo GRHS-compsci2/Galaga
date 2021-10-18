@@ -8,7 +8,7 @@ public class GalagaEntity {
     // private HealthComponent healthComponent;
     
     public GalagaEntity() {
-        this.translationComponent = new TranslationComponent();
+        this.translationComponent = new TranslationComponent(0, 0);
         // this.animationComponent = new AnimationComponent();
         // this.healthComponent = new HealthComponent();
     }
