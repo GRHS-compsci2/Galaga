@@ -1,5 +1,10 @@
 package com.github.grhscompsci2.galaga.systems;
 
+import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
+import com.github.grhscompsci2.galaga.components.StateComponent;
+import com.github.grhscompsci2.galaga.components.TranslationComponent;
+import com.KeyboardController;
+import com.github.grhscompsci2.galaga.components.PlayerComponent;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
@@ -9,9 +14,9 @@ import com.github.grhscompsci2.galaga.components.PlayerComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
 
 public class PlayerControlSystem extends IteratingSystem{
-
+    
 	ComponentMapper<PlayerComponent> pm;
-	//ComponentMapper<B2dBodyComponent> bodm;
+	ComponentMapper<B2dBodyComponent> bodm;
 	ComponentMapper<StateComponent> sm;
 	KeyboardController controller;
 	
@@ -21,15 +26,15 @@ public class PlayerControlSystem extends IteratingSystem{
 		super(Family.all(PlayerComponent.class).get());
 		controller = keyCon;
 		pm = ComponentMapper.getFor(PlayerComponent.class);
-		//bodm = ComponentMapper.getFor(B2dBodyComponent.class);
+		bodm = ComponentMapper.getFor(B2dBodyComponent.class);
 		sm = ComponentMapper.getFor(StateComponent.class);
 	}
 	@Override
 	protected void processEntity(Entity entity, float deltaTime) {
-		//B2dBodyComponent b2body = bodm.get(entity);
-		StateComponent state = sm.get(entity);
+		B2dBodyComponent b2body = bodm.get(entity);
+        StateComponent state = sm.get(entity);
 		
-		/*if(b2body.body.getLinearVelocity().y > 0){
+		if(b2body.body.getLinearVelocity().y > 0){
 			state.set(StateComponent.STATE_FALLING);
 		}
 		
@@ -55,9 +60,9 @@ public class PlayerControlSystem extends IteratingSystem{
 		
 		if(controller.up && 
 				(state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING)){
-			//b2body.body.applyForceToCenter(0, 3000,true);
+			b2body.body.applyForceToCenter(0, 3000,true);
 			b2body.body.applyLinearImpulse(0, 75f, b2body.body.getWorldCenter().x,b2body.body.getWorldCenter().y, true);
 			state.set(StateComponent.STATE_JUMPING);
-		}*/
+		}
 	}
 }
