@@ -1,13 +1,15 @@
 package com.github.grhscompsci2.galaga;
 
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
 
 public class KeyboardController implements InputProcessor {
     public boolean left,right,up,down;
+    public static String TAG=KeyboardController.class.getSimpleName();
 	@Override
 	public boolean keyDown(int keycode) {
 	boolean keyProcessed = false;
+    
 	switch (keycode) 
         {
 	        case Keys.LEFT:  	
