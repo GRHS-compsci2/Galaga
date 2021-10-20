@@ -5,13 +5,14 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.github.grhscompsci2.galaga.KeyboardController;
 import com.github.grhscompsci2.galaga.components.PlayerComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
 
 public class PlayerControlSystem extends IteratingSystem{
-    
+    private String TAG=PlayerControlSystem.class.getSimpleName();
 	ComponentMapper<PlayerComponent> pm;
 	ComponentMapper<B2dBodyComponent> bodm;
 	ComponentMapper<StateComponent> sm;
@@ -45,6 +46,7 @@ public class PlayerControlSystem extends IteratingSystem{
 		}
 		
 		if(controller.left){
+			Gdx.app.debug(TAG,b2body.body.getLinearVelocity().x+" velocity");
 			b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -5f, 0.2f),b2body.body.getLinearVelocity().y);
 		}
 		if(controller.right){
@@ -55,11 +57,11 @@ public class PlayerControlSystem extends IteratingSystem{
 			b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 0, 0.1f),b2body.body.getLinearVelocity().y);
 		}
 		
-		if(controller.up && 
+		/*if(controller.up && 
 				(state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING)){
 			b2body.body.applyForceToCenter(0, 3000,true);
 			b2body.body.applyLinearImpulse(0, 75f, b2body.body.getWorldCenter().x,b2body.body.getWorldCenter().y, true);
 			state.set(StateComponent.STATE_JUMPING);
-		}
+		}*/
 	}
 }
