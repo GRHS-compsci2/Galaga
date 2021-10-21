@@ -59,7 +59,7 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addEntity(player);
 
 		BeeGalagaEntity bee = new BeeGalagaEntity();
-		bee.init(engine);
+		bee.init(engine, bodyFactory);
 		engine.addEntity(bee);
 
 		BirdGalagaEntity bird = new BirdGalagaEntity();
