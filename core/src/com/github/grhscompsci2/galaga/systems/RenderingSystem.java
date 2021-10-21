@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.SortedIteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -45,7 +46,7 @@ public class RenderingSystem extends SortedIteratingSystem {
         return pixelValue * PIXELS_TO_METRES;
     }
 
-    private SpriteBatch batch; // a reference to our spritebatch
+    private Batch batch; // a reference to our spritebatch
     private Array<Entity> renderQueue; // an array used to allow sorting of images allowing us to draw images on top of
                                        // each other
     private Comparator<Entity> comparator; // a comparator to sort images based on the z position of the
@@ -57,7 +58,7 @@ public class RenderingSystem extends SortedIteratingSystem {
     private ComponentMapper<TranslationComponent> transformM;
 
     @SuppressWarnings("unchecked")
-    public RenderingSystem(SpriteBatch batch) {
+    public RenderingSystem(Batch batch) {
         // gets all entities with a TranslationComponent and TextureComponent
         super(Family.all(TranslationComponent.class, TextureComponent.class).get(), new ZComparator());
         comparator=new ZComparator();
