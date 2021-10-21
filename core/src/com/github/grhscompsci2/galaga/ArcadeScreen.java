@@ -6,8 +6,18 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.github.grhscompsci2.galaga.entities.GalagaEntity;
+import com.github.grhscompsci2.galaga.entities.BeeGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.BirdGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.ButterflyGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.DragonflyGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.GreenBatGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.PhantomGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.PinheadGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.PlayerEntity;
+import com.github.grhscompsci2.galaga.entities.ProbeGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.PurpleBatGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.ScorpionGalagaEntity;
+import com.github.grhscompsci2.galaga.systems.AnimationSystem;
 import com.github.grhscompsci2.galaga.systems.RenderingSystem;
 
 public class ArcadeScreen extends ScreenAdapter {
@@ -31,13 +41,50 @@ public class ArcadeScreen extends ScreenAdapter {
 		player.setStart(engine);
 		engine.addEntity(player);
 
-		GalagaEntity galagaBoss=new GalagaEntity();
-		galagaBoss.setTexture(engine);
-		galagaBoss.setStart(engine);
-		engine.addEntity(galagaBoss);
+		BeeGalagaEntity bee = new BeeGalagaEntity();
+		bee.init(engine);
+		engine.addEntity(bee);
+
+		BirdGalagaEntity bird = new BirdGalagaEntity();
+		bird.init(engine);
+		engine.addEntity(bird);
+
+		ButterflyGalagaEntity bf = new ButterflyGalagaEntity();
+		bf.init(engine);
+		engine.addEntity(bf);
+
+		DragonflyGalagaEntity df = new DragonflyGalagaEntity();
+		df.init(engine);
+		engine.addEntity(df);
+
+		GreenBatGalagaEntity gb = new GreenBatGalagaEntity();
+		gb.init(engine);
+		engine.addEntity(gb);
+
+		PhantomGalagaEntity phan = new PhantomGalagaEntity();
+		phan.init(engine);
+		engine.addEntity(phan);
+
+		PinheadGalagaEntity ph = new PinheadGalagaEntity();
+		ph.init(engine);
+		engine.addEntity(ph);
+
+		ProbeGalagaEntity probe = new ProbeGalagaEntity();
+		probe.init(engine);
+		engine.addEntity(probe);
+
+		PurpleBatGalagaEntity pb = new PurpleBatGalagaEntity();
+		pb.init(engine);
+		engine.addEntity(pb);
+
+		ScorpionGalagaEntity sc = new ScorpionGalagaEntity();
+		sc.init(engine);
+		engine.addEntity(sc);
+
 
 		// add all the relevant systems our engine should run
 		engine.addSystem(renderingSystem);
+		engine.addSystem(new AnimationSystem());
 	}
 
 	@Override

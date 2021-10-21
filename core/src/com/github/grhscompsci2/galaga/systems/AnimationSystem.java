@@ -9,7 +9,7 @@ import com.github.grhscompsci2.galaga.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
 
-public class AnimationSystem extends IteratingSystem{
+public class AnimationSystem extends IteratingSystem {
 
     ComponentMapper<TextureComponent> textureManager;
     ComponentMapper<AnimationComponent> animationMapper;
@@ -29,9 +29,10 @@ public class AnimationSystem extends IteratingSystem{
         AnimationComponent animation = animationMapper.get(entity);
         StateComponent state = stateMapper.get(entity);
 
-        if(animation.animations.containsKey(state.get())){
+        if (animation.animations.containsKey(state.get())) {
             TextureComponent texture = textureManager.get(entity);
-            texture.region = (TextureRegion) animation.animations.get(state.get()).getKeyFrame(state.time, state.isLooping);
+            texture.region = (TextureRegion) animation.animations.get(state.get()).getKeyFrame(state.time,
+                    state.isLooping);
         }
 
         state.time += deltaTime;
