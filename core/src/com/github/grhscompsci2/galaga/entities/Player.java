@@ -9,7 +9,7 @@ public class Player {
     int y;
 
     public Player() {
-        sprite = new Texture("images/Raw Sprites/Starfighter090.png");
+        sprite = new Texture("images/rawSprites/playerShip1.png");
         x = 100;
         y = 100;
     }
