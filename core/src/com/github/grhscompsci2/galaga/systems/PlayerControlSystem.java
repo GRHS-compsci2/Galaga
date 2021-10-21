@@ -21,7 +21,7 @@ public class PlayerControlSystem extends IteratingSystem{
 	ComponentMapper<B2dBodyComponent> bodm;
 	ComponentMapper<StateComponent> sm;
 	KeyboardController controller;
-	
+	float speed=15.0f;
 	
 	@SuppressWarnings("unchecked")
 	public PlayerControlSystem(KeyboardController keyCon) {
@@ -50,15 +50,14 @@ public class PlayerControlSystem extends IteratingSystem{
 		}
 		
 		if(controller.left){
-			Gdx.app.debug(TAG,b2body.body.getLinearVelocity().x+" velocity");
-			b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -5f, 0.2f),b2body.body.getLinearVelocity().y);
+			b2body.body.setLinearVelocity((speed*-1),0);
 		}
 		if(controller.right){
-			b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 5f, 0.2f),b2body.body.getLinearVelocity().y);
+			b2body.body.setLinearVelocity(speed,0);
 		}
 		
 		if(!controller.left && ! controller.right){
-			b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 0, 0.1f),b2body.body.getLinearVelocity().y);
+			b2body.body.setLinearVelocity(0,0);
 		}
 		
 		/*if(controller.up && 
