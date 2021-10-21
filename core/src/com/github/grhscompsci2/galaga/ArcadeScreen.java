@@ -2,13 +2,8 @@ package com.github.grhscompsci2.galaga;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.github.grhscompsci2.galaga.entities.Player;
@@ -18,8 +13,7 @@ public class ArcadeScreen extends ScreenAdapter {
 	private MyGdxGame parent;
 	private Background background;
 	// private SpriteBatch batch = new SpriteBatch();
-	private Texture img;
-	private Sprite sprte;
+
 	private Player player;
 	private Stage arcadeStage;
 

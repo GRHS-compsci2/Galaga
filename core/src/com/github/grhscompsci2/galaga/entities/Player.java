@@ -2,7 +2,6 @@ package com.github.grhscompsci2.galaga.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Player {
     Texture sprite; // new Texture("Galaga"); requires spritemap
