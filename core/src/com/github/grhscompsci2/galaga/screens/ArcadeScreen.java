@@ -49,9 +49,46 @@ public class ArcadeScreen extends ScreenAdapter {
 		player.setUp(engine, bodyFactory);
 		engine.addEntity(player);
 
-		GalagaEntity galagaBoss = new GalagaEntity();
-		galagaBoss.setUp(engine, bodyFactory);
-		engine.addEntity(galagaBoss);
+		BeeGalagaEntity bee = new BeeGalagaEntity();
+		bee.init(engine, bodyFactory);
+		engine.addEntity(bee);
+
+		BirdGalagaEntity bird = new BirdGalagaEntity();
+		bird.init(engine);
+		engine.addEntity(bird);
+
+		ButterflyGalagaEntity bf = new ButterflyGalagaEntity();
+		bf.init(engine);
+		engine.addEntity(bf);
+
+		DragonflyGalagaEntity df = new DragonflyGalagaEntity();
+		df.init(engine);
+		engine.addEntity(df);
+
+		GreenBatGalagaEntity gb = new GreenBatGalagaEntity();
+		gb.init(engine);
+		engine.addEntity(gb);
+
+		PhantomGalagaEntity phan = new PhantomGalagaEntity();
+		phan.init(engine);
+		engine.addEntity(phan);
+
+		PinheadGalagaEntity ph = new PinheadGalagaEntity();
+		ph.init(engine);
+		engine.addEntity(ph);
+
+		ProbeGalagaEntity probe = new ProbeGalagaEntity();
+		probe.init(engine);
+		engine.addEntity(probe);
+
+		PurpleBatGalagaEntity pb = new PurpleBatGalagaEntity();
+		pb.init(engine);
+		engine.addEntity(pb);
+
+		ScorpionGalagaEntity sc = new ScorpionGalagaEntity();
+		sc.init(engine);
+		engine.addEntity(sc);
+
 
 		// add all the relevant systems our engine should run
 		engine.addSystem(renderingSystem);
