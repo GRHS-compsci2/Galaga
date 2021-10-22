@@ -80,4 +80,50 @@ public class MenuScreen extends ScreenAdapter {
         batch.dispose();
     }
 
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(_stage);
+
+        Skin skin=Utility.STATUSUI_SKIN;
+        Table table = new Table();
+        table.setFillParent(true);
+
+        Label title = new Label("GALAGA",skin);
+        TextButton loadGameButton = new TextButton("Start", skin);
+        TextButton prefrenceButton = new TextButton("Settings", skin);
+        TextButton exitButton = new TextButton("Exit", skin);
+
+
+        table.add(title).spaceBottom(75).row();
+        table.add(loadGameButton).spaceBottom(10).row();
+        table.add(prefrenceButton).spaceBottom(10).row();
+        table.add(exitButton).spaceBottom(10).row();
+
+        _stage.addActor(table);
+
+        exitButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				Gdx.app.exit();				
+			}
+		});
+
+        loadGameButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				parent.setScreen(parent.getScreenType(ScreenType.Arcade));				
+			}
+		});
+
+
+        prefrenceButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				parent.setScreen(parent.getScreenType(ScreenType.Preferences));				
+			}
+		});
+        
+
+    }
+
 }
