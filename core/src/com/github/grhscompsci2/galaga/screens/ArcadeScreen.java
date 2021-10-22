@@ -54,39 +54,39 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addEntity(bee);
 
 		BirdGalagaEntity bird = new BirdGalagaEntity();
-		bird.init(engine);
+		bird.init(engine, bodyFactory);
 		engine.addEntity(bird);
 
 		ButterflyGalagaEntity bf = new ButterflyGalagaEntity();
-		bf.init(engine);
+		bf.init(engine, bodyFactory);
 		engine.addEntity(bf);
 
 		DragonflyGalagaEntity df = new DragonflyGalagaEntity();
-		df.init(engine);
+		df.init(engine, bodyFactory);
 		engine.addEntity(df);
 
 		GreenBatGalagaEntity gb = new GreenBatGalagaEntity();
-		gb.init(engine);
+		gb.init(engine, bodyFactory);
 		engine.addEntity(gb);
 
 		PhantomGalagaEntity phan = new PhantomGalagaEntity();
-		phan.init(engine);
+		phan.init(engine, bodyFactory);
 		engine.addEntity(phan);
 
 		PinheadGalagaEntity ph = new PinheadGalagaEntity();
-		ph.init(engine);
+		ph.init(engine, bodyFactory);
 		engine.addEntity(ph);
 
 		ProbeGalagaEntity probe = new ProbeGalagaEntity();
-		probe.init(engine);
+		probe.init(engine, bodyFactory);
 		engine.addEntity(probe);
 
 		PurpleBatGalagaEntity pb = new PurpleBatGalagaEntity();
-		pb.init(engine);
+		pb.init(engine, bodyFactory);
 		engine.addEntity(pb);
 
 		ScorpionGalagaEntity sc = new ScorpionGalagaEntity();
-		sc.init(engine);
+		sc.init(engine, bodyFactory);
 		engine.addEntity(sc);
 
 
