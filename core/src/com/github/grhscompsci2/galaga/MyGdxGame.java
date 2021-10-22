@@ -1,6 +1,7 @@
 package com.github.grhscompsci2.galaga;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.github.grhscompsci2.galaga.screens.ArcadeScreen;
 import com.github.grhscompsci2.galaga.screens.LoadingScreen;
@@ -12,6 +13,7 @@ public class MyGdxGame extends Game{
     private static PreferencesScreen preferencesScreen;
     private static LoadingScreen loadingScreen;
 	private static MenuScreen menuScreen;
+	private AppPreferences pref;
 
 	public static enum ScreenType{
 		Arcade,
@@ -36,6 +38,7 @@ public class MyGdxGame extends Game{
 
 	@Override
 	public void create(){
+		pref=new AppPreferences();
         arcadeScreen=new ArcadeScreen(this);
         preferencesScreen=new PreferencesScreen(this);
         loadingScreen=new LoadingScreen(this);
@@ -49,6 +52,10 @@ public class MyGdxGame extends Game{
         preferencesScreen.dispose();
         loadingScreen.dispose();
 		menuScreen.dispose();
+	}
+
+	public AppPreferences getPreferences() {
+		return pref;
 	}
 
 }

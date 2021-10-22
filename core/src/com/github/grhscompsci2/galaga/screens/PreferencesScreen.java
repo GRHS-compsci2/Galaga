@@ -2,7 +2,8 @@ package com.github.grhscompsci2.galaga.screens;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
-/*
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -16,15 +17,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-*/
+
 import com.github.grhscompsci2.galaga.MyGdxGame;
+import com.github.grhscompsci2.galaga.Utility;
+import com.github.grhscompsci2.galaga.MyGdxGame.ScreenType;
 
 public class PreferencesScreen extends ScreenAdapter {
 
-  public PreferencesScreen(MyGdxGame myGdxGame) {
-    }
-
-    /*  private MyGdxGame parent;
+     private MyGdxGame parent;
     private Stage stage;
 
     private Label titleLabel;
@@ -32,18 +32,20 @@ public class PreferencesScreen extends ScreenAdapter {
     private Label volumeSoundLabel;
     private Label musicOnOffLabel;
     private Label soundOnOffLabel;
+    private SpriteBatch batch;
 
     public PreferencesScreen(MyGdxGame myGdxGame) {
         parent=myGdxGame;
         stage=new Stage(new ScreenViewport());
+        batch=new SpriteBatch();
     }
-*/
+
     @Override
     public void show() {
-     /*   // TODO Auto-generated method stub
-        stage.clear();
+       // TODO Auto-generated method stub
+       Gdx.input.setInputProcessor(stage);
 
-        Gdx.input.setInputProcessor(stage);
+        stage.clear();
 
         Table table=new Table();
         table.setFillParent(true);
@@ -101,11 +103,11 @@ public class PreferencesScreen extends ScreenAdapter {
 
         final TextButton backButton=new TextButton("Back", skin, "small");
         backButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                parent.changeScreen(MyGdxGame.MENU);
-            }
-        });
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				parent.setScreen(parent.getScreenType(ScreenType.Menu));				
+			}
+		});
 
         titleLabel=new Label("Preferences", skin);
         volumeMusicLabel=new Label(null, skin);
@@ -126,13 +128,20 @@ public class PreferencesScreen extends ScreenAdapter {
         table.row();
         table.add(soundOnOffLabel).left();
         table.add(soundCheckbox).pad(10, 0, 0, 10);
-*/
+
     }
 
     @Override
     public void render(float delta) {
         // TODO Auto-generated method stub
         
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Utility.background.render(delta);
+        batch.begin();
+        //_stage.act(delta);
+        stage.draw(); 
+        batch.end();
     }
 
     @Override

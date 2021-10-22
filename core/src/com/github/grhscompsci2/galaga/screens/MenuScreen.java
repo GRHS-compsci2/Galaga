@@ -107,6 +107,15 @@ public class MenuScreen extends ScreenAdapter{
 			}
 		});
 
+
+        prefrenceButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				parent.setScreen(parent.getScreenType(ScreenType.Preferences));				
+			}
+		});
+        
+
     }
 
 }
