@@ -14,14 +14,16 @@ import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
 
-public class GreenBatGalagaEntity extends Entity {
+public class PinheadGalagaEntity extends Entity {
     public void init(Engine engine, BodyFactory bodyFactory) {
+
         float x = (float) (Math.random() * 16 + 1);
         float y = (float) (Math.random() * 16 + 1);
+
         
         Array<TextureRegion> keyFrames = new Array<TextureRegion>();
-        keyFrames.add(Utility.getTextureRegionAsset("greenBat1"));
-        keyFrames.add(Utility.getTextureRegionAsset("greenBat2"));
+        keyFrames.add(Utility.getTextureRegionAsset("pinhead1"));
+        keyFrames.add(Utility.getTextureRegionAsset("pinhead2"));
         
         Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
         
@@ -30,7 +32,7 @@ public class GreenBatGalagaEntity extends Entity {
         super.add(aComponent);
         
         TextureComponent tex = engine.createComponent(TextureComponent.class);
-        tex.region = Utility.getTextureRegionAsset("greenBat1");
+        tex.region = Utility.getTextureRegionAsset("pinhead1");
         super.add(tex);
         
         StateComponent sComponent = engine.createComponent(StateComponent.class);

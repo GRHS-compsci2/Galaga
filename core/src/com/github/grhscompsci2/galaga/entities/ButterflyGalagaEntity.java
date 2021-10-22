@@ -14,34 +14,34 @@ import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
 
-public class GreenBatGalagaEntity extends Entity {
+public class ButterflyGalagaEntity extends Entity {
     public void init(Engine engine, BodyFactory bodyFactory) {
+
         float x = (float) (Math.random() * 16 + 1);
         float y = (float) (Math.random() * 16 + 1);
-        
         Array<TextureRegion> keyFrames = new Array<TextureRegion>();
-        keyFrames.add(Utility.getTextureRegionAsset("greenBat1"));
-        keyFrames.add(Utility.getTextureRegionAsset("greenBat2"));
-        
+        keyFrames.add(Utility.getTextureRegionAsset("butterfly1"));
+        keyFrames.add(Utility.getTextureRegionAsset("butterfly2"));
+
         Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
-        
+
         AnimationComponent aComponent = engine.createComponent(AnimationComponent.class);
         aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
         super.add(aComponent);
-        
+
         TextureComponent tex = engine.createComponent(TextureComponent.class);
-        tex.region = Utility.getTextureRegionAsset("greenBat1");
+        tex.region = Utility.getTextureRegionAsset("butterfly1");
         super.add(tex);
-        
+
         StateComponent sComponent = engine.createComponent(StateComponent.class);
         sComponent.isLooping = true;
         sComponent.set(StateComponent.STATE_NORMAL);
         super.add(sComponent);
-        
+
         TranslationComponent pos = engine.createComponent(TranslationComponent.class);
         pos.setPosition(x, y);
         super.add(pos);
-        
+
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
         b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, true);
         add(b2d);
