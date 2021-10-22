@@ -5,20 +5,27 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.github.grhscompsci2.galaga.Background;
+import com.github.grhscompsci2.galaga.MyGdxGame;
 import com.github.grhscompsci2.galaga.Utility;
+import com.github.grhscompsci2.galaga.MyGdxGame.ScreenType;
 
 public class MenuScreen extends ScreenAdapter {
 
     private Stage _stage;
     private SpriteBatch batch;
+    private MyGdxGame parent;
 
     
-    public MenuScreen(Game game) {
+    public MenuScreen(MyGdxGame game) {
+        parent=game;
         batch=new SpriteBatch();
         // Creation Table
         // Initialize Stage and Table for later use
@@ -116,7 +123,9 @@ public class MenuScreen extends ScreenAdapter {
 
 
         prefrenceButton.addListener(new ChangeListener() {
-			@Override
+
+
+            @Override
 			public void changed(ChangeEvent event, Actor actor) {
 				parent.setScreen(parent.getScreenType(ScreenType.Preferences));				
 			}
