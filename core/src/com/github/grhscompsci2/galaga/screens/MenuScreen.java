@@ -5,21 +5,27 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.github.grhscompsci2.galaga.Background;
+import com.github.grhscompsci2.galaga.MyGdxGame;
 import com.github.grhscompsci2.galaga.Utility;
+import com.github.grhscompsci2.galaga.MyGdxGame.ScreenType;
 
 public class MenuScreen extends ScreenAdapter {
 
     private Stage _stage;
     private SpriteBatch batch;
+    private MyGdxGame parent;
 
     
-    public MenuScreen(Game game) {
+    public MenuScreen(MyGdxGame game) {
+        parent=game;
         batch=new SpriteBatch();
         // Creation Table
         // Initialize Stage and Table for later use
@@ -78,6 +84,54 @@ public class MenuScreen extends ScreenAdapter {
         // TODO Auto-generated method stub
         _stage.dispose();
         batch.dispose();
+    }
+
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(_stage);
+
+        Skin skin=Utility.STATUSUI_SKIN;
+        Table table = new Table();
+        table.setFillParent(true);
+
+        Label title = new Label("GALAGA",skin);
+        TextButton loadGameButton = new TextButton("Start", skin);
+        TextButton prefrenceButton = new TextButton("Settings", skin);
+        TextButton exitButton = new TextButton("Exit", skin);
+
+
+        table.add(title).spaceBottom(75).row();
+        table.add(loadGameButton).spaceBottom(10).row();
+        table.add(prefrenceButton).spaceBottom(10).row();
+        table.add(exitButton).spaceBottom(10).row();
+
+        _stage.addActor(table);
+
+        exitButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				Gdx.app.exit();				
+			}
+		});
+
+        loadGameButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				parent.setScreen(parent.getScreenType(ScreenType.Arcade));				
+			}
+		});
+
+
+        prefrenceButton.addListener(new ChangeListener() {
+			private Game parent;
+
+            @Override
+			public void changed(ChangeEvent event, Actor actor) {
+				parent.setScreen(parent.getScreenType(ScreenType.Preferences));				
+			}
+		});
+        
+
     }
 
 }

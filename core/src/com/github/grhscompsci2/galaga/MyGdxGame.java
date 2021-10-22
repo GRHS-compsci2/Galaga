@@ -14,6 +14,7 @@ public class MyGdxGame extends Game{
     private static PreferencesScreen preferencesScreen;
     private static LoadingScreen loadingScreen;
 	private static MenuScreen menuScreen;
+	private AppPreferences pref;
 
 	public static enum ScreenType {
 		Arcade, Preferences, Loading
@@ -39,6 +40,7 @@ public class MyGdxGame extends Game{
 		Utility.loadTextureAtlasAsset();
 		while (!Utility._assetManager.update()) {
 		}
+		pref=new AppPreferences();
 		arcadeScreen=new ArcadeScreen(this);
         preferencesScreen=new PreferencesScreen(this);
         loadingScreen=new LoadingScreen(this);
@@ -51,6 +53,10 @@ public class MyGdxGame extends Game{
 		arcadeScreen.dispose();
 		preferencesScreen.dispose();
 		loadingScreen.dispose();
+	}
+
+	public AppPreferences getPreferences() {
+		return pref;
 	}
 
 }
