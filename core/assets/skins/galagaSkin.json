@@ -3,11 +3,20 @@
 	"Emulogic": {
 		"file": "Emulogic.fnt"
 	},
+	"Emulogicx16": {
+		"file": "Emulogicx16.fnt"
+	},
 	"Game_Over": {
 		"file": "Game_Over.fnt"
 	}
 },
 "Color": {
+	"CYAN": {
+		"r": 0,
+		"g": 1,
+		"b": 1,
+		"a": 1
+	},
 	"RED": {
 		"r": 1,
 		"g": 0,
@@ -144,6 +153,10 @@
 	"default": {
 		"font": "Emulogic",
 		"fontColor": "WHITE"
+	},
+	"small": {
+		"font": "Emulogicx16",
+		"fontColor": "WHITE"
 	}
 },
 "ProgressBarStyle": {
@@ -169,13 +182,33 @@
 "TextButtonStyle": {
 	"default": {
 		"font": "Emulogic",
-		"fontColor": "WHITE"
+		"fontColor": "WHITE",
+		"downFontColor": "RED",
+		"overFontColor": "CYAN",
+		"focusedFontColor": "CYAN",
+		"checkedFontColor": "CYAN",
+		"checkedDownFontColor": "CYAN",
+		"checkedOverFontColor": "CYAN",
+		"checkedFocusedFontColor": "CYAN"
+	},
+	"small": {
+		"font": "Emulogicx16",
+		"fontColor": "WHITE",
+		"downFontColor": "RED",
+		"overFontColor": "CYAN",
+		"checkedFontColor": "CYAN"
 	}
 },
 "TextFieldStyle": {
 	"default": {
 		"font": "Emulogic",
-		"fontColor": "WHITE"
+		"fontColor": "WHITE",
+		"focusedFontColor": "CYAN"
+	},
+	"small": {
+		"font": "Emulogicx16",
+		"fontColor": "WHITE",
+		"focusedFontColor": "CYAN"
 	}
 },
 "TextTooltipStyle": {
