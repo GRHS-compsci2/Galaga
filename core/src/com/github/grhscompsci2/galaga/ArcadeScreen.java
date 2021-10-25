@@ -58,5 +58,9 @@ public class ArcadeScreen extends ScreenAdapter {
 	public void dispose() {
 		arcadeStage.dispose();
 	}
-
+	@Override
+	public void resize(int width, int height) {
+		arcadeStage.getViewport().update(width, height);
+		//arcadeStage.getCamera().position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0);
+	}
 }
