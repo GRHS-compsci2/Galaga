@@ -18,7 +18,7 @@ public class MyGdxGame extends Game{
 	private AppPreferences pref;
 
 	public static enum ScreenType {
-		Arcade, Preferences, Loading
+		Arcade, Preferences, Loading, Menu
 	}
 
 	public Screen getScreenType(ScreenType screenType) {
