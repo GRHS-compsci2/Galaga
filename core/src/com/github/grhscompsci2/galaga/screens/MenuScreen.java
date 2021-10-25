@@ -123,7 +123,6 @@ public class MenuScreen extends ScreenAdapter {
 
 
         prefrenceButton.addListener(new ChangeListener() {
-			private Game parent;
 
             @Override
 			public void changed(ChangeEvent event, Actor actor) {
