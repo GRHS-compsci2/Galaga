@@ -51,11 +51,11 @@ public class PreferencesScreen extends ScreenAdapter {
         table.setFillParent(true);
         
         // shows debug for preferences menu
-        // table.setDebug(true);
-            table.addActor(table);
+         //table.setDebug(true);
+            stage.addActor(table);
 
             // temporary
-            Skin skin=new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+            Skin skin=Utility.STATUSUI_SKIN;
 
         // volume sliders
         final Slider volumeMusicSlider=new Slider(0f, 1f, 0.1f, false, skin);
@@ -101,7 +101,7 @@ public class PreferencesScreen extends ScreenAdapter {
             }
         });
 
-        final TextButton backButton=new TextButton("Back", skin, "small");
+        final TextButton backButton=new TextButton("Back", skin, "default");
         backButton.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -109,25 +109,26 @@ public class PreferencesScreen extends ScreenAdapter {
 			}
 		});
 
-        titleLabel=new Label("Preferences", skin);
-        volumeMusicLabel=new Label(null, skin);
-        volumeSoundLabel=new Label(null, skin);
-        musicOnOffLabel=new Label(null, skin);
-        soundOnOffLabel=new Label(null, skin);
+        titleLabel=new Label("Settings", skin);
+        volumeMusicLabel=new Label("Volume", skin, "small");
+        volumeSoundLabel=new Label("Mute", skin, "small");
+        musicOnOffLabel=new Label("Music", skin, "small");
+        soundOnOffLabel=new Label("Mute", skin, "small");
 
         table.add(titleLabel).colspan(2);
-        table.row();
+        table.row().height(24.2f);
         table.add(volumeMusicLabel).left();
         table.add(volumeMusicSlider).pad(10, 0, 0, 10);
-        table.row();
+        table.row().height(24.2f);
         table.add(musicOnOffLabel).left();
         table.add(musicCheckbox).pad(10, 0, 0, 10);
-        table.row();
+        table.row().height(24.2f);
         table.add(volumeSoundLabel).left();
         table.add(volumeSoundSlider).pad(10, 0, 0, 10);
-        table.row();
+        table.row().height(24.2f);
         table.add(soundOnOffLabel).left();
-        table.add(soundCheckbox).pad(10, 0, 0, 10);
+        table.add(soundCheckbox).pad(10, 0, 0, 10).row();
+        table.add(backButton).colspan(2);
 
     }
 
