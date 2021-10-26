@@ -1,17 +1,11 @@
 package com.github.grhscompsci2.galaga.systems;
 
-import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
-import com.github.grhscompsci2.galaga.components.StateComponent;
-import com.github.grhscompsci2.galaga.components.TranslationComponent;
-import com.KeyboardController;
-import com.github.grhscompsci2.galaga.components.PlayerComponent;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
 import com.github.grhscompsci2.galaga.KeyboardController;
+import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.components.PlayerComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
 

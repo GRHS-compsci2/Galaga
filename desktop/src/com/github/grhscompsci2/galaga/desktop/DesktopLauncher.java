@@ -2,6 +2,7 @@ package com.github.grhscompsci2.galaga.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.Color;
 import com.github.grhscompsci2.galaga.MyGdxGame;
 
 public class DesktopLauncher {

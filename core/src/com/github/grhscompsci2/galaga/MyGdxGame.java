@@ -2,7 +2,6 @@ package com.github.grhscompsci2.galaga;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.github.grhscompsci2.galaga.screens.ArcadeScreen;

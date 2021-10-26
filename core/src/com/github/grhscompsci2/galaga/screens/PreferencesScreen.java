@@ -1,30 +1,28 @@
 package com.github.grhscompsci2.galaga.screens;
 
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.github.grhscompsci2.galaga.MyGdxGame;
-import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.MyGdxGame.ScreenType;
+import com.github.grhscompsci2.galaga.Utility;
 
 public class PreferencesScreen extends ScreenAdapter {
 
-     private MyGdxGame parent;
+    private MyGdxGame parent;
     private Stage stage;
 
     private Label titleLabel;
@@ -35,85 +33,85 @@ public class PreferencesScreen extends ScreenAdapter {
     private SpriteBatch batch;
 
     public PreferencesScreen(MyGdxGame myGdxGame) {
-        parent=myGdxGame;
-        stage=new Stage(new ScreenViewport());
-        batch=new SpriteBatch();
+        parent = myGdxGame;
+        stage = new Stage(new ScreenViewport());
+        batch = new SpriteBatch();
     }
 
     @Override
     public void show() {
-       // TODO Auto-generated method stub
-       Gdx.input.setInputProcessor(stage);
+        // TODO Auto-generated method stub
+        Gdx.input.setInputProcessor(stage);
 
         stage.clear();
 
-        Table table=new Table();
+        Table table = new Table();
         table.setFillParent(true);
-        
-        // shows debug for preferences menu
-         //table.setDebug(true);
-            stage.addActor(table);
 
-            // temporary
-            Skin skin=Utility.STATUSUI_SKIN;
+        // shows debug for preferences menu
+        // table.setDebug(true);
+        stage.addActor(table);
+
+        // temporary
+        Skin skin = Utility.STATUSUI_SKIN;
 
         // volume sliders
-        final Slider volumeMusicSlider=new Slider(0f, 1f, 0.1f, false, skin);
-            volumeMusicSlider.setValue(parent.getPreferences().getMusicVolume());
-            volumeMusicSlider.addListener(new EventListener() {  
-                @Override
-                public boolean handle(Event event) {
-                    parent.getPreferences().setMusicVolume(volumeMusicSlider.getValue());
-                    return false;
-                }
-            });
+        final Slider volumeMusicSlider = new Slider(0f, 1f, 0.1f, false, skin);
+        volumeMusicSlider.setValue(parent.getPreferences().getMusicVolume());
+        volumeMusicSlider.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+                parent.getPreferences().setMusicVolume(volumeMusicSlider.getValue());
+                return false;
+            }
+        });
 
-        final Slider volumeSoundSlider=new Slider(0f, 1f, 0.1f, false, skin);
-            volumeSoundSlider.setValue(parent.getPreferences().getSoundVolume());
-            volumeSoundSlider.addListener(new EventListener(){
-                @Override
-                public boolean handle(Event event) {
-                    parent.getPreferences().setSoundVolume(volumeSoundSlider.getValue());
-                    return false;
-                }
-            });
+        final Slider volumeSoundSlider = new Slider(0f, 1f, 0.1f, false, skin);
+        volumeSoundSlider.setValue(parent.getPreferences().getSoundVolume());
+        volumeSoundSlider.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+                parent.getPreferences().setSoundVolume(volumeSoundSlider.getValue());
+                return false;
+            }
+        });
 
-            // on/off
-        final CheckBox musicCheckbox=new CheckBox(null, skin);
+        // on/off
+        final CheckBox musicCheckbox = new CheckBox(null, skin);
         musicCheckbox.setChecked(parent.getPreferences().isMusicEnabled());
         musicCheckbox.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
-                boolean enabled=musicCheckbox.isChecked();
+                boolean enabled = musicCheckbox.isChecked();
                 parent.getPreferences().setMusicEnabled(enabled);
                 return false;
             }
         });
 
-        final CheckBox soundCheckbox=new CheckBox(null, skin);
-        soundCheckbox.setChecked(parent.getPreferences().isSoundEnabled());
+        final CheckBox soundCheckbox = new CheckBox(null, skin);
+        soundCheckbox.setChecked(parent.getPreferences().isSoundEffectsEnabled());
         soundCheckbox.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
-                boolean enabled=soundCheckbox.isChecked();
-                parent.getPreferences().setSoundEnabled(enabled);
+                boolean enabled = soundCheckbox.isChecked();
+                parent.getPreferences().setSoundEffectsEnabled(enabled);
                 return false;
             }
         });
 
-        final TextButton backButton=new TextButton("Back", skin, "default");
+        final TextButton backButton = new TextButton("Back", skin, "default");
         backButton.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				parent.setScreen(parent.getScreenType(ScreenType.Menu));				
-			}
-		});
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                parent.setScreen(parent.getScreenType(ScreenType.Menu));
+            }
+        });
 
-        titleLabel=new Label("Settings", skin);
-        volumeMusicLabel=new Label("Volume", skin, "small");
-        volumeSoundLabel=new Label("Mute", skin, "small");
-        musicOnOffLabel=new Label("Music", skin, "small");
-        soundOnOffLabel=new Label("Mute", skin, "small");
+        titleLabel = new Label("Settings", skin);
+        volumeMusicLabel = new Label("Volume", skin, "small");
+        volumeSoundLabel = new Label("Mute", skin, "small");
+        musicOnOffLabel = new Label("Music", skin, "small");
+        soundOnOffLabel = new Label("Mute", skin, "small");
 
         table.add(titleLabel).colspan(2);
         table.row().height(24.2f);
@@ -135,45 +133,17 @@ public class PreferencesScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
 
-        
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Utility.background.render(delta);
         batch.begin();
-        //_stage.act(delta);
-        stage.draw(); 
+        // _stage.act(delta);
+        stage.draw();
         batch.end();
     }
 
     @Override
     public void resize(int width, int height) {
 
-        
     }
-
-    @Override
-    public void pause() {
-
-        
-    }
-
-    @Override
-    public void resume() {
-
-        
-    }
-
-    @Override
-    public void hide() {
-     
-        
-    }
-
-    @Override
-    public void dispose() {
-        
-    }
-    
-
-
 }
