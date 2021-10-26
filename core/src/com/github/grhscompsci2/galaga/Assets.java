@@ -13,14 +13,13 @@ public class Assets {
 
     // Textures
 
-    public final String badLogicImage = "badlogic.jpg";
-
+    public final String spriteSheet="images/galaga.png";
     public void loadImages() {
-        manager.load(badLogicImage, Texture.class);
+        manager.load(spriteSheet, Texture.class);
     }
 
     public String getImage() {
-        return badLogicImage;
+        return spriteSheet;
     }
 
     // Sounds
@@ -36,7 +35,6 @@ public class Assets {
 
     // Fonts
     public final String visfont = "font.visitor.fnt";
-
     public void loadFonts() {
         manager.load(visfont, BitmapFont.class);
     }
