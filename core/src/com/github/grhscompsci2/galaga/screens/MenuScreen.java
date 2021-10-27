@@ -1,9 +1,11 @@
 package com.github.grhscompsci2.galaga.screens;
 
+import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,10 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.github.grhscompsci2.galaga.Background;
 import com.github.grhscompsci2.galaga.MyGdxGame;
 import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.MyGdxGame.ScreenType;
+import com.github.grhscompsci2.galaga.systems.RenderingSystem;
 
 public class MenuScreen extends ScreenAdapter {
 
@@ -33,6 +37,7 @@ public class MenuScreen extends ScreenAdapter {
         _stage = new Stage();
         Table table = new Table();
         table.setFillParent(true);
+        _stage = new Stage(new FitViewport(288, 244, new OrthographicCamera()));
 
         // It is my job to import a image of the button i want to use
         // I could prob utilize my own class for that because
@@ -132,5 +137,11 @@ public class MenuScreen extends ScreenAdapter {
         
 
     }
+    @Override
+	public void resize(int width, int height) {
+		_stage.getViewport().update(width, height);
+		// arcadeStage.getCamera().position.set(Gdx.graphics.getWidth() / 2,
+		// Gdx.graphics.getHeight() / 2, 0);
+	}
 
 }

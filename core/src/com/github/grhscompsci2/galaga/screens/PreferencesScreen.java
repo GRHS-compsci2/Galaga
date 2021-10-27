@@ -3,6 +3,7 @@ package com.github.grhscompsci2.galaga.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.github.grhscompsci2.galaga.MyGdxGame;
 import com.github.grhscompsci2.galaga.MyGdxGame.ScreenType;
@@ -36,6 +38,7 @@ public class PreferencesScreen extends ScreenAdapter {
         parent = myGdxGame;
         stage = new Stage(new ScreenViewport());
         batch = new SpriteBatch();
+        stage = new Stage(new FitViewport(288, 244, new OrthographicCamera()));
     }
 
     @Override
@@ -143,7 +146,9 @@ public class PreferencesScreen extends ScreenAdapter {
     }
 
     @Override
-    public void resize(int width, int height) {
-
-    }
+	public void resize(int width, int height) {
+		stage.getViewport().update(width, height);
+		// arcadeStage.getCamera().position.set(Gdx.graphics.getWidth() / 2,
+		// Gdx.graphics.getHeight() / 2, 0);
+	}
 }
