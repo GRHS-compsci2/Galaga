@@ -25,6 +25,8 @@ public final class Utility {
    
     public static TextureAtlas STATUSUI_TEXTUREATLAS=new TextureAtlas(STATUSUI_TEXTURE_ATLAS_PATH);
     public static Skin STATUSUI_SKIN=new Skin(Gdx.files.internal(STATUSUI_SKIN_PATH),STATUSUI_TEXTUREATLAS);
+    public static final String themeMusic="Music/galagaTheme.mp3";
+    public static final String scoreMusic="Music/nameEntry.mp3";
 
     public static Background background=new Background();
     public static void unloadAsset(String assetFilenamePath) {

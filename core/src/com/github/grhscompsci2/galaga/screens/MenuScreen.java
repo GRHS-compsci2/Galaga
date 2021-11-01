@@ -33,7 +33,7 @@ public class MenuScreen extends ScreenAdapter {
         _stage = new Stage();
         Table table = new Table();
         table.setFillParent(true);
-
+        Utility.getMusicAsset(Utility.themeMusic);
         // It is my job to import a image of the button i want to use
         // I could prob utilize my own class for that because
         // I can't use desktop or else it won't work for everbody
