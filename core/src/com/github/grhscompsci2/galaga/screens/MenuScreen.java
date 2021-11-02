@@ -3,6 +3,7 @@ package com.github.grhscompsci2.galaga.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -22,7 +23,7 @@ public class MenuScreen extends ScreenAdapter {
     private Stage _stage;
     private SpriteBatch batch;
     private MyGdxGame parent;
-
+     private Music thememusic;
     
     public MenuScreen(MyGdxGame game) {
         parent=game;
@@ -33,7 +34,8 @@ public class MenuScreen extends ScreenAdapter {
         _stage = new Stage();
         Table table = new Table();
         table.setFillParent(true);
-        Utility.getMusicAsset(Utility.themeMusic);
+        thememusic= Utility.getMusicAsset(Utility.themeMusic);
+       
         // It is my job to import a image of the button i want to use
         // I could prob utilize my own class for that because
         // I can't use desktop or else it won't work for everbody
@@ -69,7 +71,7 @@ public class MenuScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        // TODO Auto-generated method stub
+        
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Utility.background.render(delta);
@@ -81,7 +83,7 @@ public class MenuScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        // TODO Auto-generated method stub
+        
         _stage.dispose();
         batch.dispose();
     }
@@ -89,7 +91,7 @@ public class MenuScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(_stage);
-
+        thememusic.play();
         Skin skin=Utility.STATUSUI_SKIN;
         Table table = new Table();
         table.setFillParent(true);

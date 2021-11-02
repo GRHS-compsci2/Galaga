@@ -38,6 +38,8 @@ public class MyGdxGame extends Game{
 	public void create() {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		Utility.loadTextureAtlasAsset();
+		Utility.loadMusicAsset(Utility.themeMusic);
+		Utility.loadMusicAsset(Utility.scoreMusic);
 		while (!Utility._assetManager.update()) {
 		}
 		pref=new AppPreferences();
