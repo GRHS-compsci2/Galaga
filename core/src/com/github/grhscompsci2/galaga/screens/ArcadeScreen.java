@@ -3,6 +3,7 @@ package com.github.grhscompsci2.galaga.screens;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
@@ -42,7 +43,7 @@ public class ArcadeScreen extends ScreenAdapter {
 	private World world;
 	private KeyboardController controller;
 	private Stage arcadeStage;
-
+	private Music scoreMusic;
 	public ArcadeScreen(MyGdxGame myGdxGame) {
 		parent = myGdxGame;
 		world = new World(new Vector2(0, 0), true);
@@ -107,11 +108,14 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addSystem(new PhysicsSystem(world));
 		engine.addSystem(new CollisionSystem());
 		engine.addSystem(new PlayerControlSystem(controller));
+		scoreMusic= Utility.getMusicAsset(Utility.scoreMusic);
+	
 	}
 
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(controller);
+		scoreMusic.play();
 	}
 
 	@Override
