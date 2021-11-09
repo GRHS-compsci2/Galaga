@@ -38,6 +38,7 @@ public class MyGdxGame extends Game {
 	public void create() {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
+
 		/*
 		 * move all of this to the loading screen 
 		 * //add Utility methods to load the music and sfx in the show method 
@@ -53,6 +54,7 @@ public class MyGdxGame extends Game {
 		preferencesScreen = new PreferencesScreen(this);
 		loadingScreen = new LoadingScreen(this);
 		menuScreen = new MenuScreen(this);
+
 		setScreen(menuScreen);
 	}
 
