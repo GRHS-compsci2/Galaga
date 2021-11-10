@@ -39,16 +39,15 @@ public class MyGdxGame extends Game {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
 
-		/*
-		 * move all of this to the loading screen 
-		 * //add Utility methods to load the music and sfx in the show method 
-		 * Utility.loadTextureAtlasAsset(); 
-		 * //move this to the render method
-		 * if(Utility._assetManager.update()) { 
-		 * //Have this switch to the menu screen 
-		 * } 
-		 * //display something so we can see what is going on
-		 */
+		
+		 //add Utility methods to load the music and sfx in the show method 
+		 Utility.loadTextureAtlasAsset(); 
+		 Utility.loadAllMusicAsset();
+		 Utility.loadAllSoundAsset();
+		 while(!Utility._assetManager.update()) { 
+		 
+		 } 
+		 
 		pref = new AppPreferences();
 		arcadeScreen = new ArcadeScreen(this);
 		preferencesScreen = new PreferencesScreen(this);

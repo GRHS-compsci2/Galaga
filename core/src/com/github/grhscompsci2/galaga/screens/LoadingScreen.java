@@ -14,10 +14,10 @@ public class LoadingScreen extends ScreenAdapter {
 
     public LoadingScreen(MyGdxGame myGdxGame) {
         parent = myGdxGame;
-        shotFired = Utility.getMusicAsset(Utility.shotFired);
+        /*shotFired = Utility.getMusicAsset(Utility.shotFired);
         galagaExplosion1 = Utility.getMusicAsset(Utility.galagaExplosion1);
         galagaExplosion2 = Utility.getMusicAsset(Utility.galagaExplosion2);
-        galagaAttack = Utility.getMusicAsset(Utility.galagaAttack);
+        galagaAttack = Utility.getMusicAsset(Utility.galagaAttack);*/
     }
 
 }

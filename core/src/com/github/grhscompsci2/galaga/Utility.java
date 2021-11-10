@@ -27,7 +27,7 @@ public final class Utility {
     public static Skin STATUSUI_SKIN = new Skin(Gdx.files.internal(STATUSUI_SKIN_PATH), STATUSUI_TEXTUREATLAS);
     public static final String themeMusic = "music/galagaTheme.mp3";
     public static final String scoreMusic = "music/nameEntry.mp3";
-    public static final String shotFired = "music/shotFired.mps";
+    public static final String shotFired = "music/shotFired.mp3";
     public static final String galagaAttack = "music/galagaAttack.mp3";
     public static final String galagaExplosion1 = "music/galagaExplosion1.mp3";
     public static final String galagaExplosion2 = "music/galagaExplosion2.mp3";
@@ -154,5 +154,17 @@ public final class Utility {
         }
 
         return region;
+    }
+
+    public static void loadAllMusicAsset() {
+        loadMusicAsset(themeMusic);
+        loadMusicAsset(scoreMusic);
+    }
+
+    public static void loadAllSoundAsset() {
+        loadSoundAsset(shotFired);
+        loadSoundAsset(galagaAttack);
+        loadSoundAsset(galagaExplosion1);
+        loadSoundAsset(galagaExplosion2);
     }
 }
