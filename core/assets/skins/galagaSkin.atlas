@@ -11,13 +11,6 @@ white-pixel
   orig: 1, 1
   offset: 0, 0
   index: -1
-TractorBeam2
-  rotate: false
-  xy: 1, 37
-  size: 46, 80
-  orig: 46, 80
-  offset: 0, 0
-  index: -1
 bee1
   rotate: false
   xy: 517, 599
@@ -130,24 +123,31 @@ purpleBat9
   orig: 16, 16
   offset: 0, 0
   index: -1
-Emulogic_0
+Emulogic08_0
+  rotate: false
+  xy: 1, 377
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+Emulogic16_0
   rotate: false
   xy: 1, 119
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
-Emulogicx16_0
+Emulogic32_0
   rotate: false
   xy: 259, 377
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
-Game_Over_0
+TractorBeam1
   rotate: false
-  xy: 1, 377
-  size: 256, 256
-  orig: 256, 256
+  xy: 1, 37
+  size: 46, 80
+  orig: 46, 80
   offset: 0, 0
   index: -1

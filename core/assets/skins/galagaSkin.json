@@ -1,13 +1,13 @@
 {
 "BitmapFont": {
-	"Emulogic": {
-		"file": "Emulogic.fnt"
+	"Emulogic08": {
+		"file": "Emulogic08.fnt"
 	},
-	"Emulogicx16": {
-		"file": "Emulogicx16.fnt"
+	"Emulogic16": {
+		"file": "Emulogic16.fnt"
 	},
-	"Game_Over": {
-		"file": "Game_Over.fnt"
+	"Emulogic32": {
+		"file": "Emulogic32.fnt"
 	}
 },
 "Color": {
@@ -57,7 +57,8 @@
 			"bee10",
 			"bee9"
 		],
-		"playMode": 2
+		"playMode": 2,
+		"crushMode": 0
 	},
 	"butterflyAnimation": {
 		"region": "butterfly10",
@@ -79,7 +80,8 @@
 			"butterfly10",
 			"butterfly9"
 		],
-		"playMode": 2
+		"playMode": 2,
+		"crushMode": 0
 	},
 	"butterflyAnimationUp": {
 		"region": "butterfly2",
@@ -101,7 +103,8 @@
 			"butterfly2",
 			"butterfly1"
 		],
-		"playMode": 2
+		"playMode": 2,
+		"crushMode": 0
 	},
 	"beeAnimationUp": {
 		"region": "bee2",
@@ -123,14 +126,15 @@
 			"bee1",
 			"bee2"
 		],
-		"playMode": 2
+		"playMode": 2,
+		"crushMode": 0
 	}
 },
 "CheckBoxStyle": {
 	"default": {
 		"checkboxOn": "playerShip8",
 		"checkboxOff": "enemyShip8",
-		"font": "Emulogic",
+		"font": "Emulogic16",
 		"fontColor": "WHITE",
 		"downFontColor": "WHITE",
 		"overFontColor": "WHITE",
@@ -151,12 +155,15 @@
 },
 "LabelStyle": {
 	"default": {
-		"font": "Emulogic",
+		"font": "Emulogic32",
 		"fontColor": "WHITE"
 	},
 	"small": {
-		"font": "Emulogicx16",
+		"font": "Emulogic16",
 		"fontColor": "WHITE"
+	},
+	"tiny": {
+		"font": "Emulogic08"
 	}
 },
 "ProgressBarStyle": {
@@ -181,32 +188,43 @@
 },
 "TextButtonStyle": {
 	"default": {
-		"font": "Emulogic",
+		"font": "Emulogic32",
 		"fontColor": "WHITE",
 		"downFontColor": "RED",
 		"overFontColor": "CYAN",
 		"focusedFontColor": "CYAN",
-		"checkedFontColor": "CYAN",
-		"checkedDownFontColor": "CYAN",
-		"checkedOverFontColor": "CYAN",
-		"checkedFocusedFontColor": "CYAN"
+		"checkedFontColor": "RED"
 	},
 	"small": {
-		"font": "Emulogicx16",
+		"font": "Emulogic16",
 		"fontColor": "WHITE",
 		"downFontColor": "RED",
 		"overFontColor": "CYAN",
-		"checkedFontColor": "CYAN"
+		"focusedFontColor": "CYAN",
+		"checkedFontColor": "RED"
+	},
+	"tiny": {
+		"font": "Emulogic08",
+		"fontColor": "WHITE",
+		"downFontColor": "RED",
+		"overFontColor": "CYAN",
+		"focusedFontColor": "CYAN",
+		"checkedFontColor": "RED"
 	}
 },
 "TextFieldStyle": {
 	"default": {
-		"font": "Emulogic",
+		"font": "Emulogic32",
+		"fontColor": "WHITE",
+		"focusedFontColor": "WHITE"
+	},
+	"small": {
+		"font": "Emulogic16",
 		"fontColor": "WHITE",
 		"focusedFontColor": "CYAN"
 	},
-	"small": {
-		"font": "Emulogicx16",
+	"tiny": {
+		"font": "Emulogic08",
 		"fontColor": "WHITE",
 		"focusedFontColor": "CYAN"
 	}
@@ -214,6 +232,20 @@
 "TextTooltipStyle": {
 	"default": {
 		"label": "default"
+	}
+},
+"WindowStyle": {
+	"default": {
+		"titleFont": "Emulogic32",
+		"titleFontColor": "WHITE"
+	},
+	"small": {
+		"titleFont": "Emulogic16",
+		"titleFontColor": "WHITE"
+	},
+	"tiny": {
+		"titleFont": "Emulogic08",
+		"titleFontColor": "WHITE"
 	}
 }
 }
