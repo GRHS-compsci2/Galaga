@@ -8,6 +8,9 @@
 	},
 	"Emulogic32": {
 		"file": "Emulogic32.fnt"
+	},
+	"Emulogic64": {
+		"file": "Emulogic64.fnt"
 	}
 },
 "Color": {
@@ -134,7 +137,7 @@
 	"default": {
 		"checkboxOn": "playerShip8",
 		"checkboxOff": "enemyShip8",
-		"font": "Emulogic16",
+		"font": "Emulogic08",
 		"fontColor": "WHITE",
 		"downFontColor": "WHITE",
 		"overFontColor": "WHITE",
@@ -163,7 +166,8 @@
 		"fontColor": "WHITE"
 	},
 	"tiny": {
-		"font": "Emulogic08"
+		"font": "Emulogic08",
+		"fontColor": "WHITE"
 	}
 },
 "ProgressBarStyle": {
@@ -231,7 +235,7 @@
 },
 "TextTooltipStyle": {
 	"default": {
-		"label": "default"
+		"label": "tiny"
 	}
 },
 "WindowStyle": {
