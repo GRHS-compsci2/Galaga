@@ -23,7 +23,7 @@ public class PlayerEntity extends Entity {
         add(pos);
 
         B2dBodyComponent b2d=engine.createComponent(B2dBodyComponent.class);
-        b2d.body = bodyFactory.makeBoxPolyBody(18.0f, 2.0f, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, true);
+        b2d.body = bodyFactory.makeBoxPolyBody(18.0f, 3.0f, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, true);
         add(b2d);
 
         PlayerComponent player=engine.createComponent(PlayerComponent.class);

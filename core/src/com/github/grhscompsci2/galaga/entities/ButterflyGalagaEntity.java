@@ -15,10 +15,18 @@ import com.github.grhscompsci2.galaga.components.TextureComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
 
 public class ButterflyGalagaEntity extends Entity {
+
+    float x;
+    float y;
+    public ButterflyGalagaEntity(float x, float y) {
+        this.x=x;
+        this.y=y;
+    }
+
     public void init(Engine engine, BodyFactory bodyFactory) {
 
-        float x = (float) (Math.random() * 16 + 1);
-        float y = (float) (Math.random() * 16 + 1);
+       // float x = (float) (Math.random() * 16 + 1);
+       // float y = (float) (Math.random() * 16 + 1);
         Array<TextureRegion> keyFrames = new Array<TextureRegion>();
         keyFrames.add(Utility.getTextureRegionAsset("butterfly1"));
         keyFrames.add(Utility.getTextureRegionAsset("butterfly2"));
