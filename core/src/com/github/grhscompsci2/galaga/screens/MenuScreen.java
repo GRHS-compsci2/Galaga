@@ -38,31 +38,7 @@ public class MenuScreen extends ScreenAdapter {
         // I could prob utilize my own class for that because
         // I can't use desktop or else it won't work for everbody
 
-        /**
-         * We made a skin, then set it up in the utility class. The labels and text buttons,
-         * as well as a checkbox and slider were created there.
-         */
-        Label title = new Label("GALAGA",skin);
-        TextButton loadGameButton = new TextButton("Start", skin);
-        TextButton prefrenceButton = new TextButton("Settings", skin);
-        TextButton exitButton = new TextButton("Exit", skin);
-
-        // Figure out what .spaceBottom does pleasse
-        // I want to understand why I am doing this
-        /**
-         * .spaceBottom is a method that tells the table how much space to put below the text.
-         * For instance, here we are inserting 75 pixels under the title to give some seperation 
-         * between it and the menu options.
-         */
-        // Button Locations
-        table.add(title).spaceBottom(75).row();
-        table.add(loadGameButton).spaceBottom(10).row();
-        table.add(prefrenceButton).spaceBottom(10).row();
-        table.add(exitButton).spaceBottom(10).row();
-
-        _stage.addActor(table);
-
-        // Add listeners v
+        
 
     }
 
@@ -95,9 +71,9 @@ public class MenuScreen extends ScreenAdapter {
         table.setFillParent(true);
 
         Label title = new Label("GALAGA",skin);
-        TextButton loadGameButton = new TextButton("Start", skin);
-        TextButton prefrenceButton = new TextButton("Settings", skin);
-        TextButton exitButton = new TextButton("Exit", skin);
+        TextButton loadGameButton = new TextButton("Start", skin, "small");
+        TextButton prefrenceButton = new TextButton("Settings", skin, "small");
+        TextButton exitButton = new TextButton("Exit", skin, "small") ;
 
 
         table.add(title).spaceBottom(75).row();

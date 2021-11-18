@@ -66,9 +66,12 @@ public class ArcadeScreen extends ScreenAdapter {
 
 		Table table = new Table();
     	table.setFillParent(true);
+		//table
 		int score = 100;
-		Label scoreLabel = new Label("Score: "+score, skin);
-		//table.add(scoreLabel).row();
+		Label scoreLabel = new Label("Score: "+score, skin, "tiny");
+		table.add(scoreLabel).left().width(288.0f).row();
+		table.add().width(288.0f).height(228.0f).row();
+
 
 		 _stage = new Stage();
 
@@ -191,8 +194,8 @@ public class ArcadeScreen extends ScreenAdapter {
 		}
 
 	}
-
-/*	public void create() {
+	/*@Override
+ 	public void create() {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		font.getData().setScale(3);
