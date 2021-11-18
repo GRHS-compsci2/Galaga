@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.github.grhscompsci2.galaga.screens.ArcadeScreen;
 import com.github.grhscompsci2.galaga.screens.LoadingScreen;
 import com.github.grhscompsci2.galaga.screens.MenuScreen;
+import com.github.grhscompsci2.galaga.screens.PauseScreen;
 import com.github.grhscompsci2.galaga.screens.PreferencesScreen;
 
 public class MyGdxGame extends Game{
@@ -14,10 +15,11 @@ public class MyGdxGame extends Game{
     private static PreferencesScreen preferencesScreen;
     private static LoadingScreen loadingScreen;
 	private static MenuScreen menuScreen;
+	private static PauseScreen pauseScreen;
 	private AppPreferences pref;
 
 	public static enum ScreenType {
-		Arcade, Preferences, Loading, Menu
+		Arcade, Preferences, Loading, Menu, Pause
 	}
 
 	public Screen getScreenType(ScreenType screenType) {
@@ -28,6 +30,8 @@ public class MyGdxGame extends Game{
 				return preferencesScreen;
 			case Loading:
 				return loadingScreen;
+			case Pause:
+			    return pauseScreen;
 			default:
 				return menuScreen;
 		}
@@ -45,7 +49,8 @@ public class MyGdxGame extends Game{
         preferencesScreen=new PreferencesScreen(this);
         loadingScreen=new LoadingScreen(this);
 		menuScreen=new MenuScreen(this);
-		setScreen(menuScreen);
+		pauseScreen=new PauseScreen(this);
+		setScreen(pauseScreen);
 	}
 	
 	@Override
@@ -53,6 +58,8 @@ public class MyGdxGame extends Game{
 		arcadeScreen.dispose();
 		preferencesScreen.dispose();
 		loadingScreen.dispose();
+		pauseScreen.dispose();
+		menuScreen.dispose();
 	}
 
 	public AppPreferences getPreferences() {

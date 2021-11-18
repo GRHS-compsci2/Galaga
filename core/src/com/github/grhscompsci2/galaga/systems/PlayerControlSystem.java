@@ -5,6 +5,8 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.github.grhscompsci2.galaga.KeyboardController;
+import com.github.grhscompsci2.galaga.MyGdxGame;
+import com.github.grhscompsci2.galaga.MyGdxGame.ScreenType;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.components.PlayerComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
@@ -16,10 +18,12 @@ public class PlayerControlSystem extends IteratingSystem{
 	ComponentMapper<StateComponent> sm;
 	KeyboardController controller;
 	float speed=15.0f;
+	MyGdxGame parentGdxGame;
 	
 	@SuppressWarnings("unchecked")
-	public PlayerControlSystem(KeyboardController keyCon) {
+	public PlayerControlSystem(KeyboardController keyCon,MyGdxGame game) {
 		super(Family.all(PlayerComponent.class).get());
+		parentGdxGame = game;
 		controller = keyCon;
 		pm = ComponentMapper.getFor(PlayerComponent.class);
 		bodm = ComponentMapper.getFor(B2dBodyComponent.class);
@@ -52,6 +56,9 @@ public class PlayerControlSystem extends IteratingSystem{
 		
 		if(!controller.left && ! controller.right){
 			b2body.body.setLinearVelocity(0,0);
+		}
+		if(controller.esc) {
+			parentGdxGame.setScreen(parentGdxGame.getScreenType(ScreenType.Pause));
 		}
 		
 		/*if(controller.up && 
