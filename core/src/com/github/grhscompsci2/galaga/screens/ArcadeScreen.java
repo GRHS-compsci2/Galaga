@@ -44,6 +44,7 @@ public class ArcadeScreen extends ScreenAdapter {
 	private KeyboardController controller;
 	private Stage arcadeStage;
 	private Music scoreMusic;
+
 	public ArcadeScreen(MyGdxGame myGdxGame) {
 		parent = myGdxGame;
 		world = new World(new Vector2(0, 0), true);
@@ -107,9 +108,9 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addSystem(new PhysicsDebugSystem(world, renderingSystem.getCamera()));
 		engine.addSystem(new PhysicsSystem(world));
 		engine.addSystem(new CollisionSystem());
-		engine.addSystem(new PlayerControlSystem(controller));
-		scoreMusic= Utility.getMusicAsset(Utility.scoreMusic);
-	
+		engine.addSystem(new PlayerControlSystem(controller, parent));
+		scoreMusic = Utility.getMusicAsset(Utility.scoreMusic);
+
 	}
 
 	@Override
@@ -124,11 +125,6 @@ public class ArcadeScreen extends ScreenAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Utility.background.render(delta);
 		engine.update(delta);
-	}
-
-	@Override
-	public void hide() {
-		dispose();
 	}
 
 	@Override
