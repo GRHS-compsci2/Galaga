@@ -27,6 +27,7 @@ public final class Utility {
     public static Skin STATUSUI_SKIN=new Skin(Gdx.files.internal(STATUSUI_SKIN_PATH),STATUSUI_TEXTUREATLAS);
 
     public static Background background=new Background();
+    public static String scoreMusic="";
     public static void unloadAsset(String assetFilenamePath) {
         if(_assetManager.isLoaded(assetFilenamePath)) {
             _assetManager.unload(assetFilenamePath);
