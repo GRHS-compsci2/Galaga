@@ -111,9 +111,9 @@ public class PreferencesScreen extends ScreenAdapter {
         });
 
         titleLabel = new Label("Settings", skin);
-        volumeMusicLabel = new Label("Volume", skin, "small");
-        volumeSoundLabel = new Label("Mute", skin, "small");
-        musicOnOffLabel = new Label("Music", skin, "small");
+        volumeMusicLabel = new Label("Music", skin, "small");
+        volumeSoundLabel = new Label("Sounds", skin, "small");
+        musicOnOffLabel = new Label("Mute", skin, "small");
         soundOnOffLabel = new Label("Mute", skin, "small");
 
         table.add(titleLabel).colspan(2);
