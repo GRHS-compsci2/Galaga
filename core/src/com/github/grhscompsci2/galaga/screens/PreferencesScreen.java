@@ -38,7 +38,7 @@ public class PreferencesScreen extends ScreenAdapter {
         parent = myGdxGame;
         stage = new Stage(new ScreenViewport());
         batch = new SpriteBatch();
-        stage = new Stage(new FitViewport(288, 244, new OrthographicCamera()));
+        stage = new Stage(new FitViewport(Utility.width, Utility.height, new OrthographicCamera()));
     }
 
     @Override

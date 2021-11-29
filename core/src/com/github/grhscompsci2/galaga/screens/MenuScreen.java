@@ -50,7 +50,7 @@ public class MenuScreen extends ScreenAdapter {
 
         themeMusic = Utility.getMusicAsset(Utility.themeMusic);
 
-        _stage = new Stage(new FitViewport(288, 244, new OrthographicCamera()));
+        _stage = new Stage(new FitViewport(Utility.width, Utility.height, new OrthographicCamera()));
 
 
         // It is my job to import a image of the button i want to use
