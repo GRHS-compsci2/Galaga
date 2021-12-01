@@ -17,10 +17,14 @@ public class MyGdxGame extends Game {
 	private static MenuScreen menuScreen;
 	private static PauseScreen pauseScreen;
 	private AppPreferences pref;
+	private static final String TAG = MyGdxGame.class.getSimpleName();
 
 	public static enum ScreenType {
 		Arcade, Preferences, Loading, Menu, Pause
 	}
+
+	private ScreenType lastScreen;
+	private ScreenType currentScreen;
 
 	public Screen getScreenType(ScreenType screenType) {
 		switch (screenType) {
@@ -50,7 +54,7 @@ public class MyGdxGame extends Game {
 		loadingScreen = new LoadingScreen(this);
 		menuScreen = new MenuScreen(this);
 		pauseScreen = new PauseScreen(this);
-		setScreen(pauseScreen);
+		setScreen(ScreenType.Pause);
 	}
 
 	@Override
@@ -66,4 +70,16 @@ public class MyGdxGame extends Game {
 		return pref;
 	}
 
+	public void setScreen(ScreenType st) {
+		lastScreen = currentScreen;
+		currentScreen = st;
+		if (lastScreen == null)
+			lastScreen = currentScreen;
+		Gdx.app.debug(TAG, lastScreen + " " + currentScreen);
+		setScreen(getScreenType(st));
+	}
+
+	public ScreenType getlastScreen() {
+		return lastScreen;
+	}
 }

@@ -106,7 +106,8 @@ public class PreferencesScreen extends ScreenAdapter {
         backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                parent.setScreen(parent.getScreenType(ScreenType.Menu));
+               
+                parent.setScreen(parent.getlastScreen());
             }
         });
 
