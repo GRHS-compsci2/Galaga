@@ -70,6 +70,7 @@ public class MenuScreen extends ScreenAdapter {
         });
 
         loadGameButton.addListener(new ChangeListener() {
+
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 parent.setScreen(ScreenType.Arcade);
@@ -79,11 +80,11 @@ public class MenuScreen extends ScreenAdapter {
         prefrenceButton.addListener(new ChangeListener() {
 
             @Override
+
             public void changed(ChangeEvent event, Actor actor) {
                 parent.setScreen(ScreenType.Preferences);
             }
         });
-
     }
 
     @Override

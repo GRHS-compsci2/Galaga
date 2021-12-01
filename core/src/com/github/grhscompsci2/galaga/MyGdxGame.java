@@ -1,5 +1,7 @@
 package com.github.grhscompsci2.galaga;
 
+import javax.swing.text.html.HTML.Tag;
+
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -18,6 +20,7 @@ public class MyGdxGame extends Game {
 	private static PauseScreen pauseScreen;
 	private AppPreferences pref;
 	private static final String TAG = MyGdxGame.class.getSimpleName();
+
 
 	public static enum ScreenType {
 		Arcade, Preferences, Loading, Menu, Pause
@@ -39,7 +42,6 @@ public class MyGdxGame extends Game {
 			default:
 				return menuScreen;
 		}
-
 	}
 
 	@Override
@@ -77,7 +79,9 @@ public class MyGdxGame extends Game {
 		currentScreen = st;
 		if (lastScreen == null)
 			lastScreen = currentScreen;
+
 		Gdx.app.debug(TAG, lastScreen + " " + currentScreen);
+
 		setScreen(getScreenType(st));
 	}
 
