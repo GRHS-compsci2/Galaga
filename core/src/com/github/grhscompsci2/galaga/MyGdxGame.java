@@ -19,7 +19,7 @@ public class MyGdxGame extends Game {
 	private static MenuScreen menuScreen;
 	private static PauseScreen pauseScreen;
 	private AppPreferences pref;
-	private static final String TAG=MyGdxGame.class.getSimpleName();
+	private static final String TAG = MyGdxGame.class.getSimpleName();
 
 
 	public static enum ScreenType {
@@ -31,25 +31,26 @@ public class MyGdxGame extends Game {
 
 	public Screen getScreenType(ScreenType screenType) {
 		switch (screenType) {
-		case Arcade:
-			return arcadeScreen;
-		case Preferences:
-			return preferencesScreen;
-		case Loading:
-			return loadingScreen;
-		case Pause:
-			return pauseScreen;
-		default:
-			return menuScreen;
+			case Arcade:
+				return arcadeScreen;
+			case Preferences:
+				return preferencesScreen;
+			case Loading:
+				return loadingScreen;
+			case Pause:
+				return pauseScreen;
+			default:
+				return menuScreen;
 		}
-
 	}
 
 	@Override
 	public void create() {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		Utility.loadTextureAtlasAsset();
+		Utility.loadAllMusicAsset();
 		while (!Utility._assetManager.update()) {
+			Gdx.app.debug(TAG, Utility._assetManager.getProgress() + "files");
 		}
 		pref = new AppPreferences();
 		arcadeScreen = new ArcadeScreen(this);
@@ -57,7 +58,7 @@ public class MyGdxGame extends Game {
 		loadingScreen = new LoadingScreen(this);
 		menuScreen = new MenuScreen(this);
 		pauseScreen = new PauseScreen(this);
-		setScreen(ScreenType.Pause);
+		setScreen(ScreenType.Menu);
 	}
 
 	@Override
@@ -78,7 +79,9 @@ public class MyGdxGame extends Game {
 		currentScreen = st;
 		if (lastScreen == null)
 			lastScreen = currentScreen;
-			Gdx.app.debug(TAG, lastScreen+ " " +currentScreen );
+
+		Gdx.app.debug(TAG, lastScreen + " " + currentScreen);
+
 		setScreen(getScreenType(st));
 	}
 
