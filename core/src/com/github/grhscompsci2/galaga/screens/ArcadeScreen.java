@@ -108,9 +108,9 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addSystem(new PhysicsDebugSystem(world, renderingSystem.getCamera()));
 		engine.addSystem(new PhysicsSystem(world));
 		engine.addSystem(new CollisionSystem());
-		engine.addSystem(new PlayerControlSystem(controller,parent));
-		scoreMusic= Utility.getMusicAsset(Utility.scoreMusic);
-	
+		engine.addSystem(new PlayerControlSystem(controller, parent));
+		scoreMusic = Utility.getMusicAsset(Utility.scoreMusic);
+
 	}
 
 	@Override
@@ -125,6 +125,7 @@ public class ArcadeScreen extends ScreenAdapter {
 		Utility.background.render(delta);
 		engine.update(delta);
 	}
+
 	@Override
 	public void resize(int width, int height) {
 		arcadeStage.getViewport().update(width, height);

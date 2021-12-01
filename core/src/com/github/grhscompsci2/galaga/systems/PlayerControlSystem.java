@@ -58,7 +58,8 @@ public class PlayerControlSystem extends IteratingSystem{
 			b2body.body.setLinearVelocity(0,0);
 		}
 		if(controller.esc) {
-			parentGdxGame.setScreen(parentGdxGame.getScreenType(ScreenType.Pause));
+			controller.esc=false;
+			parentGdxGame.setScreen(ScreenType.Pause);
 		}
 		
 		/*if(controller.up && 
