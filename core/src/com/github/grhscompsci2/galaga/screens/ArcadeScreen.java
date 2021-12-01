@@ -51,7 +51,7 @@ public class ArcadeScreen extends ScreenAdapter {
 		world.setContactListener(new B2dContactListener(parent));
 		bodyFactory = BodyFactory.getInstance(world);
 		controller = new KeyboardController();
-		arcadeStage = new Stage(new FitViewport(Utility.width, Utility.height, new OrthographicCamera()));
+		arcadeStage = new Stage(new FitViewport(Utility.SCREEN_WIDTH, Utility.SCREEN_HEIGHT, new OrthographicCamera()));
 
 		RenderingSystem renderingSystem = new RenderingSystem(arcadeStage.getBatch());
 		cam = renderingSystem.getCamera();
@@ -130,8 +130,7 @@ public class ArcadeScreen extends ScreenAdapter {
 	@Override
 	public void resize(int width, int height) {
 		arcadeStage.getViewport().update(width, height);
-		// arcadeStage.getCamera().position.set(Gdx.graphics.getWidth() / 2,
-		// Gdx.graphics.getHeight() / 2, 0);
+
 	}
 
 	@Override

@@ -22,11 +22,11 @@ public final class Utility {
 
     private final static String STATUSUI_TEXTURE_ATLAS_PATH = "skins/galagaSkin.atlas";
     private final static String STATUSUI_SKIN_PATH = "skins/galagaSkin.json";
-    public static int width = 224;
-    public static int height = 288;
+    public static int SCREEN_WIDTH = 224;
+    public static int SCREEN_HEIGHT = 288;
     public static TextureAtlas STATUSUI_TEXTUREATLAS = new TextureAtlas(STATUSUI_TEXTURE_ATLAS_PATH);
     public static Skin STATUSUI_SKIN = new Skin(Gdx.files.internal(STATUSUI_SKIN_PATH), STATUSUI_TEXTUREATLAS);
-    public static final String themeMusic = "music/galagaTheme.mp3";
+    public static final String themeMusic = "Music/galagaTheme.mp3";
     public static final String scoreMusic = "music/nameEntry.mp3";
     public static final String shotFired = "music/shotFired.mp3";
     public static final String galagaAttack = "music/galagaAttack.mp3";
@@ -76,7 +76,7 @@ public final class Utility {
             _assetManager.finishLoadingAsset(soundAssetPath);
             Gdx.app.debug(TAG, "Sound loaded!: " + soundAssetPath);
         } else {
-            Gdx.app.debug(TAG, "Sound is not of exsistence: " + soundAssetPath);
+            Gdx.app.debug(TAG, "Sound is not found: " + soundAssetPath);
         }
     }
 
@@ -104,7 +104,7 @@ public final class Utility {
             _assetManager.finishLoadingAsset(musicAssetPath);
             Gdx.app.debug(TAG, "Music loaded: " + musicAssetPath);
         } else {
-            Gdx.app.debug(TAG, "Music not loaded: " + musicAssetPath);
+            Gdx.app.debug(TAG, "Music not found: " + musicAssetPath);
         }
 
     }
