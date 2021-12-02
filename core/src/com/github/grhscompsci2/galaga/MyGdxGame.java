@@ -42,7 +42,7 @@ public class MyGdxGame extends Game {
 		/*
 		 * move all of this to the loading screen 
 		 * //add Utility methods to load the music and sfx in the show method 
-		 * Utility.loadTextureAtlasAsset(); 
+		 *  
 		 * //move this to the render method
 		 * if(Utility._assetManager.update()) { 
 		 * //Have this switch to the menu screen 
@@ -55,7 +55,7 @@ public class MyGdxGame extends Game {
 		loadingScreen = new LoadingScreen(this);
 		menuScreen = new MenuScreen(this);
 
-		setScreen(menuScreen);
+		setScreen(loadingScreen);
 	}
 
 	@Override
