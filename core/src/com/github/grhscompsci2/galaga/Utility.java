@@ -155,4 +155,16 @@ public final class Utility {
 
         return region;
     }
+    
+    public static void loadAllMusicAsset() {
+        loadMusicAsset(themeMusic);
+        loadMusicAsset(scoreMusic);
+    }
+
+    public static void loadAllSoundAsset() {
+        loadSoundAsset(shotFired);
+        loadSoundAsset(galagaAttack);
+        loadSoundAsset(galagaExplosion1);
+        loadSoundAsset(galagaExplosion2);
+    }
 }
