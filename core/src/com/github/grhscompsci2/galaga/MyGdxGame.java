@@ -69,4 +69,8 @@ public class MyGdxGame extends Game {
 		return pref;
 	}
 
+	public MenuScreen getMenuScreen() {
+		return menuScreen;
+	}
+
 }
