@@ -20,8 +20,7 @@ public class LoadingScreen extends ScreenAdapter {
         _stage = new Stage(new FitViewport(Utility.SCREEN_WIDTH, Utility.SCREEN_HEIGHT, new OrthographicCamera()));
     }
     
-    @Override
-    public void show() {
+    public void render() {
         if(Utility._assetManager.update()){
            
         }
@@ -29,8 +28,8 @@ public class LoadingScreen extends ScreenAdapter {
             parent.setScreen(parent.getMenuScreen());
         }
     }
-  
-    public void create() {
+    @Override
+    public void show() {
         Utility.loadAllMusicAsset();
         Utility.loadAllSoundAsset();
         Utility.loadTextureAtlasAsset();
