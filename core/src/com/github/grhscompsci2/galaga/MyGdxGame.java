@@ -1,5 +1,7 @@
 package com.github.grhscompsci2.galaga;
 
+import javax.swing.text.html.HTML.Tag;
+
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -7,6 +9,7 @@ import com.badlogic.gdx.Screen;
 import com.github.grhscompsci2.galaga.screens.ArcadeScreen;
 import com.github.grhscompsci2.galaga.screens.LoadingScreen;
 import com.github.grhscompsci2.galaga.screens.MenuScreen;
+import com.github.grhscompsci2.galaga.screens.PauseScreen;
 import com.github.grhscompsci2.galaga.screens.PreferencesScreen;
 
 public class MyGdxGame extends Game {
@@ -14,48 +17,45 @@ public class MyGdxGame extends Game {
 	private static PreferencesScreen preferencesScreen;
 	private static LoadingScreen loadingScreen;
 	private static MenuScreen menuScreen;
+	private static PauseScreen pauseScreen;
 	private AppPreferences pref;
+	private static final String TAG = MyGdxGame.class.getSimpleName();
+
 
 	public static enum ScreenType {
-		Arcade, Preferences, Loading, Menu
+		Arcade, Preferences, Loading, Menu, Pause
 	}
+
+	private ScreenType lastScreen;
+	private ScreenType currentScreen;
 
 	public Screen getScreenType(ScreenType screenType) {
 		switch (screenType) {
-		case Arcade:
-			return arcadeScreen;
-		case Preferences:
-			return preferencesScreen;
-		case Loading:
-			return loadingScreen;
-		default:
-			return menuScreen;
+			case Arcade:
+				return arcadeScreen;
+			case Preferences:
+				return preferencesScreen;
+			case Loading:
+				return loadingScreen;
+			case Pause:
+				return pauseScreen;
+			default:
+				return menuScreen;
 		}
-
 	}
 
 	@Override
 	public void create() {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
-
-
-		/*
-		 * move all of this to the loading screen 
-		 * //add Utility methods to load the music and sfx in the show method 
-		 *  
-		 * //move this to the render method
-		 * if(Utility._assetManager.update()) { 
-		 * //Have this switch to the menu screen 
-		 * } 
-		 * //display something so we can see what is going on
-		 */
 		pref = new AppPreferences();
 		arcadeScreen = new ArcadeScreen(this);
 		preferencesScreen = new PreferencesScreen(this);
 		loadingScreen = new LoadingScreen(this);
 		menuScreen = new MenuScreen(this);
+		pauseScreen = new PauseScreen(this);
 
-		setScreen(loadingScreen);
+    setScreen(ScreenType.Loading);
+
 	}
 
 	@Override
@@ -63,14 +63,28 @@ public class MyGdxGame extends Game {
 		arcadeScreen.dispose();
 		preferencesScreen.dispose();
 		loadingScreen.dispose();
+		pauseScreen.dispose();
+		menuScreen.dispose();
 	}
 
 	public AppPreferences getPreferences() {
 		return pref;
 	}
 
-	public MenuScreen getMenuScreen() {
-		return menuScreen;
+
+	public void setScreen(ScreenType st) {
+		lastScreen = currentScreen;
+		currentScreen = st;
+		if (lastScreen == null)
+			lastScreen = currentScreen;
+
+		Gdx.app.debug(TAG, lastScreen + " " + currentScreen);
+
+		setScreen(getScreenType(st));
 	}
 
+	public ScreenType getlastScreen() {
+		return lastScreen;
+	}
 }
+

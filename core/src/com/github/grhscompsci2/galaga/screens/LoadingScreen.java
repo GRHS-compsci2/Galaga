@@ -13,6 +13,7 @@ public class LoadingScreen extends ScreenAdapter {
 
     private Stage _stage;
     private MyGdxGame parent;
+
     private int currentLoadingStage = 0;
 
     public LoadingScreen(MyGdxGame game) {
@@ -34,6 +35,7 @@ public class LoadingScreen extends ScreenAdapter {
         Utility.loadAllMusicAsset();
         Utility.loadAllSoundAsset();
         Utility.loadTextureAtlasAsset();
+
     }
 
     @Override

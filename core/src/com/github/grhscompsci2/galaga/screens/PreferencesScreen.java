@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
@@ -17,9 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.github.grhscompsci2.galaga.MyGdxGame;
-import com.github.grhscompsci2.galaga.MyGdxGame.ScreenType;
 import com.github.grhscompsci2.galaga.Utility;
 
 public class PreferencesScreen extends ScreenAdapter {
@@ -32,13 +29,10 @@ public class PreferencesScreen extends ScreenAdapter {
     private Label volumeSoundLabel;
     private Label musicOnOffLabel;
     private Label soundOnOffLabel;
-    private SpriteBatch batch;
 
     public PreferencesScreen(MyGdxGame myGdxGame) {
         parent = myGdxGame;
-        stage = new Stage(new ScreenViewport());
-        batch = new SpriteBatch();
-        stage = new Stage(new FitViewport(288, 244, new OrthographicCamera()));
+        stage = new Stage(new FitViewport(Utility.SCREEN_WIDTH, Utility.SCREEN_HEIGHT, new OrthographicCamera()));
     }
 
     @Override
@@ -106,14 +100,14 @@ public class PreferencesScreen extends ScreenAdapter {
         backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                parent.setScreen(parent.getScreenType(ScreenType.Menu));
+                parent.setScreen(parent.getlastScreen());
             }
         });
 
         titleLabel = new Label("Settings", skin);
-        volumeMusicLabel = new Label("Volume", skin, "small");
-        volumeSoundLabel = new Label("Mute", skin, "small");
-        musicOnOffLabel = new Label("Music", skin, "small");
+        volumeMusicLabel = new Label("Music", skin, "small");
+        volumeSoundLabel = new Label("Sounds", skin, "small");
+        musicOnOffLabel = new Label("Mute", skin, "small");
         soundOnOffLabel = new Label("Mute", skin, "small");
 
         table.add(titleLabel).colspan(2);
@@ -139,16 +133,11 @@ public class PreferencesScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Utility.background.render(delta);
-        batch.begin();
-        // _stage.act(delta);
         stage.draw();
-        batch.end();
     }
 
     @Override
 	public void resize(int width, int height) {
 		stage.getViewport().update(width, height);
-		// arcadeStage.getCamera().position.set(Gdx.graphics.getWidth() / 2,
-		// Gdx.graphics.getHeight() / 2, 0);
 	}
 }

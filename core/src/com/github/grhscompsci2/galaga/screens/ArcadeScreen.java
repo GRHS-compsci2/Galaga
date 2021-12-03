@@ -44,13 +44,14 @@ public class ArcadeScreen extends ScreenAdapter {
 	private KeyboardController controller;
 	private Stage arcadeStage;
 	private Music scoreMusic;
+
 	public ArcadeScreen(MyGdxGame myGdxGame) {
 		parent = myGdxGame;
 		world = new World(new Vector2(0, 0), true);
 		world.setContactListener(new B2dContactListener(parent));
 		bodyFactory = BodyFactory.getInstance(world);
 		controller = new KeyboardController();
-		arcadeStage = new Stage(new FitViewport(288, 244, new OrthographicCamera()));
+		arcadeStage = new Stage(new FitViewport(Utility.SCREEN_WIDTH, Utility.SCREEN_HEIGHT, new OrthographicCamera()));
 
 		RenderingSystem renderingSystem = new RenderingSystem(arcadeStage.getBatch());
 		cam = renderingSystem.getCamera();
@@ -107,9 +108,9 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addSystem(new PhysicsDebugSystem(world, renderingSystem.getCamera()));
 		engine.addSystem(new PhysicsSystem(world));
 		engine.addSystem(new CollisionSystem());
-		engine.addSystem(new PlayerControlSystem(controller));
-		scoreMusic= Utility.getMusicAsset(Utility.scoreMusic);
-	
+		engine.addSystem(new PlayerControlSystem(controller, parent));
+		scoreMusic = Utility.getMusicAsset(Utility.scoreMusic);
+
 	}
 
 	@Override
@@ -127,15 +128,9 @@ public class ArcadeScreen extends ScreenAdapter {
 	}
 
 	@Override
-	public void hide() {
-		dispose();
-	}
-
-	@Override
 	public void resize(int width, int height) {
 		arcadeStage.getViewport().update(width, height);
-		// arcadeStage.getCamera().position.set(Gdx.graphics.getWidth() / 2,
-		// Gdx.graphics.getHeight() / 2, 0);
+
 	}
 
 	@Override

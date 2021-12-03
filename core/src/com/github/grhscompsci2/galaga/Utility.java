@@ -76,7 +76,7 @@ public final class Utility {
             _assetManager.finishLoadingAsset(soundAssetPath);
             Gdx.app.debug(TAG, "Sound loaded!: " + soundAssetPath);
         } else {
-            Gdx.app.debug(TAG, "Sound is not of exsistence: " + soundAssetPath);
+            Gdx.app.debug(TAG, "Sound is not found: " + soundAssetPath);
         }
     }
 
@@ -104,7 +104,7 @@ public final class Utility {
             _assetManager.finishLoadingAsset(musicAssetPath);
             Gdx.app.debug(TAG, "Music loaded: " + musicAssetPath);
         } else {
-            Gdx.app.debug(TAG, "Music not loaded: " + musicAssetPath);
+            Gdx.app.debug(TAG, "Music not found: " + musicAssetPath);
         }
 
     }
@@ -156,8 +156,8 @@ public final class Utility {
 
         return region;
     }
-    
-    public static void loadAllMusicAsset() {
+
+  public static void loadAllMusicAsset() {
         loadMusicAsset(themeMusic);
         loadMusicAsset(scoreMusic);
     }
