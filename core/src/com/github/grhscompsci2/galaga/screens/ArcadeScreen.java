@@ -3,6 +3,7 @@ package com.github.grhscompsci2.galaga.screens;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -47,19 +48,17 @@ public class ArcadeScreen extends ScreenAdapter {
 
 	
 	private MyGdxGame parent;
-	// private SpriteBatch batch;
+
 	private PooledEngine engine;
 	private OrthographicCamera cam;
 	private BodyFactory bodyFactory;
 	private World world;
 	private KeyboardController controller;
-	private Stage arcadeStage;
 	private Stage _stage;
-
 	private int score;
 	private String yourScoreName;
-	SpriteBatch batch;
-	BitmapFont font;
+	private Music scoreMusic;
+
 
 	public ArcadeScreen(MyGdxGame myGdxGame) {
 
@@ -85,9 +84,7 @@ public class ArcadeScreen extends ScreenAdapter {
 		world.setContactListener(new B2dContactListener(parent));
 		bodyFactory = BodyFactory.getInstance(world);
 		controller = new KeyboardController();
-		arcadeStage = new Stage(new FitViewport(288, 244, new OrthographicCamera()));
-		Vector2 meters = RenderingSystem.getScreenSizeInMeters();
-		System.out.println(meters);
+		arcadeStage = new Stage(new FitViewport(Utility.SCREEN_WIDTH, Utility.SCREEN_HEIGHT, new OrthographicCamera()));
 
 		RenderingSystem renderingSystem = new RenderingSystem(arcadeStage.getBatch());
 		cam = renderingSystem.getCamera();
@@ -107,44 +104,6 @@ public class ArcadeScreen extends ScreenAdapter {
 		createFormation1();
 		createLives();
 		
-/*
-		BirdGalagaEntity bird = new BirdGalagaEntity();
-		bird.init(engine, bodyFactory);
-		engine.addEntity(bird);
-
-		ButterflyGalagaEntity bf = new ButterflyGalagaEntity();
-		bf.init(engine, bodyFactory);
-		engine.addEntity(bf);
-
-		DragonflyGalagaEntity df = new DragonflyGalagaEntity();
-		df.init(engine, bodyFactory);
-		engine.addEntity(df);
-
-		GreenBatGalagaEntity gb = new GreenBatGalagaEntity();
-		gb.init(engine, bodyFactory);
-		engine.addEntity(gb);
-
-		PhantomGalagaEntity phan = new PhantomGalagaEntity();
-		phan.init(engine, bodyFactory);
-		engine.addEntity(phan);
-
-		PinheadGalagaEntity ph = new PinheadGalagaEntity();
-		ph.init(engine, bodyFactory);
-		engine.addEntity(ph);
-
-		ProbeGalagaEntity probe = new ProbeGalagaEntity();
-		probe.init(engine, bodyFactory);
-		engine.addEntity(probe);
-
-		PurpleBatGalagaEntity pb = new PurpleBatGalagaEntity();
-		pb.init(engine, bodyFactory);
-		engine.addEntity(pb);
-
-		ScorpionGalagaEntity sc = new ScorpionGalagaEntity();
-		sc.init(engine, bodyFactory);
-		engine.addEntity(sc);
-		*/
-
 		LevelEntity le = new LevelEntity();
 		le.init(engine, bodyFactory);
 		engine.addEntity(le);
@@ -156,7 +115,8 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addSystem(new PhysicsDebugSystem(world, renderingSystem.getCamera()));
 		engine.addSystem(new PhysicsSystem(world));
 		engine.addSystem(new CollisionSystem());
-		engine.addSystem(new PlayerControlSystem(controller));
+		engine.addSystem(new PlayerControlSystem(controller, parent));
+
 	}
 
 	private void createLives() {
@@ -208,29 +168,14 @@ public class ArcadeScreen extends ScreenAdapter {
 			be.init(engine, bodyFactory);
 			engine.addEntity(be);
 		}
-
-
-
-}
-
+  }
 	
-	/*@Override
- 	public void create() {
-		batch = new SpriteBatch();
-		font = new BitmapFont();
-		font.getData().setScale(3);
-		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-
-	}*/
-
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(controller);
+		scoreMusic = Utility.getMusicAsset(Utility.scoreMusic);
+		scoreMusic.play();
 	}
-
-	
-	
 
 	@Override
 	public void render(float delta) {
@@ -239,26 +184,11 @@ public class ArcadeScreen extends ScreenAdapter {
 		Utility.background.render(delta);
 		engine.update(delta);
 		_stage.draw();
-
-		/*batch.begin(); 
-		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		font.draw(batch, "Score", 1, 1); 
-		batch.end();*/
-		
-
-		
-	}
-
-	@Override
-	public void hide() {
-		dispose();
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		arcadeStage.getViewport().update(width, height);
-		// arcadeStage.getCamera().position.set(Gdx.graphics.getWidth() / 2,
-		// Gdx.graphics.getHeight() / 2, 0);
 	}
 
 	@Override

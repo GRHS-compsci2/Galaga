@@ -4,7 +4,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 
 public class KeyboardController implements InputProcessor {
-    public boolean left,right,up,down;
+    public boolean left,right,up,down,esc;
     public static String TAG=KeyboardController.class.getSimpleName();
 	@Override
 	public boolean keyDown(int keycode) {
@@ -14,6 +14,10 @@ public class KeyboardController implements InputProcessor {
         {
 	        case Keys.LEFT:  	
 	            left = true;	
+	            keyProcessed = true; 
+	            break;
+	        case Keys.ESCAPE:  	
+	            esc = true;	
 	            keyProcessed = true; 
 	            break;
 	        case Keys.RIGHT: 	
@@ -37,6 +41,10 @@ switch (keycode)
     {
         case Keys.LEFT:  	
             left = false;	
+            keyProcessed = true;	 
+            break;
+        case Keys.ESCAPE:  	
+            esc = false;	
             keyProcessed = true;	 
             break;
         case Keys.RIGHT: 	
