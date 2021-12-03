@@ -47,18 +47,15 @@ public class MyGdxGame extends Game {
 	@Override
 	public void create() {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
-		Utility.loadTextureAtlasAsset();
-		Utility.loadAllMusicAsset();
-		while (!Utility._assetManager.update()) {
-			Gdx.app.debug(TAG, Utility._assetManager.getProgress() + "files");
-		}
 		pref = new AppPreferences();
 		arcadeScreen = new ArcadeScreen(this);
 		preferencesScreen = new PreferencesScreen(this);
 		loadingScreen = new LoadingScreen(this);
 		menuScreen = new MenuScreen(this);
 		pauseScreen = new PauseScreen(this);
-		setScreen(ScreenType.Menu);
+
+    setScreen(ScreenType.Loading);
+
 	}
 
 	@Override
@@ -73,6 +70,7 @@ public class MyGdxGame extends Game {
 	public AppPreferences getPreferences() {
 		return pref;
 	}
+
 
 	public void setScreen(ScreenType st) {
 		lastScreen = currentScreen;
@@ -89,3 +87,4 @@ public class MyGdxGame extends Game {
 		return lastScreen;
 	}
 }
+
