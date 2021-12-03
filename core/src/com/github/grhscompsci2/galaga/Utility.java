@@ -26,7 +26,7 @@ public final class Utility {
     public static int SCREEN_HEIGHT = 288;
     public static TextureAtlas STATUSUI_TEXTUREATLAS = new TextureAtlas(STATUSUI_TEXTURE_ATLAS_PATH);
     public static Skin STATUSUI_SKIN = new Skin(Gdx.files.internal(STATUSUI_SKIN_PATH), STATUSUI_TEXTUREATLAS);
-    public static final String themeMusic = "Music/galagaTheme.mp3";
+    public static final String themeMusic = "music/galagaTheme.mp3";
     public static final String scoreMusic = "music/nameEntry.mp3";
     public static final String shotFired = "music/shotFired.mp3";
     public static final String galagaAttack = "music/galagaAttack.mp3";

@@ -11,10 +11,9 @@ import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
 
-
 public class PhysicsSystem extends IteratingSystem {
 
-    private static final float MAX_STEP_TIME = 1/45f;
+    private static final float MAX_STEP_TIME = 1 / 45f;
     private static float accumulator = 0f;
 
     private World world;
@@ -23,8 +22,7 @@ public class PhysicsSystem extends IteratingSystem {
     private ComponentMapper<B2dBodyComponent> bm = ComponentMapper.getFor(B2dBodyComponent.class);
     private ComponentMapper<TranslationComponent> tm = ComponentMapper.getFor(TranslationComponent.class);
 
-    @SuppressWarnings("unchecked")
-	public PhysicsSystem(World world) {
+    public PhysicsSystem(World world) {
         super(Family.all(B2dBodyComponent.class, TranslationComponent.class).get());
         this.world = world;
         this.bodiesQueue = new Array<Entity>();
@@ -35,11 +33,11 @@ public class PhysicsSystem extends IteratingSystem {
         super.update(deltaTime);
         float frameTime = Math.min(deltaTime, 0.25f);
         accumulator += frameTime;
-        if(accumulator >= MAX_STEP_TIME) {
+        if (accumulator >= MAX_STEP_TIME) {
             world.step(MAX_STEP_TIME, 6, 2);
             accumulator -= MAX_STEP_TIME;
 
-            //Entity Queue
+            // Entity Queue
             for (Entity entity : bodiesQueue) {
                 TranslationComponent tfm = tm.get(entity);
                 B2dBodyComponent bodyComp = bm.get(entity);

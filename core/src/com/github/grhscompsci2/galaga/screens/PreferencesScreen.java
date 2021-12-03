@@ -37,7 +37,6 @@ public class PreferencesScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        // TODO Auto-generated method stub
         Gdx.input.setInputProcessor(stage);
 
         stage.clear();
