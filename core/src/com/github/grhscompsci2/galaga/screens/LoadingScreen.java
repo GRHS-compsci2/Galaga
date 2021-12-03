@@ -10,31 +10,32 @@ import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.MyGdxGame.ScreenType;
 
 public class LoadingScreen extends ScreenAdapter {
-    
+
     private Stage _stage;
     private MyGdxGame parent;
-    private int currentLoadingStage=0;
+    private int currentLoadingStage = 0;
 
     public LoadingScreen(MyGdxGame game) {
         parent = game;
         _stage = new Stage(new FitViewport(Utility.SCREEN_WIDTH, Utility.SCREEN_HEIGHT, new OrthographicCamera()));
     }
-    
-    public void render() {
-        if(Utility._assetManager.update()){
-           
-        }
-        else {
+
+    @Override
+    public void render(float delta) {
+        if (Utility._assetManager.update()) {
+
+        } else {
             parent.setScreen(parent.getMenuScreen());
         }
     }
+
     @Override
     public void show() {
         Utility.loadAllMusicAsset();
         Utility.loadAllSoundAsset();
         Utility.loadTextureAtlasAsset();
     }
-  
+
     @Override
     public void dispose() {
         _stage.dispose();
