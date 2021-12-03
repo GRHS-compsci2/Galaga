@@ -24,6 +24,7 @@ import com.github.grhscompsci2.galaga.b2d.B2dContactListener;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.entities.BeeGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.BirdGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.BoundariesEntity;
 import com.github.grhscompsci2.galaga.entities.ButterflyGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.DragonflyGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.GreenBatGalagaEntity;
@@ -148,6 +149,7 @@ public class ArcadeScreen extends ScreenAdapter {
 		le.init(engine, bodyFactory);
 		engine.addEntity(le);
 
+
 		// add all the relevant systems our engine should run
 		engine.addSystem(renderingSystem);
 		engine.addSystem(new AnimationSystem());
@@ -193,7 +195,25 @@ public class ArcadeScreen extends ScreenAdapter {
 			engine.addEntity(gb);
 		}
 
-	}
+		for(float x=14.0f; x<22.0f; x+=2.0f){
+			float y = 23.0f;
+			GreenBatGalagaEntity gb = new GreenBatGalagaEntity(x,y);
+			gb.init(engine, bodyFactory);
+			engine.addEntity(gb);
+		}
+
+		for(float x=0f; x<=36.0f; x+=36.0f){
+			float y=2.5f;
+			BoundariesEntity be = new BoundariesEntity(x,y);
+			be.init(engine, bodyFactory);
+			engine.addEntity(be);
+		}
+
+
+
+}
+
+	
 	/*@Override
  	public void create() {
 		batch = new SpriteBatch();
