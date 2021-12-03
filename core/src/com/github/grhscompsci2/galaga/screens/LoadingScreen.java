@@ -20,7 +20,7 @@ public class LoadingScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        if (Utility._assetManager.update()) {
+        if (!Utility._assetManager.update()) {
 
         } else {
             parent.setScreen(ScreenType.Menu);
