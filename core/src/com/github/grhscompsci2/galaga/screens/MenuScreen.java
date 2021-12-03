@@ -50,10 +50,10 @@ public class MenuScreen extends ScreenAdapter {
         Table table = new Table();
         table.setFillParent(true);
 
-        Label title = new Label("GALAGA", skin);
-        TextButton loadGameButton = new TextButton("Start", skin);
-        TextButton prefrenceButton = new TextButton("Settings", skin);
-        TextButton exitButton = new TextButton("Exit", skin);
+        Label title = new Label("GALAGA",skin);
+        TextButton loadGameButton = new TextButton("Start", skin, "small");
+        TextButton prefrenceButton = new TextButton("Settings", skin, "small");
+        TextButton exitButton = new TextButton("Exit", skin, "small") ;
 
         table.add(title).spaceBottom(75).row();
         table.add(loadGameButton).spaceBottom(10).row();

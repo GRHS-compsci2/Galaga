@@ -6,9 +6,17 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.github.grhscompsci2.galaga.KeyboardController;
 import com.github.grhscompsci2.galaga.MyGdxGame;
@@ -17,9 +25,12 @@ import com.github.grhscompsci2.galaga.b2d.B2dContactListener;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.entities.BeeGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.BirdGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.BoundariesEntity;
 import com.github.grhscompsci2.galaga.entities.ButterflyGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.DragonflyGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.GreenBatGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.LevelEntity;
+import com.github.grhscompsci2.galaga.entities.LivesEntity;
 import com.github.grhscompsci2.galaga.entities.PhantomGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.PinheadGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.PlayerEntity;
@@ -35,17 +46,39 @@ import com.github.grhscompsci2.galaga.systems.RenderingSystem;
 
 public class ArcadeScreen extends ScreenAdapter {
 
+	
 	private MyGdxGame parent;
-	// private SpriteBatch batch;
+
 	private PooledEngine engine;
 	private OrthographicCamera cam;
 	private BodyFactory bodyFactory;
 	private World world;
 	private KeyboardController controller;
-	private Stage arcadeStage;
+	private Stage _stage;
+	private int score;
+	private String yourScoreName;
 	private Music scoreMusic;
 
+
 	public ArcadeScreen(MyGdxGame myGdxGame) {
+
+		Skin skin=Utility.STATUSUI_SKIN;
+
+		Table table = new Table();
+    	table.setFillParent(true);
+		//table
+		int score = 100;
+		Label scoreLabel = new Label("Score: "+score, skin, "tiny");
+		table.add(scoreLabel).left().width(288.0f).row();
+		table.add().width(288.0f).height(228.0f).row();
+
+
+		 _stage = new Stage();
+
+		 _stage.addActor(table);
+
+
+
 		parent = myGdxGame;
 		world = new World(new Vector2(0, 0), true);
 		world.setContactListener(new B2dContactListener(parent));
@@ -60,47 +93,21 @@ public class ArcadeScreen extends ScreenAdapter {
 
 		PlayerEntity player = new PlayerEntity();
 		player.setUp(engine, bodyFactory);
+		
 		engine.addEntity(player);
 
-		BeeGalagaEntity bee = new BeeGalagaEntity();
-		bee.init(engine, bodyFactory);
-		engine.addEntity(bee);
+		//score = 0;
+    	//yourScoreName = "score: 0";
+    	//yourBitmapFontName = new BitmapFont();
 
-		BirdGalagaEntity bird = new BirdGalagaEntity();
-		bird.init(engine, bodyFactory);
-		engine.addEntity(bird);
+		
+		createFormation1();
+		createLives();
+		
+		LevelEntity le = new LevelEntity();
+		le.init(engine, bodyFactory);
+		engine.addEntity(le);
 
-		ButterflyGalagaEntity bf = new ButterflyGalagaEntity();
-		bf.init(engine, bodyFactory);
-		engine.addEntity(bf);
-
-		DragonflyGalagaEntity df = new DragonflyGalagaEntity();
-		df.init(engine, bodyFactory);
-		engine.addEntity(df);
-
-		GreenBatGalagaEntity gb = new GreenBatGalagaEntity();
-		gb.init(engine, bodyFactory);
-		engine.addEntity(gb);
-
-		PhantomGalagaEntity phan = new PhantomGalagaEntity();
-		phan.init(engine, bodyFactory);
-		engine.addEntity(phan);
-
-		PinheadGalagaEntity ph = new PinheadGalagaEntity();
-		ph.init(engine, bodyFactory);
-		engine.addEntity(ph);
-
-		ProbeGalagaEntity probe = new ProbeGalagaEntity();
-		probe.init(engine, bodyFactory);
-		engine.addEntity(probe);
-
-		PurpleBatGalagaEntity pb = new PurpleBatGalagaEntity();
-		pb.init(engine, bodyFactory);
-		engine.addEntity(pb);
-
-		ScorpionGalagaEntity sc = new ScorpionGalagaEntity();
-		sc.init(engine, bodyFactory);
-		engine.addEntity(sc);
 
 		// add all the relevant systems our engine should run
 		engine.addSystem(renderingSystem);
@@ -112,6 +119,57 @@ public class ArcadeScreen extends ScreenAdapter {
 
 	}
 
+	private void createLives() {
+		float y=1.5f;
+		for(float r=4.0f;r<=5.5f;r+=1.5){
+		LivesEntity life=new LivesEntity(r,y);
+		life.init(engine, bodyFactory);
+		engine.addEntity(life);
+		}
+	}
+
+	//create the basic starting formation (Without animation)
+	//Coordinates may require readjustment
+	private void createFormation1() {
+		
+		for(float y=16.0f; y<=17.75f;y+=1.75f){
+			for(float x=8.0f; x<28.0f;x+=2.0f){
+				BeeGalagaEntity bee = new BeeGalagaEntity(x,y);
+				bee.init(engine, bodyFactory);
+				engine.addEntity(bee);
+			}
+		}
+	
+		for(float y=19.5f; y<=21.25f; y+=1.75f){
+			for(float x=10.0f; x<26.0f;x+=2.0f){
+				ButterflyGalagaEntity bf = new ButterflyGalagaEntity(x,y);
+				bf.init(engine, bodyFactory);
+				engine.addEntity(bf);
+			}
+		}
+		
+		for(float x=14.0f; x<22.0f; x+=2.0f){
+			float y = 23.0f;
+			GreenBatGalagaEntity gb = new GreenBatGalagaEntity(x,y);
+			gb.init(engine, bodyFactory);
+			engine.addEntity(gb);
+		}
+
+		for(float x=14.0f; x<22.0f; x+=2.0f){
+			float y = 23.0f;
+			GreenBatGalagaEntity gb = new GreenBatGalagaEntity(x,y);
+			gb.init(engine, bodyFactory);
+			engine.addEntity(gb);
+		}
+
+		for(float x=0f; x<=36.0f; x+=36.0f){
+			float y=2.5f;
+			BoundariesEntity be = new BoundariesEntity(x,y);
+			be.init(engine, bodyFactory);
+			engine.addEntity(be);
+		}
+  }
+	
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(controller);
@@ -125,12 +183,12 @@ public class ArcadeScreen extends ScreenAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Utility.background.render(delta);
 		engine.update(delta);
+		_stage.draw();
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		arcadeStage.getViewport().update(width, height);
-
 	}
 
 	@Override

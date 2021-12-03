@@ -14,29 +14,23 @@ import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
 
-public class BeeGalagaEntity extends Entity {
-    float x;
-    float y;
-    public BeeGalagaEntity(float x, float y) {
-        this.x=x;
-        this.y=y;
-    }
+public class LevelEntity extends Entity {
+    public void init(Engine engine, BodyFactory bodyFactory){
 
-    public void init(Engine engine, BodyFactory bodyFactory) {
-        
-
+       float x = 34.5f;
+       float y = 1.0f;
+       
         Array<TextureRegion> keyFrames = new Array<TextureRegion>();
-        keyFrames.add(Utility.getTextureRegionAsset("bee1"));
-        keyFrames.add(Utility.getTextureRegionAsset("bee2"));
-
+        keyFrames.add(Utility.getTextureRegionAsset("levelx1"));
+        
         Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
-
+        
         AnimationComponent aComponent = engine.createComponent(AnimationComponent.class);
         aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
         super.add(aComponent);
-
+        
         TextureComponent tex = engine.createComponent(TextureComponent.class);
-        tex.region = Utility.getTextureRegionAsset("bee1");
+        tex.region = Utility.getTextureRegionAsset("levelx1");
         super.add(tex);
 
         StateComponent sComponent = engine.createComponent(StateComponent.class);
@@ -47,10 +41,5 @@ public class BeeGalagaEntity extends Entity {
         TranslationComponent pos = engine.createComponent(TranslationComponent.class);
         pos.setPosition(x, y);
         super.add(pos);
-
-        B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
-        b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, true);
-        add(b2d);
-
     }
 }
