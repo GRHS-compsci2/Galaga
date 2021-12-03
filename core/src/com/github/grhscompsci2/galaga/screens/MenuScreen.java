@@ -25,7 +25,6 @@ public class MenuScreen extends ScreenAdapter {
 
     public MenuScreen(MyGdxGame game) {
         parent = game;
-        themeMusic = Utility.getMusicAsset(Utility.themeMusic);
         _stage = new Stage(new FitViewport(Utility.SCREEN_WIDTH, Utility.SCREEN_HEIGHT, new OrthographicCamera()));
     }
 
@@ -45,6 +44,7 @@ public class MenuScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(_stage);
+        themeMusic = Utility.getMusicAsset(Utility.themeMusic);
         themeMusic.play();
         Skin skin = Utility.STATUSUI_SKIN;
         Table table = new Table();

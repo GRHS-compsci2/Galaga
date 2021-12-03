@@ -137,7 +137,7 @@ public class PreferencesScreen extends ScreenAdapter {
     }
 
     @Override
-	public void resize(int width, int height) {
-		stage.getViewport().update(width, height);
-	}
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height);
+    }
 }

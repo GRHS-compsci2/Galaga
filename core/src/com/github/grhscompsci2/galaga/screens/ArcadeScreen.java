@@ -109,13 +109,13 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addSystem(new PhysicsSystem(world));
 		engine.addSystem(new CollisionSystem());
 		engine.addSystem(new PlayerControlSystem(controller, parent));
-		scoreMusic = Utility.getMusicAsset(Utility.scoreMusic);
 
 	}
 
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(controller);
+		scoreMusic = Utility.getMusicAsset(Utility.scoreMusic);
 		scoreMusic.play();
 	}
 
