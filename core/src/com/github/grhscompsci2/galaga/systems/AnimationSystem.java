@@ -15,8 +15,7 @@ public class AnimationSystem extends IteratingSystem {
     ComponentMapper<AnimationComponent> am;
     ComponentMapper<StateComponent> sm;
 
-    @SuppressWarnings("unchecked")
-	public AnimationSystem(){
+    public AnimationSystem() {
         super(Family.all(TextureComponent.class,
                 AnimationComponent.class).get());
 
@@ -31,7 +30,7 @@ public class AnimationSystem extends IteratingSystem {
         AnimationComponent ani = am.get(entity);
         StateComponent state = sm.get(entity);
 
-        if(ani.animations.containsKey(state.get())){
+        if (ani.animations.containsKey(state.get())) {
             TextureComponent tex = tm.get(entity);
             tex.region = (TextureRegion) ani.animations.get(state.get()).getKeyFrame(state.time, state.isLooping);
         }

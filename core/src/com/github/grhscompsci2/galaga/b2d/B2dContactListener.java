@@ -9,10 +9,7 @@ import com.github.grhscompsci2.galaga.MyGdxGame;
 
 public class B2dContactListener implements ContactListener {
 
-    private MyGdxGame parent;
-
     public B2dContactListener(MyGdxGame parent) {
-        this.parent = parent;
     }
 
     @Override

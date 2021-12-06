@@ -7,7 +7,6 @@ import com.badlogic.ashley.systems.SortedIteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
@@ -57,12 +56,11 @@ public class RenderingSystem extends SortedIteratingSystem {
     private ComponentMapper<TextureComponent> textureM;
     private ComponentMapper<TranslationComponent> transformM;
 
-    @SuppressWarnings("unchecked")
     public RenderingSystem(Batch batch) {
         // gets all entities with a TranslationComponent and TextureComponent
         super(Family.all(TranslationComponent.class, TextureComponent.class).get(), new ZComparator());
-        comparator=new ZComparator();
-        Gdx.app.debug(TAG, "Screen Resolution: "+getScreenSizeInMeters());
+        comparator = new ZComparator();
+        Gdx.app.debug(TAG, "Screen Resolution: " + getScreenSizeInMeters());
         // creates out componentMappers
         textureM = ComponentMapper.getFor(TextureComponent.class);
         transformM = ComponentMapper.getFor(TranslationComponent.class);

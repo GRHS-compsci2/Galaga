@@ -13,26 +13,33 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public final class Utility {
-    public static final AssetManager _assetManager=new AssetManager(); 
-    private static final String TAG=Utility.class.getSimpleName();
-    private static InternalFileHandleResolver _filePathResolver=new InternalFileHandleResolver();
+    public static final AssetManager _assetManager = new AssetManager();
+    private static final String TAG = Utility.class.getSimpleName();
+    private static InternalFileHandleResolver _filePathResolver = new InternalFileHandleResolver();
 
-     private final static String SPRITES_TEXTURE_ATLAS_PATH = "images/galaga.atlas";
+    private final static String SPRITES_TEXTURE_ATLAS_PATH = "images/galaga.atlas";
     public static TextureAtlas SPRITES_TEXTUREATLAS = new TextureAtlas(SPRITES_TEXTURE_ATLAS_PATH);
- 
+
     private final static String STATUSUI_TEXTURE_ATLAS_PATH = "skins/galagaSkin.atlas";
     private final static String STATUSUI_SKIN_PATH = "skins/galagaSkin.json";
-   
-    public static TextureAtlas STATUSUI_TEXTUREATLAS=new TextureAtlas(STATUSUI_TEXTURE_ATLAS_PATH);
-    public static Skin STATUSUI_SKIN=new Skin(Gdx.files.internal(STATUSUI_SKIN_PATH),STATUSUI_TEXTUREATLAS);
+    public static int SCREEN_WIDTH = 224;
+    public static int SCREEN_HEIGHT = 288;
+    public static TextureAtlas STATUSUI_TEXTUREATLAS = new TextureAtlas(STATUSUI_TEXTURE_ATLAS_PATH);
+    public static Skin STATUSUI_SKIN = new Skin(Gdx.files.internal(STATUSUI_SKIN_PATH), STATUSUI_TEXTUREATLAS);
+    public static final String themeMusic = "music/galagaTheme.mp3";
+    public static final String scoreMusic = "music/nameEntry.mp3";
+    public static final String shotFired = "music/shotFired.mp3";
+    public static final String galagaAttack = "music/galagaAttack.mp3";
+    public static final String galagaExplosion1 = "music/galagaExplosion1.mp3";
+    public static final String galagaExplosion2 = "music/galagaExplosion2.mp3";
+    
+    public static Background background = new Background();
 
-    public static Background background=new Background();
     public static void unloadAsset(String assetFilenamePath) {
-        if(_assetManager.isLoaded(assetFilenamePath)) {
+        if (_assetManager.isLoaded(assetFilenamePath)) {
             _assetManager.unload(assetFilenamePath);
-        }
-        else {
-            Gdx.app.debug(TAG, "Asset is not loaded; Nothing to unload: "+assetFilenamePath);
+        } else {
+            Gdx.app.debug(TAG, "Asset is not loaded; Nothing to unload: " + assetFilenamePath);
         }
     }
 
@@ -69,7 +76,7 @@ public final class Utility {
             _assetManager.finishLoadingAsset(soundAssetPath);
             Gdx.app.debug(TAG, "Sound loaded!: " + soundAssetPath);
         } else {
-            Gdx.app.debug(TAG, "Sound is not of exsistence: " + soundAssetPath);
+            Gdx.app.debug(TAG, "Sound is not found: " + soundAssetPath);
         }
     }
 
@@ -97,7 +104,7 @@ public final class Utility {
             _assetManager.finishLoadingAsset(musicAssetPath);
             Gdx.app.debug(TAG, "Music loaded: " + musicAssetPath);
         } else {
-            Gdx.app.debug(TAG, "Music not loaded: " + musicAssetPath);
+            Gdx.app.debug(TAG, "Music not found: " + musicAssetPath);
         }
 
     }
@@ -124,7 +131,7 @@ public final class Utility {
 
         // load asset
         if (_filePathResolver.resolve(SPRITES_TEXTURE_ATLAS_PATH).exists()) {
-            Gdx.app.debug(TAG, "Loading Texture!: "+SPRITES_TEXTURE_ATLAS_PATH);
+            Gdx.app.debug(TAG, "Loading Texture!: " + SPRITES_TEXTURE_ATLAS_PATH);
             _assetManager.setLoader(TextureAtlas.class, new TextureAtlasLoader(_filePathResolver));
             _assetManager.load(SPRITES_TEXTURE_ATLAS_PATH, TextureAtlas.class);
             // Until we add loading screen, just block until we load the map
@@ -148,5 +155,17 @@ public final class Utility {
         }
 
         return region;
+    }
+
+  public static void loadAllMusicAsset() {
+        loadMusicAsset(themeMusic);
+        loadMusicAsset(scoreMusic);
+    }
+
+    public static void loadAllSoundAsset() {
+        loadSoundAsset(shotFired);
+        loadSoundAsset(galagaAttack);
+        loadSoundAsset(galagaExplosion1);
+        loadSoundAsset(galagaExplosion2);
     }
 }
