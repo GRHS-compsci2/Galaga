@@ -85,14 +85,17 @@ public class ArcadeScreen extends ScreenAdapter {
 	// Coordinates may require readjustment
 	private void createFormation1() {
 
-		for (float y = 16.0f; y <= 17.75f; y += 1.75f) {
-			for (float x = 8.0f; x < 28.0f; x += 2.0f) {
-				BeeGalagaEntity bee = new BeeGalagaEntity(x, y);
-				bee.init(engine, bodyFactory);
-				engine.addEntity(bee);
-			}
-		}
-
+		/*
+		 * for (float y = 16.0f; y <= 17.75f; y += 1.75f) {
+		 * for (float x = 8.0f; x < 28.0f; x += 2.0f) {
+		 */
+		BeeGalagaEntity bee = new BeeGalagaEntity(28.0f, 4.0f);
+		bee.init(engine, bodyFactory);
+		engine.addEntity(bee);
+		/*
+		 * }
+		 * }
+		 */
 		for (float y = 19.5f; y <= 21.25f; y += 1.75f) {
 			for (float x = 10.0f; x < 26.0f; x += 2.0f) {
 				ButterflyGalagaEntity bf = new ButterflyGalagaEntity(x, y);
