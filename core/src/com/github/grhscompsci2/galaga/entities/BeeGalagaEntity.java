@@ -53,9 +53,10 @@ public class BeeGalagaEntity extends Entity {
         b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, true);
         add(b2d);
 
-        EnemyComponent swoopComponent=engine.createComponent(EnemyComponent.class);
-        swoopComponent.setPath(EnemyComponent.PATH_1);
-        super.add(swoopComponent);
+        EnemyComponent enemyComponent=engine.createComponent(EnemyComponent.class);
+        enemyComponent.setPath(EnemyComponent.PATH_1);
+        enemyComponent.startPath();
+        super.add(enemyComponent);
 
     }
 }
