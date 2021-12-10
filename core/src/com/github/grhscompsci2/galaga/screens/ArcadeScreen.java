@@ -28,6 +28,7 @@ import com.github.grhscompsci2.galaga.entities.LivesEntity;
 import com.github.grhscompsci2.galaga.entities.PlayerEntity;
 import com.github.grhscompsci2.galaga.systems.AnimationSystem;
 import com.github.grhscompsci2.galaga.systems.CollisionSystem;
+import com.github.grhscompsci2.galaga.systems.EnemySystem;
 import com.github.grhscompsci2.galaga.systems.PhysicsDebugSystem;
 import com.github.grhscompsci2.galaga.systems.PhysicsSystem;
 import com.github.grhscompsci2.galaga.systems.PlayerControlSystem;
@@ -67,6 +68,7 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addSystem(new PhysicsSystem(world));
 		engine.addSystem(new CollisionSystem());
 		engine.addSystem(new PlayerControlSystem(controller, parent, engine, bodyFactory));
+		engine.addSystem(new EnemySystem());
 
 	}
 
