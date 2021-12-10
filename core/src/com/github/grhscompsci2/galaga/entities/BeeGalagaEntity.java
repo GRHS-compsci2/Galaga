@@ -11,6 +11,7 @@ import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
+import com.github.grhscompsci2.galaga.components.EnemyComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
 
@@ -51,6 +52,10 @@ public class BeeGalagaEntity extends Entity {
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
         b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, true);
         add(b2d);
+
+        EnemyComponent swoopComponent=engine.createComponent(EnemyComponent.class);
+        swoopComponent.setPath(EnemyComponent.PATH_1);
+        super.add(swoopComponent);
 
     }
 }
