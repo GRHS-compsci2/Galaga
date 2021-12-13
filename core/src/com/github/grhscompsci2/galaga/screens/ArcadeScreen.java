@@ -124,9 +124,10 @@ public class ArcadeScreen extends ScreenAdapter {
 			engine.addEntity(be);
 		}
 	}
-
+	float resumeTime;
 	@Override
 	public void show() {
+		resumeTime=0;
 		Gdx.input.setInputProcessor(controller);
 		scoreMusic = Utility.getMusicAsset(Utility.scoreMusic);
 		scoreMusic.play();
@@ -157,8 +158,14 @@ public class ArcadeScreen extends ScreenAdapter {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Utility.background.render(delta);
-		engine.update(delta);
-		arcadeStage.draw();
+		if(resumeTime<1.5){
+			resumeTime+=delta;
+			}
+			else{
+				
+				engine.update(delta);
+				arcadeStage.draw();	
+			}
 	}
 
 	@Override
