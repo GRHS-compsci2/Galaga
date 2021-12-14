@@ -231,27 +231,15 @@
 "TextButtonStyle": {
 	"default": {
 		"font": "Emulogic32",
-		"fontColor": "WHITE",
-		"downFontColor": "RED",
-		"overFontColor": "CYAN",
-		"focusedFontColor": "CYAN",
-		"checkedFontColor": "RED"
+		"fontColor": "WHITE"
 	},
 	"small": {
 		"font": "Emulogic16",
-		"fontColor": "WHITE",
-		"downFontColor": "RED",
-		"overFontColor": "CYAN",
-		"focusedFontColor": "CYAN",
-		"checkedFontColor": "RED"
+		"fontColor": "WHITE"
 	},
 	"tiny": {
 		"font": "Emulogic08",
-		"fontColor": "WHITE",
-		"downFontColor": "RED",
-		"overFontColor": "CYAN",
-		"focusedFontColor": "CYAN",
-		"checkedFontColor": "RED"
+		"fontColor": "WHITE"
 	}
 },
 "TextFieldStyle": {
