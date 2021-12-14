@@ -11,6 +11,12 @@
 	},
 	"Emulogic64": {
 		"file": "Emulogic64.fnt"
+	},
+	"ReturnOfGanon16": {
+		"file": "ReturnOfGanon16.fnt"
+	},
+	"ReturnOfGanon32": {
+		"file": "ReturnOfGanon32.fnt"
 	}
 },
 "Color": {
@@ -167,6 +173,38 @@
 	},
 	"tiny": {
 		"font": "Emulogic08",
+		"fontColor": "WHITE"
+	},
+	"defaultCyan": {
+		"font": "Emulogic32",
+		"fontColor": "CYAN"
+	},
+	"smallCyan": {
+		"font": "Emulogic16",
+		"fontColor": "CYAN"
+	},
+	"tinyCyan": {
+		"font": "Emulogic08",
+		"fontColor": "CYAN"
+	},
+	"defaultRed": {
+		"font": "Emulogic32",
+		"fontColor": "RED"
+	},
+	"smallRed": {
+		"font": "Emulogic16",
+		"fontColor": "RED"
+	},
+	"tinyRed": {
+		"font": "Emulogic08",
+		"fontColor": "RED"
+	},
+	"defaultSkinny": {
+		"font": "ReturnOfGanon32",
+		"fontColor": "WHITE"
+	},
+	"smallSkinny": {
+		"font": "ReturnOfGanon16",
 		"fontColor": "WHITE"
 	}
 },
