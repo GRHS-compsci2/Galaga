@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.github.grhscompsci2.galaga.KeyboardController;
 import com.github.grhscompsci2.galaga.MyGdxGame;
@@ -44,10 +45,20 @@ public class ArcadeScreen extends ScreenAdapter {
 	private World world;
 	private KeyboardController controller;
 	private Stage arcadeStage;
-	private int score;
-	private String yourScoreName;
 	private Music scoreMusic;
+	private Label readyLabel;
+	private Label p1ScoreLabel;
+	private Label p2ScoreLabel;
+	private float resumeTime;
+	private float blinkTime;
+	private boolean rest;
 
+	/**
+	 * Constructor for ArcadeScreen. Sets up Box 2D world. Sets up keyboard. Sets up
+	 * stage. Adds all systems to the engine.
+	 * 
+	 * @param myGdxGame - the parent game
+	 */
 	public ArcadeScreen(MyGdxGame myGdxGame) {
 		parent = myGdxGame;
 		world = new World(new Vector2(0, 0), true);
@@ -59,6 +70,7 @@ public class ArcadeScreen extends ScreenAdapter {
 		RenderingSystem renderingSystem = new RenderingSystem(arcadeStage.getBatch());
 		cam = renderingSystem.getCamera();
 		arcadeStage.getBatch().setProjectionMatrix(cam.combined);
+		setUpTable();
 		engine = new PooledEngine();
 
 		// add all the relevant systems our engine should run
@@ -69,9 +81,131 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addSystem(new CollisionSystem());
 		engine.addSystem(new PlayerControlSystem(controller, parent, engine, bodyFactory));
 		engine.addSystem(new EnemySystem());
-
 	}
 
+	@Override
+	public void show() {
+		// initialize variables to control the delay when we start
+		resumeTime = 0;
+		blinkTime = 0;
+		// rest will be true when we are delaying, false when we are active
+		rest = true;
+
+		Gdx.input.setInputProcessor(controller);
+		scoreMusic = Utility.getMusicAsset(Utility.scoreMusic);
+		// scoreMusic.play();
+
+		// needs to be fixed. States for the game should add all these entities
+		PlayerEntity player = new PlayerEntity();
+		player.setUp(engine, bodyFactory);
+		engine.addEntity(player);
+
+		// needs to be fixed. States for the game should add all these entities
+		createFormation1();
+		createLives();
+
+		// needs to be fixed. States for the game should add all these entities
+		LevelEntity le = new LevelEntity();
+		le.init(engine, bodyFactory);
+		engine.addEntity(le);
+	}
+
+	@Override
+	public void render(float delta) {
+		Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		// if we are still delaying
+		if (rest) {
+			// blink the readyLabel
+			pauseAndBlink(delta);
+			// do not advance the engine
+			delta = 0;
+		}
+
+		Utility.background.render(delta, rest);
+		engine.update(delta);
+		arcadeStage.draw();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		arcadeStage.getViewport().update(width, height);
+	}
+
+	@Override
+	public void dispose() {
+		arcadeStage.dispose();
+	}
+
+	/**
+	 * This method will blink the readyLabel every .25 seconds and end the delay
+	 * when 1.5 seconds are up
+	 * 
+	 * @param delta the amount of elapsed time in seconds.
+	 */
+	private void pauseAndBlink(float delta) {
+		// .25 really should be a constant in the utility class
+		if (blinkTime < .25) {
+			blinkTime += delta;
+		} else {
+			blinkTime = 0;
+			// swap between "" and "Ready?"
+			if (readyLabel.getText().toString().equals("")) {
+				readyLabel.setText("Ready?");
+			} else {
+				readyLabel.setText("");
+			}
+		}
+		// 1.5 should really be a constant in the utility class.
+		if (resumeTime < 1.5) {
+			// if we are not done delaying
+			resumeTime += delta;
+		} else {
+			// stop the delay
+			rest = false;
+		}
+	}
+
+	/**
+	 * This method will set up the table to add to the stage
+	 */
+	private void setUpTable() {
+		Skin skin = Utility.STATUSUI_SKIN;
+
+		Table table = new Table();
+		// table.setDebug(true);
+		table.setFillParent(true);
+		// table
+		int score = 100;
+
+		Label p1Label = new Label("1UP:", skin, "tinyRed");
+		p1Label.setAlignment(Align.center);
+		p1ScoreLabel = new Label(score + "", skin, "tiny");
+		p1ScoreLabel.setAlignment(Align.center);
+		Label highLabel = new Label("High Score", skin, "tinyRed");
+		highLabel.setAlignment(Align.center);
+		Label highScoreLabel = new Label(score + "", skin, "tiny");
+		highScoreLabel.setAlignment(Align.center);
+		// This space is reserved for when we implement two player mode
+		Label p2Label = new Label("", skin, "tinyRed");
+		p2Label.setAlignment(Align.center);
+		p2ScoreLabel = new Label("", skin, "tiny");
+		p2ScoreLabel.setAlignment(Align.center);
+		readyLabel = new Label("Ready?", skin, "tinyCyan");
+		table.add(p1Label).center();
+		table.add(highLabel).center();
+		table.add(p2Label).center().row();
+		table.add(p1ScoreLabel).center().width(Utility.SCREEN_WIDTH / 3);
+		table.add(highScoreLabel).width(Utility.SCREEN_WIDTH / 3);
+		table.add(p2ScoreLabel).width(Utility.SCREEN_WIDTH / 3).row();
+		table.add(readyLabel).height(Utility.SCREEN_HEIGHT - p1ScoreLabel.getHeight() * 2).colspan(3).row();
+		arcadeStage.addActor(table);
+	}
+
+	/**
+	 * This method creates the entities for the lives. Should be controlled by the
+	 * PlayerSystem
+	 */
 	private void createLives() {
 		float y = 1.5f;
 		for (float r = 4.0f; r <= 5.5f; r += 1.5) {
@@ -81,8 +215,12 @@ public class ArcadeScreen extends ScreenAdapter {
 		}
 	}
 
-	// create the basic starting formation (Without animation)
-	// Coordinates may require readjustment
+	/**
+	 * create the basic starting formation (Without animation). Coordinates may
+	 * require readjustment. Eventually we will update this to "level start", where
+	 * the entities are created a the start of the level and their paths/order are
+	 * set
+	 */
 	private void createFormation1() {
 
 		/*
@@ -124,63 +262,5 @@ public class ArcadeScreen extends ScreenAdapter {
 			be.init(engine, bodyFactory);
 			engine.addEntity(be);
 		}
-	}
-	float resumeTime;
-	@Override
-	public void show() {
-		resumeTime=0;
-		Gdx.input.setInputProcessor(controller);
-		scoreMusic = Utility.getMusicAsset(Utility.scoreMusic);
-		scoreMusic.play();
-		Skin skin = Utility.STATUSUI_SKIN;
-
-		Table table = new Table();
-		table.setFillParent(true);
-		// table
-		int score = 100;
-		Label scoreLabel = new Label("Score: " + score, skin, "tiny");
-		table.add(scoreLabel).left().width(Utility.SCREEN_WIDTH).row();
-		table.add().width(Utility.SCREEN_WIDTH).height(Utility.SCREEN_HEIGHT).row();
-
-		PlayerEntity player = new PlayerEntity();
-		player.setUp(engine, bodyFactory);
-
-		engine.addEntity(player);
-		createFormation1();
-		createLives();
-
-		LevelEntity le = new LevelEntity();
-		le.init(engine, bodyFactory);
-		engine.addEntity(le);
-
-		
-		
-	}
-
-	
-
-	@Override
-	public void render(float delta) {
-		Gdx.gl.glClearColor(0f, 0f, 0f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		Utility.background.render(delta);
-		if(resumeTime<1.5){
-			resumeTime+=delta;
-			}
-			else{
-				
-				engine.update(delta);
-				arcadeStage.draw();	
-			}
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		arcadeStage.getViewport().update(width, height);
-	}
-
-	@Override
-	public void dispose() {
-		arcadeStage.dispose();
 	}
 }
