@@ -34,7 +34,7 @@ public class EnemySystem extends IteratingSystem {
         bodm = ComponentMapper.getFor(B2dBodyComponent.class);
 
         //this path is actually path #4. Took the main points from the desmos graph
-        Vector2[] points = { new Vector2(28, 4), new Vector2(16, 18), new Vector2(20, 22), new Vector2(24, 18),
+        Vector2[] points = { new Vector2(36, 4), new Vector2(28, 4), new Vector2(16, 18), new Vector2(20, 22), new Vector2(24, 18),
                 new Vector2(20, 14), new Vector2(10, 20) };
         //create a new spline using the points above
         CatmullRomSpline<Vector2> myCatmull = new CatmullRomSpline<Vector2>(points, false);
