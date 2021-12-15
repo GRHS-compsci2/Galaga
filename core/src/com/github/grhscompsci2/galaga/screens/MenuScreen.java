@@ -45,7 +45,7 @@ public class MenuScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(_stage);
-        themeMusic = Utility.getMusicAsset(Utility.themeMusic);
+         Utility.playMusicAsset(parent, Utility.themeMusic);
         // themeMusic.play();
     }
 

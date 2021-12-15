@@ -45,7 +45,6 @@ public class ArcadeScreen extends ScreenAdapter {
 	private World world;
 	private KeyboardController controller;
 	private Stage arcadeStage;
-	private Music scoreMusic;
 	private Label readyLabel;
 	private Label p1ScoreLabel;
 	private Label p2ScoreLabel;
@@ -92,7 +91,7 @@ public class ArcadeScreen extends ScreenAdapter {
 		rest = true;
 
 		Gdx.input.setInputProcessor(controller);
-		scoreMusic = Utility.getMusicAsset(Utility.scoreMusic);
+		Utility.playMusicAsset(parent, Utility.scoreMusic);
 		// scoreMusic.play();
 
 		// needs to be fixed. States for the game should add all these entities

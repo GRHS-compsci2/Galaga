@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.github.grhscompsci2.galaga.MyGdxGame;
 import com.github.grhscompsci2.galaga.Utility;
@@ -28,8 +27,7 @@ public class PreferencesScreen extends ScreenAdapter {
     private Label titleLabel;
     private Label volumeMusicLabel;
     private Label volumeSoundLabel;
-    private Label musicOnOffLabel;
-    private Label soundOnOffLabel;
+
 
     public PreferencesScreen(MyGdxGame myGdxGame) {
         parent = myGdxGame;
@@ -42,7 +40,7 @@ public class PreferencesScreen extends ScreenAdapter {
         table.setFillParent(true);
     
         // shows debug for preferences menu
-        table.setDebug(true);
+        //table.setDebug(true);
 
         Skin skin = Utility.STATUSUI_SKIN;
     
@@ -53,6 +51,7 @@ public class PreferencesScreen extends ScreenAdapter {
             @Override
             public boolean handle(Event event) {
                 parent.getPreferences().setMusicVolume(volumeMusicSlider.getValue());
+                Utility.updateVolume(parent);
                 return false;
             }
         });
@@ -75,6 +74,7 @@ public class PreferencesScreen extends ScreenAdapter {
             public boolean handle(Event event) {
                 boolean enabled = musicCheckbox.isChecked();
                 parent.getPreferences().setMusicEnabled(enabled);
+                Utility.updateVolume(parent);
                 return false;
             }
         });
@@ -101,8 +101,7 @@ public class PreferencesScreen extends ScreenAdapter {
         titleLabel = new Label("Settings", skin,"small");
         volumeMusicLabel = new Label("Music", skin, "tiny");
         volumeSoundLabel = new Label("SFX", skin, "tiny");
-        musicOnOffLabel = new Label("Mute", skin, "tiny");
-        soundOnOffLabel = new Label("Mute", skin, "tiny");
+
         float width=100;
         table.add(titleLabel).colspan(3);
         table.row();
@@ -111,7 +110,6 @@ public class PreferencesScreen extends ScreenAdapter {
         table.add(volumeMusicLabel).center().pad(5);
         table.add(volumeMusicSlider).width(width).pad(5);
         table.add(musicCheckbox).pad(5);
-        table.row();
         table.row();
         table.add(volumeSoundLabel).center().pad(5);
         table.add(volumeSoundSlider).width(width).pad(5);
@@ -125,13 +123,10 @@ public class PreferencesScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-
-
     }
 
     @Override
     public void render(float delta) {
-
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Utility.background.render(delta,true);
