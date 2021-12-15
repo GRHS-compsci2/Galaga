@@ -32,7 +32,6 @@ public class LoadingScreen extends ScreenAdapter {
         Utility.loadAllMusicAsset();
         Utility.loadAllSoundAsset();
         Utility.loadTextureAtlasAsset();
-
     }
 
     @Override

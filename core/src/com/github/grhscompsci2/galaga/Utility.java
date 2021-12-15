@@ -32,8 +32,10 @@ public final class Utility {
     public static final String galagaAttack = "music/galagaAttack.mp3";
     public static final String galagaExplosion1 = "music/galagaExplosion1.mp3";
     public static final String galagaExplosion2 = "music/galagaExplosion2.mp3";
-    
+
     public static Background background = new Background();
+    private static Music music;
+    private static Sound sound;
 
     public static void unloadAsset(String assetFilenamePath) {
         if (_assetManager.isLoaded(assetFilenamePath)) {
@@ -90,6 +92,16 @@ public final class Utility {
         return sound;
     }
 
+    public static void playSoundAsset(MyGdxGame parent, String soundAssetPath) {
+        sound = getSoundAsset(soundAssetPath);
+        float vol = 0;
+        if (parent.getPreferences().isMusicEnabled()) {
+            vol = parent.getPreferences().getMusicVolume();
+        }
+        Gdx.app.debug(TAG, "Volume:" + vol);
+        sound.play(vol);
+    }
+
     public static void loadMusicAsset(String musicAssetPath) {
         if (musicAssetPath == null || musicAssetPath.isEmpty()) {
             return;
@@ -120,6 +132,24 @@ public final class Utility {
         return music;
     }
 
+    public static void playMusicAsset(MyGdxGame parent, String musicAssetPath) {
+        music = getMusicAsset(musicAssetPath);
+        float vol = 0;
+        if (parent.getPreferences().isMusicEnabled()) {
+            vol = parent.getPreferences().getMusicVolume();
+        }
+        Gdx.app.debug(TAG, "Volume:" + vol);
+        music.setVolume(vol);
+        music.play();
+    }
+
+    public static void updateVolume(MyGdxGame parent){
+        float vol = 0;
+        if (parent.getPreferences().isMusicEnabled()) {
+            vol = parent.getPreferences().getMusicVolume();
+        }
+        music.setVolume(vol);
+    }
     public static void loadTextureAtlasAsset() {
         if (SPRITES_TEXTURE_ATLAS_PATH == null || SPRITES_TEXTURE_ATLAS_PATH.isEmpty()) {
             return;
@@ -157,7 +187,7 @@ public final class Utility {
         return region;
     }
 
-  public static void loadAllMusicAsset() {
+    public static void loadAllMusicAsset() {
         loadMusicAsset(themeMusic);
         loadMusicAsset(scoreMusic);
     }
@@ -168,4 +198,5 @@ public final class Utility {
         loadSoundAsset(galagaExplosion1);
         loadSoundAsset(galagaExplosion2);
     }
+
 }

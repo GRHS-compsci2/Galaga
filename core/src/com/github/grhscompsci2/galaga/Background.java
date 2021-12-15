@@ -76,9 +76,9 @@ public class Background implements Screen {
                     accel = 0;
                 }
             }
-            if (accel > 0 && accel < 1) {
+            /*if (accel > 0 && accel < 1) {
                 Gdx.app.debug(TAG, "Accel:" + accel);
-            }
+            }*/
             // move star to top & random x if below screen.
             if (starY[i] < 1) {
                 starY[i] = height;
