@@ -10,6 +10,7 @@ import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
+import com.github.grhscompsci2.galaga.components.EnemyComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
@@ -35,6 +36,8 @@ public class ButterflyGalagaEntity extends Entity {
 
         AnimationComponent aComponent = engine.createComponent(AnimationComponent.class);
         aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
+        aComponent.animations.put(StateComponent.STATE_ENTRY_IDLE, ani);
+        aComponent.animations.put(StateComponent.STATE_ENTRY, ani);
         super.add(aComponent);
 
         TextureComponent tex = engine.createComponent(TextureComponent.class);
@@ -43,7 +46,7 @@ public class ButterflyGalagaEntity extends Entity {
 
         StateComponent sComponent = engine.createComponent(StateComponent.class);
         sComponent.isLooping = true;
-        sComponent.set(StateComponent.STATE_NORMAL);
+        sComponent.set(StateComponent.STATE_ENTRY);
         super.add(sComponent);
 
         TranslationComponent pos = engine.createComponent(TranslationComponent.class);
@@ -53,5 +56,9 @@ public class ButterflyGalagaEntity extends Entity {
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
         b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, true);
         add(b2d);
+        EnemyComponent enemyComponent=engine.createComponent(EnemyComponent.class);
+        enemyComponent.initPaths(x, y);
+        enemyComponent.setPath(0);
+        super.add(enemyComponent);
     }
 }

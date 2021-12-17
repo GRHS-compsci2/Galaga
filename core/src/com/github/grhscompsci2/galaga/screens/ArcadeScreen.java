@@ -3,7 +3,6 @@ package com.github.grhscompsci2.galaga.screens;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
@@ -14,14 +13,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.github.grhscompsci2.galaga.EnemyFormation;
 import com.github.grhscompsci2.galaga.KeyboardController;
 import com.github.grhscompsci2.galaga.MyGdxGame;
 import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.b2d.B2dContactListener;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.entities.BeeGalagaEntity;
-import com.github.grhscompsci2.galaga.entities.BoundariesEntity;
-import com.github.grhscompsci2.galaga.entities.BulletEntity;
 import com.github.grhscompsci2.galaga.entities.ButterflyGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.GreenBatGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.LevelEntity;
@@ -65,7 +63,7 @@ public class ArcadeScreen extends ScreenAdapter {
 		bodyFactory = BodyFactory.getInstance(world);
 		controller = new KeyboardController();
 		arcadeStage = new Stage(new FitViewport(Utility.SCREEN_WIDTH, Utility.SCREEN_HEIGHT, new OrthographicCamera()));
-
+		EnemyFormation.init();
 		RenderingSystem renderingSystem = new RenderingSystem(arcadeStage.getBatch());
 		cam = renderingSystem.getCamera();
 		arcadeStage.getBatch().setProjectionMatrix(cam.combined);
@@ -221,45 +219,61 @@ public class ArcadeScreen extends ScreenAdapter {
 	 * set
 	 */
 	private void createFormation1() {
-
-		/*
-		 * for (float y = 16.0f; y <= 17.75f; y += 1.75f) {
-		 * for (float x = 8.0f; x < 28.0f; x += 2.0f) {
-		 */
-		BeeGalagaEntity bee = new BeeGalagaEntity(28.0f, 4.0f);
-		bee.init(engine, bodyFactory);
-		engine.addEntity(bee);
-		/*
-		 * }
-		 * }
-		 */
-		for (float y = 19.5f; y <= 21.25f; y += 1.75f) {
-			for (float x = 10.0f; x < 26.0f; x += 2.0f) {
-				ButterflyGalagaEntity bf = new ButterflyGalagaEntity(x, y);
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < EnemyFormation.formation[i].length; j++) {
+				GreenBatGalagaEntity gb = new GreenBatGalagaEntity(EnemyFormation.formation[i][j].x,
+						EnemyFormation.formation[i][j].y);
+				gb.init(engine, bodyFactory);
+				engine.addEntity(gb);
+			}
+		}
+		for (int i = 2; i < 4; i++) {
+			for (int j = 0; j < EnemyFormation.formation[i].length; j++) {
+				ButterflyGalagaEntity bf = new ButterflyGalagaEntity(EnemyFormation.formation[i][j].x,
+						EnemyFormation.formation[i][j].y);
 				bf.init(engine, bodyFactory);
 				engine.addEntity(bf);
 			}
 		}
-
-		for (float x = 14.0f; x < 22.0f; x += 2.0f) {
-			float y = 23.0f;
-			GreenBatGalagaEntity gb = new GreenBatGalagaEntity(x, y);
-			gb.init(engine, bodyFactory);
-			engine.addEntity(gb);
+		for (int i = 4; i < 6; i++) {
+			for (int j = 0; j < EnemyFormation.formation[i].length; j++) {
+				BeeGalagaEntity bee = new BeeGalagaEntity(EnemyFormation.formation[i][j].x,
+						EnemyFormation.formation[i][j].y);
+				bee.init(engine, bodyFactory, 0);
+				engine.addEntity(bee);
+			}
 		}
 
-		for (float x = 14.0f; x < 22.0f; x += 2.0f) {
-			float y = 23.0f;
-			GreenBatGalagaEntity gb = new GreenBatGalagaEntity(x, y);
-			gb.init(engine, bodyFactory);
-			engine.addEntity(gb);
-		}
-
-		for (float x = 0f; x <= 28.0f; x += 28.0f) {
-			float y = 2.5f;
-			BoundariesEntity be = new BoundariesEntity(x, y);
-			be.init(engine, bodyFactory);
-			engine.addEntity(be);
-		}
+		/*
+		 * }
+		 * }
+		 * 
+		 * for (float y = 19.5f; y <= 21.25f; y += 1.75f) {
+		 * for (float x = 10.0f; x < 26.0f; x += 2.0f) {
+		 * ButterflyGalagaEntity bf = new ButterflyGalagaEntity(x, y);
+		 * bf.init(engine, bodyFactory);
+		 * engine.addEntity(bf);
+		 * }
+		 * }
+		 * 
+		 * for (float x = 14.0f; x < 22.0f; x += 2.0f) {
+		 * float y = 23.0f;
+		 * GreenBatGalagaEntity gb = new GreenBatGalagaEntity(x, y);
+		 * gb.init(engine, bodyFactory);
+		 * engine.addEntity(gb);
+		 * }
+		 * 
+		 * for (float x = 14.0f; x < 22.0f; x += 2.0f) {
+		 * float y = 23.0f;
+		 * 
+		 * }
+		 * 
+		 * for (float x = 0f; x <= 28.0f; x += 28.0f) {
+		 * float y = 2.5f;
+		 * BoundariesEntity be = new BoundariesEntity(x, y);
+		 * be.init(engine, bodyFactory);
+		 * engine.addEntity(be);
+		 * }
+		 */
 	}
 }

@@ -23,7 +23,7 @@ public class BeeGalagaEntity extends Entity {
         this.y=y;
     }
 
-    public void init(Engine engine, BodyFactory bodyFactory) {
+    public void init(Engine engine, BodyFactory bodyFactory,int path) {
         
 
         Array<TextureRegion> keyFrames = new Array<TextureRegion>();
@@ -34,6 +34,8 @@ public class BeeGalagaEntity extends Entity {
 
         AnimationComponent aComponent = engine.createComponent(AnimationComponent.class);
         aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
+        aComponent.animations.put(StateComponent.STATE_ENTRY, ani);
+        aComponent.animations.put(StateComponent.STATE_ENTRY_IDLE, ani);
         super.add(aComponent);
 
         TextureComponent tex = engine.createComponent(TextureComponent.class);
@@ -42,20 +44,20 @@ public class BeeGalagaEntity extends Entity {
 
         StateComponent sComponent = engine.createComponent(StateComponent.class);
         sComponent.isLooping = true;
-        sComponent.set(StateComponent.STATE_NORMAL);
+        sComponent.set(StateComponent.STATE_ENTRY);
         super.add(sComponent);
 
         TranslationComponent pos = engine.createComponent(TranslationComponent.class);
-        pos.setPosition(x, y);
+        //pos.setPosition(x, y);
         super.add(pos);
 
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
         b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, true);
-        add(b2d);
+        super.add(b2d);
 
         EnemyComponent enemyComponent=engine.createComponent(EnemyComponent.class);
-        enemyComponent.setPath(EnemyComponent.PATH_1);
-        enemyComponent.startPath();
+        enemyComponent.initPaths(x, y);
+        enemyComponent.setPath(0);
         super.add(enemyComponent);
 
     }
