@@ -32,6 +32,7 @@ public final class Utility {
     public static final String galagaAttack = "music/galagaAttack.mp3";
     public static final String galagaExplosion1 = "music/galagaExplosion1.mp3";
     public static final String galagaExplosion2 = "music/galagaExplosion2.mp3";
+    public static final float PPM = 8;
 
     public static Background background = new Background();
     private static Music music;

@@ -21,7 +21,6 @@ public class MenuScreen extends ScreenAdapter {
 
     private Stage _stage;
     private MyGdxGame parent;
-    private Music themeMusic;
 
     public MenuScreen(MyGdxGame game) {
         parent = game;
