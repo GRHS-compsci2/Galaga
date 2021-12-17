@@ -22,6 +22,19 @@ public class BodyFactory {
     public static final int RUBBER = 2;
     public static final int STONE = 3;
 
+    // categories for our bodies
+    public final static short CATEGORY_PLAYER = 0x0001; // 0000000000000001 in binary
+    public final static short CATEGORY_MONSTER = 0x0002; // 0000000000000010 in binary
+    public final static short CATEGORY_MISSLE = 0x0004; // 0000000000000100 in binary
+    public final static short CATEGORY_OBSTACLE = 0x0008; // 0000000000001000 in binary
+
+    // masks for our bodies
+    public final static short MASK_PLAYER = CATEGORY_MONSTER | CATEGORY_MISSLE | CATEGORY_OBSTACLE; // or
+                                                                                                    // ~CATEGORY_PLAYER
+    public final static short MASK_MONSTER = CATEGORY_PLAYER | CATEGORY_MISSLE; // or ~CATEGORY_MONSTER
+    public final static short MASK_MISSLE = -1;
+    public final static short MASK_OBSTACLE = -1;
+
     private BodyFactory(World world) {
         this.world = world;
     }
@@ -33,34 +46,36 @@ public class BodyFactory {
         return thisInstance;
     }
 
-    static public FixtureDef makeFixture(int material, Shape shape) {
+    static public FixtureDef makeFixture(int material, Shape shape, short category, short mask) {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
+        fixtureDef.filter.maskBits = mask;
+        fixtureDef.filter.categoryBits = category;
 
         switch (material) {
-        case STEEL:
-            fixtureDef.density = 1f;
-            fixtureDef.friction = 0.3f;
-            fixtureDef.restitution = 0.1f;
-            break;
-        case WOOD:
-            fixtureDef.density = 0.5f;
-            fixtureDef.friction = 0.7f;
-            fixtureDef.restitution = 0.3f;
-            break;
-        case RUBBER:
-            fixtureDef.density = 1f;
-            fixtureDef.friction = 0f;
-            fixtureDef.restitution = 1f;
-            break;
-        case STONE:
-            fixtureDef.density = 1f;
-            fixtureDef.friction = 0.9f;
-            fixtureDef.restitution = 0.01f;
-        default:
-            fixtureDef.density = 7f;
-            fixtureDef.friction = 0.5f;
-            fixtureDef.restitution = 0.3f;
+            case STEEL:
+                fixtureDef.density = 1f;
+                fixtureDef.friction = 0.3f;
+                fixtureDef.restitution = 0.1f;
+                break;
+            case WOOD:
+                fixtureDef.density = 0.5f;
+                fixtureDef.friction = 0.7f;
+                fixtureDef.restitution = 0.3f;
+                break;
+            case RUBBER:
+                fixtureDef.density = 1f;
+                fixtureDef.friction = 0f;
+                fixtureDef.restitution = 1f;
+                break;
+            case STONE:
+                fixtureDef.density = 1f;
+                fixtureDef.friction = 0.9f;
+                fixtureDef.restitution = 0.01f;
+            default:
+                fixtureDef.density = 7f;
+                fixtureDef.friction = 0.5f;
+                fixtureDef.restitution = 0.3f;
         }
         return fixtureDef;
     }
@@ -71,30 +86,34 @@ public class BodyFactory {
      * dynamic, static, or kinematic fixedrotation - true if we want it to not
      * rotate
      */
-    public Body makeCirclePolyBody(float posx, float posy, float radius, int material, BodyDef.BodyType bodyType,
-            boolean fixedRotation) {
-        // create a definition
-        BodyDef boxBodyDef = new BodyDef();
-        boxBodyDef.type = bodyType;
-        boxBodyDef.position.x = posx;
-        boxBodyDef.position.y = posy;
-        boxBodyDef.fixedRotation = fixedRotation;
-
-        // create the body to attach said definition
-        Body boxBody = world.createBody(boxBodyDef);
-        CircleShape circleShape = new CircleShape();
-        circleShape.setRadius(radius / 2);
-        boxBody.createFixture(makeFixture(material, circleShape));
-        circleShape.dispose();
-        return boxBody;
-    }
-
-    public Body makeCirclePolyBody(float posx, float posy, float radius, int material) {
-        return makeCirclePolyBody(posx, posy, radius, material, BodyDef.BodyType.DynamicBody, false);
-    }
-
+    /*
+     * public Body makeCirclePolyBody(float posx, float posy, float radius, int
+     * material, BodyDef.BodyType bodyType,
+     * boolean fixedRotation) {
+     * // create a definition
+     * BodyDef boxBodyDef = new BodyDef();
+     * boxBodyDef.type = bodyType;
+     * boxBodyDef.position.x = posx;
+     * boxBodyDef.position.y = posy;
+     * boxBodyDef.fixedRotation = fixedRotation;
+     * 
+     * // create the body to attach said definition
+     * Body boxBody = world.createBody(boxBodyDef);
+     * CircleShape circleShape = new CircleShape();
+     * circleShape.setRadius(radius / 2);
+     * boxBody.createFixture(makeFixture(material, circleShape));
+     * circleShape.dispose();
+     * return boxBody;
+     * }
+     * 
+     * public Body makeCirclePolyBody(float posx, float posy, float radius, int
+     * material) {
+     * return makeCirclePolyBody(posx, posy, radius, material,
+     * BodyDef.BodyType.DynamicBody, false);
+     * }
+     */
     public Body makeBoxPolyBody(float posx, float posy, float width, float height, int material, BodyType bodyType,
-            boolean fixedRotation) {
+            short category, short mask, boolean fixedRotation) {
         // create a definition
         BodyDef boxBodyDef = new BodyDef();
         boxBodyDef.type = bodyType;
@@ -106,31 +125,34 @@ public class BodyFactory {
         Body boxBody = world.createBody(boxBodyDef);
         PolygonShape poly = new PolygonShape();
         poly.setAsBox(width / 2, height / 2);
-        boxBody.createFixture(makeFixture(material, poly));
+        boxBody.createFixture(makeFixture(material, poly, category, mask));
         poly.dispose();
 
         return boxBody;
     }
 
-    public Body makeBoxPolyBody(float posx, float posy, float width, float height, int material, BodyType bodyType) {
-        return makeBoxPolyBody(posx, posy, width, height, material, bodyType, false);
+    public Body makeBoxPolyBody(float posx, float posy, float width, float height, int material, BodyType bodyType,
+            short category, short mask) {
+        return makeBoxPolyBody(posx, posy, width, height, material, bodyType, category, mask, false);
     }
 
-    public Body makePolygonShapeBody(Vector2[] vertices, float posx, float posy, int material, BodyType bodyType) {
-        BodyDef boxBodyDef = new BodyDef();
-        boxBodyDef.type = bodyType;
-        boxBodyDef.position.x = posx;
-        boxBodyDef.position.y = posy;
-        Body boxBody = world.createBody(boxBodyDef);
-
-        PolygonShape polygon = new PolygonShape();
-        polygon.set(vertices);
-        boxBody.createFixture(makeFixture(material, polygon));
-        polygon.dispose();
-
-        return boxBody;
-    }
-
+    /*
+     * public Body makePolygonShapeBody(Vector2[] vertices, float posx, float posy,
+     * int material, BodyType bodyType) {
+     * BodyDef boxBodyDef = new BodyDef();
+     * boxBodyDef.type = bodyType;
+     * boxBodyDef.position.x = posx;
+     * boxBodyDef.position.y = posy;
+     * Body boxBody = world.createBody(boxBodyDef);
+     * 
+     * PolygonShape polygon = new PolygonShape();
+     * polygon.set(vertices);
+     * boxBody.createFixture(makeFixture(material, polygon));
+     * polygon.dispose();
+     * 
+     * return boxBody;
+     * }
+     */
     // used as field of view
     public void makeConeSensor(Body body, float size) {
 

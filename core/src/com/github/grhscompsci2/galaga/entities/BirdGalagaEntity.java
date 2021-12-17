@@ -21,9 +21,9 @@ public class BirdGalagaEntity extends Entity {
         float y = (float) (Math.random() * 16 + 1);
         Array<TextureRegion> keyFrames = new Array<TextureRegion>();
         keyFrames.add(Utility.getTextureRegionAsset("bird1"));
-        
+
         Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
-        
+
         AnimationComponent aComponent = engine.createComponent(AnimationComponent.class);
         aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
         super.add(aComponent);
@@ -31,19 +31,19 @@ public class BirdGalagaEntity extends Entity {
         TextureComponent tex = engine.createComponent(TextureComponent.class);
         tex.region = Utility.getTextureRegionAsset("bird2");
         super.add(tex);
-        
+
         StateComponent sComponent = engine.createComponent(StateComponent.class);
         sComponent.isLooping = true;
         sComponent.set(StateComponent.STATE_NORMAL);
         super.add(sComponent);
-        
+
         TranslationComponent pos = engine.createComponent(TranslationComponent.class);
         pos.setPosition(x, y);
         super.add(pos);
-        
+
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
-        b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, true);
-        add(b2d);
+        b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody,
+                BodyFactory.CATEGORY_MONSTER, BodyFactory.MASK_MONSTER, true);
+        super.add(b2d);
     }
 }
-
