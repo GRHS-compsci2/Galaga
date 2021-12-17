@@ -19,15 +19,16 @@ public class ButterflyGalagaEntity extends Entity {
 
     float x;
     float y;
+
     public ButterflyGalagaEntity(float x, float y) {
-        this.x=x;
-        this.y=y;
+        this.x = x;
+        this.y = y;
     }
 
     public void init(Engine engine, BodyFactory bodyFactory) {
 
-       // float x = (float) (Math.random() * 16 + 1);
-       // float y = (float) (Math.random() * 16 + 1);
+        // float x = (float) (Math.random() * 16 + 1);
+        // float y = (float) (Math.random() * 16 + 1);
         Array<TextureRegion> keyFrames = new Array<TextureRegion>();
         keyFrames.add(Utility.getTextureRegionAsset("butterfly1"));
         keyFrames.add(Utility.getTextureRegionAsset("butterfly2"));
@@ -54,9 +55,11 @@ public class ButterflyGalagaEntity extends Entity {
         super.add(pos);
 
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
-        b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, true);
-        add(b2d);
-        EnemyComponent enemyComponent=engine.createComponent(EnemyComponent.class);
+        b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody,
+                BodyFactory.CATEGORY_MONSTER, BodyFactory.MASK_MONSTER, true);
+        super.add(b2d);
+
+        EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
         enemyComponent.initPaths(x, y);
         enemyComponent.setPath(0);
         super.add(enemyComponent);

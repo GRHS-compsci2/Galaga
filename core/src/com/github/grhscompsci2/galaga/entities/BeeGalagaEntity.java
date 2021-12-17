@@ -18,13 +18,13 @@ import com.github.grhscompsci2.galaga.components.TranslationComponent;
 public class BeeGalagaEntity extends Entity {
     float x;
     float y;
+
     public BeeGalagaEntity(float x, float y) {
-        this.x=x;
-        this.y=y;
+        this.x = x;
+        this.y = y;
     }
 
-    public void init(Engine engine, BodyFactory bodyFactory,int path) {
-        
+    public void init(Engine engine, BodyFactory bodyFactory, int path) {
 
         Array<TextureRegion> keyFrames = new Array<TextureRegion>();
         keyFrames.add(Utility.getTextureRegionAsset("bee1"));
@@ -48,14 +48,15 @@ public class BeeGalagaEntity extends Entity {
         super.add(sComponent);
 
         TranslationComponent pos = engine.createComponent(TranslationComponent.class);
-        //pos.setPosition(x, y);
+        // pos.setPosition(x, y);
         super.add(pos);
 
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
-        b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, true);
+        b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody,
+                BodyFactory.CATEGORY_MONSTER, BodyFactory.MASK_MONSTER, true);
         super.add(b2d);
 
-        EnemyComponent enemyComponent=engine.createComponent(EnemyComponent.class);
+        EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
         enemyComponent.initPaths(x, y);
         enemyComponent.setPath(0);
         super.add(enemyComponent);
