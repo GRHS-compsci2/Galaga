@@ -38,6 +38,7 @@ public class EnemySystem extends IteratingSystem {
         StateComponent stateComponent = sm.get(entity);
         Vector2 idle = enemyComponent.updateFormation(deltaTime);
 
+        // decide what to do based on the entity's state
         switch (stateComponent.getState()) {
             case StateComponent.STATE_ENTRY:
                 entry(entity, deltaTime);
@@ -72,7 +73,6 @@ public class EnemySystem extends IteratingSystem {
         bodyComponent.body.setTransform(out, tmpV2.angleRad() + MathUtils.degRad * -90);
         // Gdx.app.debug(TAG, "Position:" + bodyComponent.body.getPosition());
         if (enemyComponent.getCurTime() > 1) {
-            // Gdx.app.debug(TAG, "Moving to Idle");
             stateComponent.set(StateComponent.STATE_ENTRY_IDLE);
             enemyComponent.setInTransit(true);
         }
@@ -85,19 +85,13 @@ public class EnemySystem extends IteratingSystem {
     private void entryIdle(Entity entity, float deltaTime, Vector2 idle) {
         EnemyComponent enemyComponent = eCMapper.get(entity);
         B2dBodyComponent bodyComponent = bodm.get(entity);
-        StateComponent stateComponent = sm.get(entity);
         Vector2 next = new Vector2();
         if (enemyComponent.isInTransit()) {
-            Gdx.app.debug(TAG, "in Transit!");
             next = enemyComponent.goHome(bodyComponent.body.getPosition());
             bodyComponent.body.setTransform(bodyComponent.body.getPosition().add(next), next.angleRad());
             enemyComponent.areWeThereYet(bodyComponent.body.getPosition());
         } else {
             bodyComponent.body.setTransform(idle, 0);
         }
-        // move from swoop path to entryIdle until the gang is all here.
-        // Gdx.app.debug(TAG,
-        // "Distance:"+bodyComponent.body.getPosition().dst(enemyComponent.getLastPoint()));
-
     }
 }

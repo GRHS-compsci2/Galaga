@@ -12,27 +12,35 @@ public class EnemyComponent implements Component {
     public static final int PATH_3 = 2;
     public static final int PATH_4 = 3;
     private static final String TAG = EnemyComponent.class.getSimpleName();
-
+    // the path the enemy is on
     private int path;
+    // percentage of the path traveled between 0 and 1
     private float curTime;
+    // used to push the formation back and forth during idle entry
     private float idleTime;
+    // how fast the enemy travels
     private float speed = 10.0f;
+    // used to control if the enemy is moving from the end of the path to home
     private boolean inTransit;
+    // Is the swarm travelling left?
     private boolean goingLeft;
+    // The home position in the formation
     private Vector2 home;
+    // array to hold all possible paths
     private Array<CatmullRomSpline<Vector2>> paths = new Array<CatmullRomSpline<Vector2>>();
-
-    // this path is actually path #4. Took the main points from the desmos graph
+    // array to hold all control points. Needs to be seperate so we can dynamically
+    // path to home position
     private Array<Vector2[]> controlPoints = new Array<Vector2[]>();
+    // Path #4 as defined in "Kat's GDD". Took the main points from the desmos graph
     private Vector2[] path4 = {
             new Vector2(36, 4),
             new Vector2(36, 4),
             new Vector2(28, 4),
-            new Vector2(20,10),
+            new Vector2(20, 10),
             new Vector2(16, 18),
-            new Vector2(17,20.646f),
+            new Vector2(17, 20.646f),
             new Vector2(20, 22),
-            new Vector2(22.4f,21.2f),
+            new Vector2(22.4f, 21.2f),
             new Vector2(24, 18),
             new Vector2(22, 14.536f),
             new Vector2(20, 14),
@@ -40,87 +48,141 @@ public class EnemyComponent implements Component {
             new Vector2(16, 14)
     };
 
+    /**
+     * Initialize the arrays for the paths
+     * 
+     * @param x the x coordinate of the home position
+     * @param y the y coordinate of the home position
+     */
     public void initPaths(float x, float y) {
-
-        inTransit=false;
-        goingLeft=false;
-        idleTime=0;
+        // we will start on the entry path, so not in transit
+        inTransit = false;
+        // formation starts going right
+        goingLeft = false;
+        idleTime = 0;
+        // add the paths to the control points array
         controlPoints.add(path4);
-        home=new Vector2(x,y);
+        // set the home position
+        home = new Vector2(x, y);
+        // create CatmullRomSplines (curves) for each path
         for (Vector2[] p : controlPoints) {
             CatmullRomSpline<Vector2> myCatmull = new CatmullRomSpline<Vector2>(p, false);
             paths.add(myCatmull);
         }
-        // create a new spline using the points above
     }
 
+    /**
+     * Update the current path and reset the path position
+     * @param path the path number
+     */
     public void setPath(int path) {
         this.path = path;
         curTime = 0;
     }
 
+    /**
+     * gets the current path as a CatmullRomSpline
+     * @return current path
+     */
     public CatmullRomSpline<Vector2> getPath() {
         return paths.get(path);
     }
 
+    /**
+     * returns the speed of the enemy
+     * @return the speed of the enemy
+     */
     public float getSpeed() {
         return speed;
     }
 
+    /**
+     * resets the current position in the path
+     */
     public void startPath() {
         curTime = 0;
     }
 
+    /**
+     * increase the current position by the provided amount
+     * @param deltaTime 
+     */
     public void updateCurTime(float deltaTime) {
         curTime += deltaTime;
-        //Gdx.app.debug(TAG, "Current Time:" + curTime);
+        // Gdx.app.debug(TAG, "Current Time:" + curTime);
     }
 
     public float getCurTime() {
         return curTime;
     }
 
+    /**
+     * get the last point of the current path
+     * @return last point as a Vector2 object
+     */
     public Vector2 getLastPoint() {
         Vector2[] tmp = controlPoints.get(path);
         return tmp[tmp.length - 1];
     }
 
-    public boolean isInTransit(){
+    /**
+     * check to see if we are marked as moving home
+     * @return inTransit boolean
+     */
+    public boolean isInTransit() {
         return inTransit;
     }
 
+    /**
+     * update inTransit to val
+     * @param val the new value of inTransit
+     */
     public void setInTransit(boolean val) {
-        inTransit=val;
+        inTransit = val;
     }
 
+    /**
+     * This method will update the position of the formation, so all enemies can move in sync
+     * @param deltaTime the elapsed time
+     * @return the new position of the enemy
+     */
     public Vector2 updateFormation(float deltaTime) {
-        Vector2 position=new Vector2();
-        idleTime+=deltaTime;
-        
-        float x=(idleTime-2)*2;
-        if(goingLeft){
-            x*=-1;
+        Vector2 position = new Vector2();
+        idleTime += deltaTime;
+
+        float x = (idleTime - 2) * 2;
+        if (goingLeft) {
+            x *= -1;
         }
-        if(idleTime>4){
-            idleTime=0;
-            goingLeft=!goingLeft;
+        if (idleTime > 4) {
+            idleTime = 0;
+            goingLeft = !goingLeft;
         }
         position.set(x, 0);
 
         return position.add(home);
     }
 
+    /**
+     * Check to see if we are close enough to home
+     * @param vector2
+     */
     public void areWeThereYet(Vector2 vector2) {
-        if(home.dst(vector2)<1){
-            inTransit=false;
+        if (home.dst(vector2) < 1) {
+            inTransit = false;
         }
     }
 
+    /**
+     * From a given point, plot the direction home
+     * @param position where the enemy is
+     * @return the next position 
+     */
     public Vector2 goHome(Vector2 position) {
-        Vector2 retVal=new Vector2(.25f,.25f);
-        float diffx=home.x-position.x;
-        float diffy=home.y-position.y;
-        float theta = (float)(180.0 / Math.PI * Math.atan2(diffy,diffx));
+        Vector2 retVal = new Vector2(.25f, .25f);
+        float diffx = home.x - position.x;
+        float diffy = home.y - position.y;
+        float theta = (float) (180.0 / Math.PI * Math.atan2(diffy, diffx));
         retVal.setLength(.25f);
         retVal.setAngleDeg(theta);
         return retVal;
