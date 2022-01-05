@@ -2,9 +2,13 @@ package com.github.grhscompsci2.galaga.entities;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
+import com.github.grhscompsci2.galaga.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.components.PlayerComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
@@ -37,5 +41,10 @@ public class PlayerEntity extends Entity {
         StateComponent state = engine.createComponent(StateComponent.class);
         state.set(StateComponent.STATE_NORMAL);
         super.add(state);
+        add(state);
+
+        Array<TextureRegion> keyFrames = new Array<TextureRegion>();
+        keyFrames.add(Utility.getTextureRegionAsset("playerShip1"));
+        Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
     }
 }

@@ -14,6 +14,7 @@ public class StateComponent implements Component {
 	public static final int STATE_ENTRY_IDLE = 6;
 	public static final int STATE_SWARMING = 7;
 	public static final int STATE_DIVING = 8;
+    public static final int STATE_EXPLOSION = 10;
 	
 	private int state = 0;
     public float time = 0.0f;

@@ -37,6 +37,14 @@ public class GreenBatGalagaEntity extends Entity {
         aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
         aComponent.animations.put(StateComponent.STATE_ENTRY, ani);
         aComponent.animations.put(StateComponent.STATE_ENTRY_IDLE, ani);
+
+        keyFrames.clear();
+        keyFrames.add(Utility.getTextureRegionAsset("explosion1"));        
+        keyFrames.add(Utility.getTextureRegionAsset("explosion2"));        
+        keyFrames.add(Utility.getTextureRegionAsset("explosion3"));
+        
+        Animation<TextureRegion> explosionAni = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
+        aComponent.animations.put(StateComponent.STATE_EXPLOSION, explosionAni);
         super.add(aComponent);
 
         TextureComponent tex = engine.createComponent(TextureComponent.class);
