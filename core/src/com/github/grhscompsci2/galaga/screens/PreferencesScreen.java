@@ -95,7 +95,7 @@ public class PreferencesScreen extends ScreenAdapter {
             }
         });
 
-        final TextButton backButton = new TextButton("Back", skin, "default");
+        final TextButton backButton = new TextButton("Back", skin,"small");
         backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -103,11 +103,11 @@ public class PreferencesScreen extends ScreenAdapter {
             }
         });
 
-        titleLabel = new Label("Settings", skin);
-        volumeMusicLabel = new Label("Music", skin, "small");
-        volumeSoundLabel = new Label("Sounds", skin, "small");
-        musicOnOffLabel = new Label("Mute", skin, "small");
-        soundOnOffLabel = new Label("Mute", skin, "small");
+        titleLabel = new Label("Settings", skin,"small");
+        volumeMusicLabel = new Label("Music", skin, "tiny");
+        volumeSoundLabel = new Label("Sounds", skin, "tiny");
+        musicOnOffLabel = new Label("Mute", skin, "tiny");
+        soundOnOffLabel = new Label("Mute", skin, "tiny");
 
         table.add(titleLabel).colspan(2);
         table.row().height(24.2f);
