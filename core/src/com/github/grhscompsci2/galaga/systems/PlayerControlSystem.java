@@ -3,13 +3,17 @@ package com.github.grhscompsci2.galaga.systems;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.github.grhscompsci2.galaga.KeyboardController;
 import com.github.grhscompsci2.galaga.MyGdxGame;
 import com.github.grhscompsci2.galaga.MyGdxGame.ScreenType;
+import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.components.PlayerComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
+import com.github.grhscompsci2.galaga.entities.BulletEntity;
+import com.github.grhscompsci2.galaga.screens.ArcadeScreen;
 
 public class PlayerControlSystem extends IteratingSystem {
 	private String TAG = PlayerControlSystem.class.getSimpleName();
@@ -19,14 +23,20 @@ public class PlayerControlSystem extends IteratingSystem {
 	KeyboardController controller;
 	float speed = 15.0f;
 	MyGdxGame parentGdxGame;
+	PooledEngine engine;
+	BodyFactory bodyFactory;
+	float x;
+	float y;
 
-	public PlayerControlSystem(KeyboardController keyCon, MyGdxGame game) {
-		super(Family.all(PlayerComponent.class).get());
+	public PlayerControlSystem(KeyboardController keyCon, MyGdxGame game, PooledEngine engine, BodyFactory bodyFactory) {
+		super(Family.all(B2dBodyComponent.class, PlayerComponent.class).get());
 		parentGdxGame = game;
 		controller = keyCon;
 		pm = ComponentMapper.getFor(PlayerComponent.class);
 		bodm = ComponentMapper.getFor(B2dBodyComponent.class);
 		sm = ComponentMapper.getFor(StateComponent.class);
+		this.engine = engine;
+		this.bodyFactory = bodyFactory;
 	}
 
 	@Override
@@ -60,6 +70,13 @@ public class PlayerControlSystem extends IteratingSystem {
 		if (controller.esc) {
 			controller.esc = false;
 			parentGdxGame.setScreen(ScreenType.Pause);
+		}
+		
+		if (controller.spacebar) {
+			BulletEntity bu = new BulletEntity();
+			bu.init(engine, bodyFactory);
+
+			engine.addEntity(bu);
 		}
 
 		/*

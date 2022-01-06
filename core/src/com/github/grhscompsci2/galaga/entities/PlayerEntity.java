@@ -20,6 +20,7 @@ public class PlayerEntity extends Entity {
 
         TranslationComponent pos=engine.createComponent(TranslationComponent.class);
         pos.setPosition(18.0f,2.0f);
+        
         add(pos);
 
         B2dBodyComponent b2d=engine.createComponent(B2dBodyComponent.class);
