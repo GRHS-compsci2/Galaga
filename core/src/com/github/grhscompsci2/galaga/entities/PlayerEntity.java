@@ -46,5 +46,13 @@ public class PlayerEntity extends Entity {
         Array<TextureRegion> keyFrames = new Array<TextureRegion>();
         keyFrames.add(Utility.getTextureRegionAsset("playerShip1"));
         Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
+
+        keyFrames = new Array<TextureRegion>();
+        keyFrames.add(Utility.getTextureRegionAsset("explosion1"));
+        keyFrames.add(Utility.getTextureRegionAsset("explosion2"));
+        keyFrames.add(Utility.getTextureRegionAsset("explosion3"));
+        keyFrames.add(Utility.getTextureRegionAsset("explosion4"));
+
+        ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
     }
 }
