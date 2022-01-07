@@ -79,6 +79,12 @@ public class PlayerControlSystem extends IteratingSystem {
 			engine.addEntity(bu);
 		}
 
+		if (controller.spacebar) {
+			
+			BulletEntity bu = new BulletEntity();
+			
+		}
+
 		/*
 		 * if(controller.up &&
 		 * (state.get() == StateComponent.STATE_NORMAL || state.get() ==

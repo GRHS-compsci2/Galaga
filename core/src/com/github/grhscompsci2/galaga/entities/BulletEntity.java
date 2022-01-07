@@ -16,45 +16,39 @@ import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
 
-
 public class BulletEntity extends Entity {
 
         float x = 16.0f;
         float y = 14.0f;
-    
-        public void init(Engine engine, BodyFactory bodyFactory) {    
-       
-        
-        
 
-        Array<TextureRegion> keyFrames = new Array<TextureRegion>();
-        keyFrames.add(Utility.getTextureRegionAsset("playerBullet1"));
-        
+        public void init(Engine engine, BodyFactory bodyFactory) {
 
-        Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
+                Array<TextureRegion> keyFrames = new Array<TextureRegion>();
+                keyFrames.add(Utility.getTextureRegionAsset("playerBullet1"));
 
-        AnimationComponent aComponent = engine.createComponent(AnimationComponent.class);
-        aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
-        super.add(aComponent);
+                Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
 
-        TextureComponent tex = engine.createComponent(TextureComponent.class);
-        tex.region = Utility.getTextureRegionAsset("playerBullet1");
-        super.add(tex);
+                AnimationComponent aComponent = engine.createComponent(AnimationComponent.class);
+                aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
+                super.add(aComponent);
 
-        StateComponent sComponent = engine.createComponent(StateComponent.class);
-        sComponent.isLooping = true;
-        sComponent.set(StateComponent.STATE_NORMAL);
-        super.add(sComponent);
+                TextureComponent tex = engine.createComponent(TextureComponent.class);
+                tex.region = Utility.getTextureRegionAsset("playerBullet1");
+                super.add(tex);
 
-        TranslationComponent pos = engine.createComponent(TranslationComponent.class);
-        pos.setPosition(TranslationComponent.getPosition());
-        super.add(pos);
+                StateComponent sComponent = engine.createComponent(StateComponent.class);
+                sComponent.isLooping = true;
+                sComponent.set(StateComponent.STATE_NORMAL);
+                super.add(sComponent);
 
-        B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
-        b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, true);
-        add(b2d);
+                TranslationComponent pos = engine.createComponent(TranslationComponent.class);
+                pos.setPosition(x, y);
+                super.add(pos);
 
-    }
+                B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
+                b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, true);
+                add(b2d);
 
-       
+        }
+
 }
