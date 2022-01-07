@@ -53,7 +53,7 @@ public class BulletEntity extends Entity {
         super.add(pos);
 
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
-        b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, true);
+        b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, BodyFactory.CATEGORY_MISSLE, BodyFactory.MASK_MISSLE, true);
         add(b2d);
 
     }

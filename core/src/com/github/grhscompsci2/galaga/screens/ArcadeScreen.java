@@ -79,7 +79,7 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addSystem(new PhysicsSystem(world));
 		engine.addSystem(new CollisionSystem());
 
-		engine.addSystem(new PlayerControlSystem(controller, parent));
+		engine.addSystem(new PlayerControlSystem(controller, parent, engine, bodyFactory));
 		engine.addSystem(new EnemySystem());
 
 	}
