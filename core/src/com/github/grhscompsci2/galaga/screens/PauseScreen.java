@@ -51,10 +51,10 @@ public class PauseScreen extends ScreenAdapter {
         Table table = new Table();
         table.setFillParent(true);
         Label title = new Label("Pause", skin);
-        TextButton loadGameButton = new TextButton("Resume", skin,"small");
-        TextButton menuButton = new TextButton("Menu", skin,"small");
-        TextButton prefrenceButton = new TextButton("Settings", skin,"small");
-        TextButton exitButton = new TextButton("Exit", skin,"small");
+        TextButton loadGameButton = new TextButton("Resume", skin);
+        TextButton menuButton = new TextButton("Menu", skin);
+        TextButton prefrenceButton = new TextButton("Settings", skin);
+        TextButton exitButton = new TextButton("Exit", skin);
 
         table.add(title).spaceBottom(50).row();
         table.add(loadGameButton).spaceBottom(10).row();
