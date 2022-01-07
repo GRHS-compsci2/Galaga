@@ -62,6 +62,12 @@ public class PlayerControlSystem extends IteratingSystem {
 			parentGdxGame.setScreen(ScreenType.Pause);
 		}
 
+		if (controller.spacebar) {
+			
+			BulletEntity bu = new BulletEntity();
+			
+		}
+
 		/*
 		 * if(controller.up &&
 		 * (state.get() == StateComponent.STATE_NORMAL || state.get() ==
