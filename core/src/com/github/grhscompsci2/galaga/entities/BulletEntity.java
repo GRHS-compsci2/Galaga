@@ -1,6 +1,6 @@
 package com.github.grhscompsci2.galaga.entities;
 
-    import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -47,7 +47,9 @@ public class BulletEntity extends Entity {
         super.add(sComponent);
 
         TranslationComponent pos = engine.createComponent(TranslationComponent.class);
+
         pos.setPosition(x,y);
+
         super.add(pos);
 
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
@@ -55,5 +57,4 @@ public class BulletEntity extends Entity {
         add(b2d);
 
     }
-
 }

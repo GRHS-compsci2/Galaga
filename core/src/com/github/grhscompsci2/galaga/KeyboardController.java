@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 
 public class KeyboardController implements InputProcessor {
     public boolean left,right,up,down,esc;
+    public boolean spacebar;
     public static String TAG=KeyboardController.class.getSimpleName();
 	@Override
 	public boolean keyDown(int keycode) {
@@ -31,6 +32,11 @@ public class KeyboardController implements InputProcessor {
 	        case Keys.DOWN: 	
 	            down = true;	
 	            keyProcessed = true;
+                break;
+            case Keys.SPACE:
+                spacebar = true;
+                keyProcessed = true;
+                break;
         }
 	return keyProcessed;	
 }
@@ -58,6 +64,11 @@ switch (keycode)
         case Keys.DOWN: 	
             down = false;	
             keyProcessed = true;	
+            break;
+        case Keys.SPACE: 	
+            spacebar = false;	
+            keyProcessed = true;
+            break;
     }
 return keyProcessed;	
 }

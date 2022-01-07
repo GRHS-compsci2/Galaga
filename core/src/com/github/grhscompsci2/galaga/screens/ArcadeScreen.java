@@ -20,6 +20,8 @@ import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.b2d.B2dContactListener;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.entities.BeeGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.BoundariesEntity;
+import com.github.grhscompsci2.galaga.entities.BulletEntity;
 import com.github.grhscompsci2.galaga.entities.ButterflyGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.GreenBatGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.LevelEntity;
@@ -76,8 +78,10 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addSystem(new PhysicsDebugSystem(world, renderingSystem.getCamera()));
 		engine.addSystem(new PhysicsSystem(world));
 		engine.addSystem(new CollisionSystem());
+
 		engine.addSystem(new PlayerControlSystem(controller, parent));
 		engine.addSystem(new EnemySystem());
+
 	}
 
 	@Override
@@ -106,6 +110,8 @@ public class ArcadeScreen extends ScreenAdapter {
 		le.init(engine, bodyFactory);
 		engine.addEntity(le);
 	}
+
+	
 
 	@Override
 	public void render(float delta) {

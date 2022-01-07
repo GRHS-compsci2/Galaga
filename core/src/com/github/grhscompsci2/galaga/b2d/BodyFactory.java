@@ -1,6 +1,7 @@
 package com.github.grhscompsci2.galaga.b2d;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -177,5 +178,10 @@ public class BodyFactory {
         for (Fixture fix : bod.getFixtureList()) {
             fix.setSensor(true);
         }
+    }
+
+    public Body makeBoxPolyBody(Vector3 position, float posy, float width, int stone2, BodyType dynamicbody,
+            boolean b) {
+        return null;
     }
 }
