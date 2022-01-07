@@ -2,10 +2,8 @@ package com.github.grhscompsci2.galaga.entities;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.Utility;
@@ -46,9 +44,8 @@ public class BulletEntity extends Entity {
                 super.add(pos);
 
                 B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
-                b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, true);
+                b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody,
+                                BodyFactory.CATEGORY_MISSLE, BodyFactory.MASK_MISSLE, true);
                 add(b2d);
-
         }
-
 }
