@@ -49,7 +49,7 @@ public class PlayerControlSystem extends IteratingSystem {
 		}
 
 		if (b2body.body.getLinearVelocity().y == 0) {
-			if (state.get() == StateComponent.STATE_FALLING) {
+			if (state.getState() == StateComponent.STATE_FALLING) {
 				state.set(StateComponent.STATE_NORMAL);
 			}
 			if (b2body.body.getLinearVelocity().x != 0) {
@@ -77,6 +77,12 @@ public class PlayerControlSystem extends IteratingSystem {
 			bu.init(engine, bodyFactory);
 
 			engine.addEntity(bu);
+		}
+
+		if (controller.spacebar) {
+			
+			BulletEntity bu = new BulletEntity();
+			
 		}
 
 		/*

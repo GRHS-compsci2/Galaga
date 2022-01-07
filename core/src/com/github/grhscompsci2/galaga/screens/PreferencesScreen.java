@@ -27,30 +27,23 @@ public class PreferencesScreen extends ScreenAdapter {
     private Label titleLabel;
     private Label volumeMusicLabel;
     private Label volumeSoundLabel;
-    private Label musicOnOffLabel;
-    private Label soundOnOffLabel;
+
 
     public PreferencesScreen(MyGdxGame myGdxGame) {
         parent = myGdxGame;
         stage = new Stage(new FitViewport(Utility.SCREEN_WIDTH, Utility.SCREEN_HEIGHT, new OrthographicCamera()));
+        setupTable();
     }
-
-    @Override
-    public void show() {
-        Gdx.input.setInputProcessor(stage);
-
-        stage.clear();
-
+    
+    private void setupTable() {   
         Table table = new Table();
         table.setFillParent(true);
-
+    
         // shows debug for preferences menu
-        // table.setDebug(true);
-        stage.addActor(table);
+        //table.setDebug(true);
 
-        // temporary
         Skin skin = Utility.STATUSUI_SKIN;
-
+    
         // volume sliders
         final Slider volumeMusicSlider = new Slider(0f, 1f, 0.1f, false, skin);
         volumeMusicSlider.setValue(parent.getPreferences().getMusicVolume());
@@ -58,10 +51,11 @@ public class PreferencesScreen extends ScreenAdapter {
             @Override
             public boolean handle(Event event) {
                 parent.getPreferences().setMusicVolume(volumeMusicSlider.getValue());
+                Utility.updateVolume(parent);
                 return false;
             }
         });
-
+    
         final Slider volumeSoundSlider = new Slider(0f, 1f, 0.1f, false, skin);
         volumeSoundSlider.setValue(parent.getPreferences().getSoundVolume());
         volumeSoundSlider.addListener(new EventListener() {
@@ -71,7 +65,7 @@ public class PreferencesScreen extends ScreenAdapter {
                 return false;
             }
         });
-
+    
         // on/off
         final CheckBox musicCheckbox = new CheckBox(null, skin);
         musicCheckbox.setChecked(parent.getPreferences().isMusicEnabled());
@@ -80,10 +74,11 @@ public class PreferencesScreen extends ScreenAdapter {
             public boolean handle(Event event) {
                 boolean enabled = musicCheckbox.isChecked();
                 parent.getPreferences().setMusicEnabled(enabled);
+                Utility.updateVolume(parent);
                 return false;
             }
         });
-
+    
         final CheckBox soundCheckbox = new CheckBox(null, skin);
         soundCheckbox.setChecked(parent.getPreferences().isSoundEffectsEnabled());
         soundCheckbox.addListener(new EventListener() {
@@ -94,7 +89,7 @@ public class PreferencesScreen extends ScreenAdapter {
                 return false;
             }
         });
-
+    
         final TextButton backButton = new TextButton("Back", skin, "default");
         backButton.addListener(new ChangeListener() {
             @Override
@@ -102,36 +97,39 @@ public class PreferencesScreen extends ScreenAdapter {
                 parent.setScreen(parent.getlastScreen());
             }
         });
+    
+        titleLabel = new Label("Settings", skin,"small");
+        volumeMusicLabel = new Label("Music", skin, "tiny");
+        volumeSoundLabel = new Label("SFX", skin, "tiny");
 
-        titleLabel = new Label("Settings", skin);
-        volumeMusicLabel = new Label("Music", skin, "small");
-        volumeSoundLabel = new Label("Sounds", skin, "small");
-        musicOnOffLabel = new Label("Mute", skin, "small");
-        soundOnOffLabel = new Label("Mute", skin, "small");
+        float width=100;
+        table.add(titleLabel).colspan(3);
+        table.row();
+        table.add(new Label("",skin)).colspan(3);
+        table.row();
+        table.add(volumeMusicLabel).center().pad(5);
+        table.add(volumeMusicSlider).width(width).pad(5);
+        table.add(musicCheckbox).pad(5);
+        table.row();
+        table.add(volumeSoundLabel).center().pad(5);
+        table.add(volumeSoundSlider).width(width).pad(5);
+        table.add(soundCheckbox).pad(5).row();
+        table.add(new Label("",skin)).colspan(3);
+        table.row();
+        table.add(backButton).colspan(3);
+        stage.addActor(table);
+    }
 
-        table.add(titleLabel).colspan(2);
-        table.row().height(24.2f);
-        table.add(volumeMusicLabel).left();
-        table.add(volumeMusicSlider).pad(10, 0, 0, 10);
-        table.row().height(24.2f);
-        table.add(musicOnOffLabel).left();
-        table.add(musicCheckbox).pad(10, 0, 0, 10);
-        table.row().height(24.2f);
-        table.add(volumeSoundLabel).left();
-        table.add(volumeSoundSlider).pad(10, 0, 0, 10);
-        table.row().height(24.2f);
-        table.add(soundOnOffLabel).left();
-        table.add(soundCheckbox).pad(10, 0, 0, 10).row();
-        table.add(backButton).colspan(2);
-
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void render(float delta) {
-
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Utility.background.render(delta);
+        Utility.background.render(delta,true);
         stage.draw();
     }
 

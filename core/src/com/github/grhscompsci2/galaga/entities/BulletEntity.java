@@ -47,7 +47,9 @@ public class BulletEntity extends Entity {
         super.add(sComponent);
 
         TranslationComponent pos = engine.createComponent(TranslationComponent.class);
-        pos.setPosition(TranslationComponent.getPosition());
+
+        pos.setPosition(x,y);
+
         super.add(pos);
 
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
@@ -55,6 +57,4 @@ public class BulletEntity extends Entity {
         add(b2d);
 
     }
-
-       
 }

@@ -24,16 +24,15 @@ public class PauseScreen extends ScreenAdapter {
     public PauseScreen(MyGdxGame game) {
         parent = game;
         _stage = new Stage(new FitViewport(Utility.SCREEN_WIDTH, Utility.SCREEN_HEIGHT, new OrthographicCamera()));
+        setupTable();
     }
 
     @Override
     public void render(float delta) {
-
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Utility.background.render(delta);
+        Utility.background.render(delta,true);
         _stage.draw();
-
     }
 
     @Override
@@ -44,17 +43,22 @@ public class PauseScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(_stage);
+    }
 
-        _stage.clear();
+    @Override
+    public void resize(int width, int height) {
+        _stage.getViewport().update(width, height);
+    }
 
+    private void setupTable() {
         Skin skin = Utility.STATUSUI_SKIN;
         Table table = new Table();
         table.setFillParent(true);
         Label title = new Label("Pause", skin);
-        TextButton loadGameButton = new TextButton("Resume", skin);
-        TextButton menuButton = new TextButton("Menu", skin);
-        TextButton prefrenceButton = new TextButton("Settings", skin);
-        TextButton exitButton = new TextButton("Exit", skin);
+        TextButton loadGameButton = new TextButton("Resume", skin,"small");
+        TextButton menuButton = new TextButton("Menu", skin,"small");
+        TextButton prefrenceButton = new TextButton("Settings", skin,"small");
+        TextButton exitButton = new TextButton("Exit", skin,"small");
 
         table.add(title).spaceBottom(50).row();
         table.add(loadGameButton).spaceBottom(10).row();
@@ -90,12 +94,5 @@ public class PauseScreen extends ScreenAdapter {
                 parent.setScreen(ScreenType.Preferences);
             }
         });
-
     }
-
-    @Override
-    public void resize(int width, int height) {
-        _stage.getViewport().update(width, height);
-    }
-
 }
