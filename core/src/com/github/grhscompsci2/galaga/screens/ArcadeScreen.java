@@ -20,6 +20,7 @@ import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.b2d.B2dContactListener;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.entities.BeeGalagaEntity;
+import com.github.grhscompsci2.galaga.entities.BoundariesEntity;
 import com.github.grhscompsci2.galaga.entities.ButterflyGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.GreenBatGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.LevelEntity;
@@ -239,12 +240,18 @@ public class ArcadeScreen extends ScreenAdapter {
 			for (int j = 0; j < EnemyFormation.formation[i].length; j++) {
 				BeeGalagaEntity bee = new BeeGalagaEntity(EnemyFormation.formation[i][j].x,
 						EnemyFormation.formation[i][j].y);
-				bee.init(engine, bodyFactory, 0);
-				engine.addEntity(bee);
-			}
-		}
-
-		/*
+						bee.init(engine, bodyFactory, 0);
+						engine.addEntity(bee);
+					}
+				}
+				
+				for (float x = 0f; x <= 28.0f; x += 28.0f) {
+				float y = 2.5f;
+				BoundariesEntity be = new BoundariesEntity(x, y);
+				be.init(engine, bodyFactory);
+				engine.addEntity(be);
+				}
+				/*
 		 * }
 		 * }
 		 * 
@@ -267,13 +274,7 @@ public class ArcadeScreen extends ScreenAdapter {
 		 * float y = 23.0f;
 		 * 
 		 * }
-		 * 
-		 * for (float x = 0f; x <= 28.0f; x += 28.0f) {
-		 * float y = 2.5f;
-		 * BoundariesEntity be = new BoundariesEntity(x, y);
-		 * be.init(engine, bodyFactory);
-		 * engine.addEntity(be);
-		 * }
 		 */
+		 
 	}
 }
