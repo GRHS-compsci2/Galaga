@@ -13,7 +13,7 @@ import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.components.PlayerComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.entities.BulletEntity;
-import com.github.grhscompsci2.galaga.screens.ArcadeScreen;
+import com.github.grhscompsci2.galaga.entities.BulletEntity;
 
 public class PlayerControlSystem extends IteratingSystem {
 	private String TAG = PlayerControlSystem.class.getSimpleName();
@@ -23,20 +23,17 @@ public class PlayerControlSystem extends IteratingSystem {
 	KeyboardController controller;
 	float speed = 15.0f;
 	MyGdxGame parentGdxGame;
-	PooledEngine engine;
 	BodyFactory bodyFactory;
-	float x;
-	float y;
+	PooledEngine engine;
+
 
 	public PlayerControlSystem(KeyboardController keyCon, MyGdxGame game, PooledEngine engine, BodyFactory bodyFactory) {
-		super(Family.all(B2dBodyComponent.class, PlayerComponent.class).get());
+		super(Family.all(PlayerComponent.class).get());
 		parentGdxGame = game;
 		controller = keyCon;
 		pm = ComponentMapper.getFor(PlayerComponent.class);
 		bodm = ComponentMapper.getFor(B2dBodyComponent.class);
 		sm = ComponentMapper.getFor(StateComponent.class);
-		this.engine = engine;
-		this.bodyFactory = bodyFactory;
 	}
 
 	@Override
@@ -71,18 +68,16 @@ public class PlayerControlSystem extends IteratingSystem {
 			controller.esc = false;
 			parentGdxGame.setScreen(ScreenType.Pause);
 		}
+
+		if (controller.spacebar) {
+
+			float x = 0.0f;
+			float y = 0.0f;
 		
-		if (controller.spacebar) {
 			BulletEntity bu = new BulletEntity();
-			bu.init(engine, bodyFactory);
-
-			engine.addEntity(bu);
-		}
-
-		if (controller.spacebar) {
+			bu.init(engine, bodyFactory, x, y);
 			
-			BulletEntity bu = new BulletEntity();
-			
+
 		}
 
 		/*
@@ -96,4 +91,6 @@ public class PlayerControlSystem extends IteratingSystem {
 		 * }
 		 */
 	}
+
+    
 }

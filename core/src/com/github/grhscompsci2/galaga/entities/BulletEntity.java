@@ -22,10 +22,11 @@ public class BulletEntity extends Entity {
         float x = 16.0f;
         float y = 14.0f;
     
-        public void init(Engine engine, BodyFactory bodyFactory) {    
+        public void init(Engine engine, BodyFactory bodyFactory, float x, float y) {    
        
         
-        
+            x = 16.0f;
+            y = 14.0f;
 
         Array<TextureRegion> keyFrames = new Array<TextureRegion>();
         keyFrames.add(Utility.getTextureRegionAsset("playerBullet1"));
