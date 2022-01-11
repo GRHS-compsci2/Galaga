@@ -11,7 +11,7 @@ public class TranslationComponent implements Component {
     public void setPosition(float x, float y) {
         position.set(x, y, 0.0f);
     }
-    public Vector3 getPosition() {
+   public Vector3 getPosition() {
         return position;
     }
     /*public void setPosition(Vector3 position2) {
