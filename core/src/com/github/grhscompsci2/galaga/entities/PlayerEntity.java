@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.Utility;
@@ -17,17 +18,21 @@ import com.github.grhscompsci2.galaga.components.TranslationComponent;
 import com.github.grhscompsci2.galaga.components.TypeComponent;
 
 public class PlayerEntity extends Entity {
+    static float x = 18.0f;
+    static float y = 3.0f;
+
     public void setUp(Engine engine, BodyFactory bodyFactory) {
         TextureComponent tex = engine.createComponent(TextureComponent.class);
         tex.region = Utility.getTextureRegionAsset("playerShip1");
         super.add(tex);
 
+       
         TranslationComponent pos = engine.createComponent(TranslationComponent.class);
-        pos.setPosition(18.0f, 2.0f);
+        pos.setPosition(x, y);
         super.add(pos);
 
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
-        b2d.body = bodyFactory.makeBoxPolyBody(18.0f, 3.0f, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody,
+        b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody,
                 BodyFactory.CATEGORY_PLAYER, BodyFactory.MASK_PLAYER, true);
         super.add(b2d);
 
@@ -45,5 +50,9 @@ public class PlayerEntity extends Entity {
         Array<TextureRegion> keyFrames = new Array<TextureRegion>();
         keyFrames.add(Utility.getTextureRegionAsset("playerShip1"));
         Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
+    }
+    public static Vector3 getPosition(){
+       Vector3 position = new Vector3(x,y,0.0f);
+        return position;
     }
 }

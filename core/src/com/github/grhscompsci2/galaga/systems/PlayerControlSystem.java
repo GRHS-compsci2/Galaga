@@ -5,14 +5,24 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.KeyboardController;
 import com.github.grhscompsci2.galaga.MyGdxGame;
 import com.github.grhscompsci2.galaga.MyGdxGame.ScreenType;
+import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
+import com.github.grhscompsci2.galaga.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.components.PlayerComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
+import com.github.grhscompsci2.galaga.components.TextureComponent;
+import com.github.grhscompsci2.galaga.components.TranslationComponent;
 import com.github.grhscompsci2.galaga.entities.BulletEntity;
+import com.github.grhscompsci2.galaga.entities.PlayerEntity;
+import com.github.grhscompsci2.galaga.entities.PlayerEntity;
 import com.github.grhscompsci2.galaga.entities.BulletEntity;
 
 public class PlayerControlSystem extends IteratingSystem {
@@ -31,6 +41,8 @@ public class PlayerControlSystem extends IteratingSystem {
 		super(Family.all(PlayerComponent.class).get());
 		parentGdxGame = game;
 		controller = keyCon;
+		this.bodyFactory = bodyFactory;
+		this.engine = engine;
 		pm = ComponentMapper.getFor(PlayerComponent.class);
 		bodm = ComponentMapper.getFor(B2dBodyComponent.class);
 		sm = ComponentMapper.getFor(StateComponent.class);
@@ -71,11 +83,13 @@ public class PlayerControlSystem extends IteratingSystem {
 
 		if (controller.spacebar) {
 
-			float x = 0.0f;
-			float y = 0.0f;
-		
-			BulletEntity bu = new BulletEntity();
-			bu.init(engine, bodyFactory, x, y);
+			float initialX = b2body.body.getPosition().x;
+			float initialY = b2body.body.getPosition().y;
+
+			BulletEntity bu = new BulletEntity(initialX, initialY);
+			
+			bu.init(engine, bodyFactory);
+			engine.addEntity(bu);
 			
 
 		}
