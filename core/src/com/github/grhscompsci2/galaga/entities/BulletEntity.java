@@ -16,8 +16,13 @@ import com.github.grhscompsci2.galaga.components.TranslationComponent;
 
 public class BulletEntity extends Entity {
 
-        float x = 16.0f;
-        float y = 14.0f;
+        float x;
+        float y;
+
+        public BulletEntity(float initialX, float initialY) {
+                x = initialX;
+                y = initialY;
+        }
 
         public void init(Engine engine, BodyFactory bodyFactory) {
 
