@@ -52,13 +52,20 @@ public class BulletEntity extends Entity {
 
         TranslationComponent pos = engine.createComponent(TranslationComponent.class);
 
-        pos.setPosition(x,y);
+        pos.setPosition(x,y+1.5f);
 
         super.add(pos);
 
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
-        b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, BodyFactory.CATEGORY_MISSLE, BodyFactory.MASK_MISSLE, true);
+        b2d.body = bodyFactory.makeBoxPolyBody(x, y+1.5f, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody, BodyFactory.CATEGORY_MISSLE, BodyFactory.MASK_MISSLE, true);
         add(b2d);
+        
+        b2d.body.setBullet(true);
+        
+        b2d.body.applyForceToCenter(0f, 100000f, true);
+       //for(float i = .5f; i<=30; i+=.5f)
+       // b2d.body.setTransform(x, y + i, (float)Math.toDegrees(-90));
+        
 
     }
 }

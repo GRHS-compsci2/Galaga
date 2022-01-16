@@ -35,6 +35,8 @@ public class PlayerControlSystem extends IteratingSystem {
 	MyGdxGame parentGdxGame;
 	BodyFactory bodyFactory;
 	PooledEngine engine;
+	float timeSinceLastShot = 0f;
+	float shootDelay = .5f;
 
 
 	public PlayerControlSystem(KeyboardController keyCon, MyGdxGame game, PooledEngine engine, BodyFactory bodyFactory) {
@@ -81,7 +83,7 @@ public class PlayerControlSystem extends IteratingSystem {
 			parentGdxGame.setScreen(ScreenType.Pause);
 		}
 
-		if (controller.spacebar) {
+		if (controller.spacebar /*&& timeSinceLastShot <= .0f*/) {
 
 			float initialX = b2body.body.getPosition().x;
 			float initialY = b2body.body.getPosition().y;
@@ -89,9 +91,11 @@ public class PlayerControlSystem extends IteratingSystem {
 			BulletEntity bu = new BulletEntity(initialX, initialY);
 			
 			bu.init(engine, bodyFactory);
-			engine.addEntity(bu);
 			
+			engine.addEntity(bu);
 
+
+			timeSinceLastShot = shootDelay;
 		}
 
 		/*
