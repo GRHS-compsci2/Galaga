@@ -47,12 +47,23 @@ public class PlayerEntity extends Entity {
         keyFrames.add(Utility.getTextureRegionAsset("playerShip1"));
         Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
 
+        AnimationComponent aComponent = engine.createComponent(AnimationComponent.class);
+        aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
+        
+        keyFrames.clear();
+        keyFrames.add(Utility.getTextureRegionAsset("shipExplosion1"));        
+        keyFrames.add(Utility.getTextureRegionAsset("shipExplosion2"));        
+        keyFrames.add(Utility.getTextureRegionAsset("shipExplosion3"));
+        keyFrames.add(Utility.getTextureRegionAsset("shipExplosion4"));
+        
         keyFrames = new Array<TextureRegion>();
-        keyFrames.add(Utility.getTextureRegionAsset("explosion1"));
-        keyFrames.add(Utility.getTextureRegionAsset("explosion2"));
-        keyFrames.add(Utility.getTextureRegionAsset("explosion3"));
-        keyFrames.add(Utility.getTextureRegionAsset("explosion4"));
+        keyFrames.add(Utility.getTextureRegionAsset("shipExplosion1"));
+        keyFrames.add(Utility.getTextureRegionAsset("shipExplosion2"));
+        keyFrames.add(Utility.getTextureRegionAsset("shipExplosion3"));
+        keyFrames.add(Utility.getTextureRegionAsset("shipExplosion4"));
+
 
         ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
+        aComponent.animations.put(StateComponent.STATE_EXPLOSION, ani);
     }
 }
