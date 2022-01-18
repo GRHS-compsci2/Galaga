@@ -37,9 +37,10 @@ public class PlayerControlSystem extends IteratingSystem {
 	PooledEngine engine;
 	float timeSinceLastShot = 0f;
 	float shootDelay = .5f;
+	int numMissles = 0;
 
-
-	public PlayerControlSystem(KeyboardController keyCon, MyGdxGame game, PooledEngine engine, BodyFactory bodyFactory) {
+	public PlayerControlSystem(KeyboardController keyCon, MyGdxGame game, PooledEngine engine,
+			BodyFactory bodyFactory) {
 		super(Family.all(PlayerComponent.class).get());
 		parentGdxGame = game;
 		controller = keyCon;
@@ -83,19 +84,22 @@ public class PlayerControlSystem extends IteratingSystem {
 			parentGdxGame.setScreen(ScreenType.Pause);
 		}
 
-		if (controller.spacebar /*&& timeSinceLastShot <= .0f*/) {
+		if (controller.spacebar && (timeSinceLastShot >= shootDelay||numMissles==0)) {
 
 			float initialX = b2body.body.getPosition().x;
 			float initialY = b2body.body.getPosition().y;
 
 			BulletEntity bu = new BulletEntity(initialX, initialY);
-			
+
 			bu.init(engine, bodyFactory);
-			
+
 			engine.addEntity(bu);
 
-
-			timeSinceLastShot = shootDelay;
+			timeSinceLastShot = 0;// shootDelay;
+			numMissles++;
+		}
+		if (numMissles > 0 && timeSinceLastShot <= shootDelay) {
+			timeSinceLastShot += deltaTime;
 		}
 
 		/*
@@ -110,5 +114,4 @@ public class PlayerControlSystem extends IteratingSystem {
 		 */
 	}
 
-    
 }
