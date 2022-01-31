@@ -7,6 +7,7 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.KeyboardController;
@@ -37,10 +38,9 @@ public class PlayerControlSystem extends IteratingSystem {
 	PooledEngine engine;
 	float timeSinceLastShot = 0f;
 	float shootDelay = .5f;
-	int numMissles = 0;
+	int numMissiles = 0;
 
-	public PlayerControlSystem(KeyboardController keyCon, MyGdxGame game, PooledEngine engine,
-			BodyFactory bodyFactory) {
+	public PlayerControlSystem(KeyboardController keyCon, MyGdxGame game, PooledEngine engine, BodyFactory bodyFactory) {
 		super(Family.all(PlayerComponent.class).get());
 		parentGdxGame = game;
 		controller = keyCon;
@@ -76,6 +76,7 @@ public class PlayerControlSystem extends IteratingSystem {
 			b2body.body.setLinearVelocity(speed, 0);
 		}
 
+		
 		if (!controller.left && !controller.right) {
 			b2body.body.setLinearVelocity(0, 0);
 		}
@@ -84,23 +85,31 @@ public class PlayerControlSystem extends IteratingSystem {
 			parentGdxGame.setScreen(ScreenType.Pause);
 		}
 
-		if (controller.spacebar && (timeSinceLastShot >= shootDelay||numMissles==0)) {
+
+		
+
+		if (controller.spacebar && (timeSinceLastShot>=shootDelay || numMissiles == 0)) {
+
 
 			float initialX = b2body.body.getPosition().x;
 			float initialY = b2body.body.getPosition().y;
 
 			BulletEntity bu = new BulletEntity(initialX, initialY);
-
+			
 			bu.init(engine, bodyFactory);
-
+			
 			engine.addEntity(bu);
 
-			timeSinceLastShot = 0;// shootDelay;
-			numMissles++;
+			timeSinceLastShot=0;
+
+			numMissiles++;
 		}
-		if (numMissles > 0 && timeSinceLastShot <= shootDelay) {
-			timeSinceLastShot += deltaTime;
-		}
+
+			if(numMissiles > 0 && timeSinceLastShot <= shootDelay){
+				timeSinceLastShot += deltaTime;
+			}
+		
+		
 
 		/*
 		 * if(controller.up &&
@@ -114,4 +123,5 @@ public class PlayerControlSystem extends IteratingSystem {
 		 */
 	}
 
+    
 }

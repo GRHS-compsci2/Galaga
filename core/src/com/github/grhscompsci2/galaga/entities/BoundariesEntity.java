@@ -12,10 +12,14 @@ public class BoundariesEntity extends Entity {
 
     float x;
     float y;
+    float s1;
+    float s2;
 
-    public BoundariesEntity(float x, float y) {
+    public BoundariesEntity(float x, float y, float s1, float s2) {
         this.x = x;
         this.y = y;
+        this.s1 = s1;
+        this.s2 = s2;
     }
 
     public void init(PooledEngine engine, BodyFactory bodyFactory) {
@@ -30,7 +34,7 @@ public class BoundariesEntity extends Entity {
         super.add(pos);
 
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
-        b2d.body = bodyFactory.makeBoxPolyBody(x, y, 0.25f, 0.25f, BodyFactory.STONE, BodyType.StaticBody,
+        b2d.body = bodyFactory.makeBoxPolyBody(x, y, s1, s2, BodyFactory.STONE, BodyType.StaticBody,
                 BodyFactory.CATEGORY_MONSTER, BodyFactory.MASK_MONSTER, true);
         super.add(b2d);
     }
