@@ -273,13 +273,23 @@ public class ArcadeScreen extends ScreenAdapter {
 		 * float y = 23.0f;
 		 * 
 		 * }
-		 * 
-		 * for (float x = 0f; x <= 28.0f; x += 28.0f) {
-		 * float y = 2.5f;
-		 * BoundariesEntity be = new BoundariesEntity(x, y);
-		 * be.init(engine, bodyFactory);
-		 * engine.addEntity(be);
-		 * }
-		 */
+		 * */
+		  for (float x = 0f; x <= 28.0f; x += 28.0f) {
+		  float y = 2.5f;
+		  float s1 = .25f;
+		  float s2 = .25f;
+		  BoundariesEntity be = new BoundariesEntity(x, y, s1, s2);
+		  be.init(engine, bodyFactory);
+		  engine.addEntity(be);
+		  }
+
+		  float x = 1.0f;
+		  float y = 40.0f;
+		  float s1 = 40.0f;
+		  float s2 = .25f;
+		  BoundariesEntity be2 = new BoundariesEntity(x, y, s1, s2);
+		  be2.init(engine, bodyFactory);
+		  engine.addEntity(be2);
+		 
 	}
 }
