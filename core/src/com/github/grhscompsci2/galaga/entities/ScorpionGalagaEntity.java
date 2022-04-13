@@ -29,10 +29,10 @@ public class ScorpionGalagaEntity extends Entity {
         aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
 
         keyFrames.clear();
-        keyFrames.add(Utility.getTextureRegionAsset("explosion1"));        
-        keyFrames.add(Utility.getTextureRegionAsset("explosion2"));        
+        keyFrames.add(Utility.getTextureRegionAsset("explosion1"));
+        keyFrames.add(Utility.getTextureRegionAsset("explosion2"));
         keyFrames.add(Utility.getTextureRegionAsset("explosion3"));
-        
+
         Animation<TextureRegion> explosionAni = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
         aComponent.animations.put(StateComponent.STATE_EXPLOSION, explosionAni);
         super.add(aComponent);
@@ -42,7 +42,6 @@ public class ScorpionGalagaEntity extends Entity {
         super.add(tex);
 
         StateComponent sComponent = engine.createComponent(StateComponent.class);
-        sComponent.isLooping = true;
         sComponent.set(StateComponent.STATE_NORMAL);
         super.add(sComponent);
 
@@ -52,7 +51,7 @@ public class ScorpionGalagaEntity extends Entity {
 
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
         b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody,
-                BodyFactory.CATEGORY_MONSTER, BodyFactory.MASK_MONSTER, true);
+                BodyFactory.CATEGORY_ENEMY, BodyFactory.MASK_ENEMY, true);
         super.add(b2d);
     }
 }

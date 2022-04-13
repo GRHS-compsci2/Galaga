@@ -5,8 +5,10 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
+import com.github.grhscompsci2.galaga.components.CollisionComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
+import com.github.grhscompsci2.galaga.components.TypeComponent;
 
 public class BoundariesEntity extends Entity {
 
@@ -25,7 +27,6 @@ public class BoundariesEntity extends Entity {
     public void init(PooledEngine engine, BodyFactory bodyFactory) {
 
         StateComponent sComponent = engine.createComponent(StateComponent.class);
-        sComponent.isLooping = true;
         sComponent.set(StateComponent.STATE_NORMAL);
         super.add(sComponent);
 
@@ -35,8 +36,19 @@ public class BoundariesEntity extends Entity {
 
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
         b2d.body = bodyFactory.makeBoxPolyBody(x, y, s1, s2, BodyFactory.STONE, BodyType.StaticBody,
-                BodyFactory.CATEGORY_MONSTER, BodyFactory.MASK_MONSTER, true);
+                BodyFactory.CATEGORY_ENEMY, BodyFactory.MASK_ENEMY, true);
         super.add(b2d);
+
+        CollisionComponent collisionComponent=engine.createComponent(CollisionComponent.class);
+        add(collisionComponent);
+
+        StateComponent stateComponent=engine.createComponent(StateComponent.class);
+        stateComponent.set(StateComponent.STATE_NORMAL);
+        add(stateComponent);
+
+        TypeComponent typeComponent=engine.createComponent(TypeComponent.class);
+        typeComponent.type=TypeComponent.OTHER;
+        add(typeComponent);
     }
 
 }

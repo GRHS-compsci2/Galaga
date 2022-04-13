@@ -7,5 +7,5 @@ import com.badlogic.gdx.utils.IntMap;
 
 public class AnimationComponent implements Component {
     public static final float FRAME_RATE = 0.5f;
-    public IntMap<Animation<TextureRegion>> animations = new IntMap<Animation<TextureRegion>>();
+    public IntMap<Animation> animations = new IntMap<Animation>();
 }
