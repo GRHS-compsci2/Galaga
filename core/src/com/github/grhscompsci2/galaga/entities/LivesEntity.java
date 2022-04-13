@@ -38,7 +38,6 @@ public class LivesEntity extends Entity {
          super.add(tex);
  
          StateComponent sComponent = engine.createComponent(StateComponent.class);
-         sComponent.isLooping = true;
          sComponent.set(StateComponent.STATE_NORMAL);
          super.add(sComponent);
  

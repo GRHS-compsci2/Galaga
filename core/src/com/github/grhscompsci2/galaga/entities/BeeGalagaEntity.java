@@ -4,16 +4,19 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
+import com.github.grhscompsci2.galaga.components.CollisionComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.EnemyComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
+import com.github.grhscompsci2.galaga.components.TypeComponent;
 
 public class BeeGalagaEntity extends Entity {
     float x;
@@ -30,7 +33,7 @@ public class BeeGalagaEntity extends Entity {
         keyFrames.add(Utility.getTextureRegionAsset("bee1"));
         keyFrames.add(Utility.getTextureRegionAsset("bee2"));
 
-        Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
+        Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames,PlayMode.LOOP);
 
         AnimationComponent aComponent = engine.createComponent(AnimationComponent.class);
         aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
@@ -42,8 +45,8 @@ public class BeeGalagaEntity extends Entity {
         keyFrames.add(Utility.getTextureRegionAsset("explosion2"));        
         keyFrames.add(Utility.getTextureRegionAsset("explosion3"));
         
-        Animation<TextureRegion> explosionAni = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
-        aComponent.animations.put(StateComponent.STATE_EXPLOSION, explosionAni);
+        Animation<TextureRegion> explosionAni = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames,PlayMode.NORMAL);
+        aComponent.animations.put(StateComponent.STATE_HIT, explosionAni);
         super.add(aComponent);
 
         TextureComponent tex = engine.createComponent(TextureComponent.class);
@@ -51,7 +54,6 @@ public class BeeGalagaEntity extends Entity {
         super.add(tex);
 
         StateComponent sComponent = engine.createComponent(StateComponent.class);
-        sComponent.isLooping = true;
         sComponent.set(StateComponent.STATE_ENTRY);
         super.add(sComponent);
 
@@ -61,7 +63,8 @@ public class BeeGalagaEntity extends Entity {
 
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
         b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody,
-                BodyFactory.CATEGORY_MONSTER, BodyFactory.MASK_MONSTER, true);
+                BodyFactory.CATEGORY_ENEMY, BodyFactory.MASK_ENEMY, true);
+                b2d.body.setUserData(this);
         super.add(b2d);
 
         EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
@@ -69,5 +72,11 @@ public class BeeGalagaEntity extends Entity {
         enemyComponent.setPath(0);
         super.add(enemyComponent);
 
+        CollisionComponent collisionComponent=engine.createComponent(CollisionComponent.class);
+        add(collisionComponent);
+
+        TypeComponent typeComponent=engine.createComponent(TypeComponent.class);
+        typeComponent.type=TypeComponent.ENEMY;
+        add(typeComponent);
     }
 }
