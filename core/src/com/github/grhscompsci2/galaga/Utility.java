@@ -10,6 +10,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public final class Utility {
@@ -17,6 +18,7 @@ public final class Utility {
     private static final String TAG = Utility.class.getSimpleName();
     private static InternalFileHandleResolver _filePathResolver = new InternalFileHandleResolver();
 
+    public static final boolean DEBUG_MODE=true;
     private final static String SPRITES_TEXTURE_ATLAS_PATH = "images/galaga.atlas";
     public static TextureAtlas SPRITES_TEXTUREATLAS = new TextureAtlas(SPRITES_TEXTURE_ATLAS_PATH);
 
@@ -34,6 +36,8 @@ public final class Utility {
     public static final String galagaExplosion2 = "music/galagaExplosion2.mp3";
     public static final float PPM = 8;
 
+    public static float SCREEN_WIDTH_METERS=SCREEN_WIDTH/PPM;
+    public static float SCREEN_HEIGHT_METERS=SCREEN_HEIGHT/PPM;
     public static Background background = new Background();
     private static Music music;
     private static Sound sound;
@@ -144,13 +148,14 @@ public final class Utility {
         music.play();
     }
 
-    public static void updateVolume(MyGdxGame parent){
+    public static void updateVolume(MyGdxGame parent) {
         float vol = 0;
         if (parent.getPreferences().isMusicEnabled()) {
             vol = parent.getPreferences().getMusicVolume();
         }
         music.setVolume(vol);
     }
+
     public static void loadTextureAtlasAsset() {
         if (SPRITES_TEXTURE_ATLAS_PATH == null || SPRITES_TEXTURE_ATLAS_PATH.isEmpty()) {
             return;
@@ -198,6 +203,16 @@ public final class Utility {
         loadSoundAsset(galagaAttack);
         loadSoundAsset(galagaExplosion1);
         loadSoundAsset(galagaExplosion2);
+    }
+
+    public static float vectorToAngle(Vector2 vector) {
+        return (float) Math.atan2(-vector.x, vector.y);
+    }
+
+    public static Vector2 angleToVector(Vector2 outVector, float angle) {
+        outVector.x = -(float) Math.sin(angle);
+        outVector.y = (float) Math.cos(angle);
+        return outVector;
     }
 
 }

@@ -8,7 +8,8 @@
 	<inherits name='com.badlogic.gdx.ai' />
 	<inherits name='com.badlogic.gdx.controllers' />
 	<inherits name='com.badlogic.gdx.controllers.controllers-gwt' />
-
+	<inherits name='com.ray3k.tenpatch.tenpatch'/>
+	<inherits name='MyGdxGame' />
     <inherits name='com.github.grhscompsci2.galaga.GdxDefinition' />
     
     <collapse-all-properties />

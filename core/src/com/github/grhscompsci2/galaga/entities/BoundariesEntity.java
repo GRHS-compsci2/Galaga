@@ -37,17 +37,18 @@ public class BoundariesEntity extends Entity {
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
         b2d.body = bodyFactory.makeBoxPolyBody(x, y, s1, s2, BodyFactory.STONE, BodyType.StaticBody,
                 BodyFactory.CATEGORY_ENEMY, BodyFactory.MASK_ENEMY, true);
+        b2d.body.setUserData(this);
         super.add(b2d);
 
-        CollisionComponent collisionComponent=engine.createComponent(CollisionComponent.class);
+        CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);
         add(collisionComponent);
 
-        StateComponent stateComponent=engine.createComponent(StateComponent.class);
+        StateComponent stateComponent = engine.createComponent(StateComponent.class);
         stateComponent.set(StateComponent.STATE_NORMAL);
         add(stateComponent);
 
-        TypeComponent typeComponent=engine.createComponent(TypeComponent.class);
-        typeComponent.type=TypeComponent.OTHER;
+        TypeComponent typeComponent = engine.createComponent(TypeComponent.class);
+        typeComponent.type = TypeComponent.OTHER;
         add(typeComponent);
     }
 

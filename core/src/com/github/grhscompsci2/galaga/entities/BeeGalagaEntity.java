@@ -7,16 +7,20 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
+import com.github.grhscompsci2.galaga.EnemyFormation;
 import com.github.grhscompsci2.galaga.Utility;
+import com.github.grhscompsci2.galaga.ai.SteeringPresets;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.components.CollisionComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
+import com.github.grhscompsci2.galaga.components.SteeringComponent;
 import com.github.grhscompsci2.galaga.components.EnemyComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
 import com.github.grhscompsci2.galaga.components.TypeComponent;
+import com.github.grhscompsci2.galaga.components.SteeringComponent.SteeringState;
 
 public class BeeGalagaEntity extends Entity {
     float x;
@@ -33,19 +37,21 @@ public class BeeGalagaEntity extends Entity {
         keyFrames.add(Utility.getTextureRegionAsset("bee1"));
         keyFrames.add(Utility.getTextureRegionAsset("bee2"));
 
-        Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames,PlayMode.LOOP);
+        Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames,
+                PlayMode.LOOP);
 
         AnimationComponent aComponent = engine.createComponent(AnimationComponent.class);
         aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
         aComponent.animations.put(StateComponent.STATE_ENTRY, ani);
         aComponent.animations.put(StateComponent.STATE_ENTRY_IDLE, ani);
-        
+
         keyFrames.clear();
-        keyFrames.add(Utility.getTextureRegionAsset("explosion1"));        
-        keyFrames.add(Utility.getTextureRegionAsset("explosion2"));        
+        keyFrames.add(Utility.getTextureRegionAsset("explosion1"));
+        keyFrames.add(Utility.getTextureRegionAsset("explosion2"));
         keyFrames.add(Utility.getTextureRegionAsset("explosion3"));
-        
-        Animation<TextureRegion> explosionAni = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames,PlayMode.NORMAL);
+
+        Animation<TextureRegion> explosionAni = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames,
+                PlayMode.NORMAL);
         aComponent.animations.put(StateComponent.STATE_HIT, explosionAni);
         super.add(aComponent);
 
@@ -64,19 +70,23 @@ public class BeeGalagaEntity extends Entity {
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
         b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody,
                 BodyFactory.CATEGORY_ENEMY, BodyFactory.MASK_ENEMY, true);
-                b2d.body.setUserData(this);
+        b2d.body.setUserData(this);
         super.add(b2d);
 
         EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
-        enemyComponent.initPaths(x, y);
+        enemyComponent.initPaths(EnemyFormation.formation[0][0].x, EnemyFormation.formation[0][0].y);
         enemyComponent.setPath(0);
         super.add(enemyComponent);
 
-        CollisionComponent collisionComponent=engine.createComponent(CollisionComponent.class);
+        CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);
         add(collisionComponent);
 
-        TypeComponent typeComponent=engine.createComponent(TypeComponent.class);
-        typeComponent.type=TypeComponent.ENEMY;
+        TypeComponent typeComponent = engine.createComponent(TypeComponent.class);
+        typeComponent.type = TypeComponent.ENEMY;
         add(typeComponent);
+
+        SteeringComponent steeringComponent = engine.createComponent(SteeringComponent.class);
+        steeringComponent.body = b2d.body;
+        add(steeringComponent);
     }
 }
