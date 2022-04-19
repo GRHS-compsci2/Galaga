@@ -1,6 +1,5 @@
 package com.github.grhscompsci2.galaga.systems;
 
-import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
@@ -9,13 +8,14 @@ import com.github.grhscompsci2.galaga.MyGdxGame;
 import com.github.grhscompsci2.galaga.MyGdxGame.ScreenType;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
+import com.github.grhscompsci2.galaga.components.BulletComponent;
+import com.github.grhscompsci2.galaga.components.Mapper;
 import com.github.grhscompsci2.galaga.components.PlayerComponent;
 import com.github.grhscompsci2.galaga.entities.BulletEntity;
 
 public class PlayerControlSystem extends IteratingSystem {
 	private String TAG = PlayerControlSystem.class.getSimpleName();
-	ComponentMapper<PlayerComponent> pm;
-	ComponentMapper<B2dBodyComponent> bodm;
+
 	KeyboardController controller;
 	MyGdxGame parentGdxGame;
 	BodyFactory bodyFactory;
@@ -25,14 +25,12 @@ public class PlayerControlSystem extends IteratingSystem {
 		parentGdxGame = game;
 		controller = keyCon;
 		this.bodyFactory = bodyFactory;
-		pm = ComponentMapper.getFor(PlayerComponent.class);
-		bodm = ComponentMapper.getFor(B2dBodyComponent.class);
 	}
 
 	@Override
 	protected void processEntity(Entity entity, float deltaTime) {
-		B2dBodyComponent b2body = bodm.get(entity);
-		PlayerComponent player = pm.get(entity);
+		B2dBodyComponent b2body = Mapper.b2dCom.get(entity);
+		PlayerComponent player = Mapper.playerCom.get(entity);
 
 		if (controller.left) {
 			b2body.body.setLinearVelocity((player.speed * -1), 0);
@@ -53,9 +51,9 @@ public class PlayerControlSystem extends IteratingSystem {
 			float initialX = b2body.body.getPosition().x;
 			float initialY = b2body.body.getPosition().y;
 
-			BulletEntity bu = new BulletEntity(initialX, initialY);
+			BulletEntity bu = new BulletEntity();
 
-			bu.init(getEngine(), bodyFactory);
+			bu.init(getEngine(), bodyFactory,BulletComponent.OWNER.PLAYER,initialX,initialY);
 
 			getEngine().addEntity(bu);
 

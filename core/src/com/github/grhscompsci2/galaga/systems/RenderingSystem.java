@@ -1,15 +1,21 @@
 package com.github.grhscompsci2.galaga.systems;
 
-import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.SortedIteratingSystem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.steer.behaviors.FollowPath;
+import com.badlogic.gdx.ai.steer.utils.paths.LinePath.LinePathParam;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.Utility;
+import com.github.grhscompsci2.galaga.components.EnemyComponent;
+import com.github.grhscompsci2.galaga.components.Mapper;
+import com.github.grhscompsci2.galaga.components.SteeringComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
 import java.util.Comparator;
@@ -53,18 +59,11 @@ public class RenderingSystem extends SortedIteratingSystem {
                                            // transfromComponent
     private OrthographicCamera cam; // a reference to our camera
 
-    // component mappers to get components from entities
-    private ComponentMapper<TextureComponent> textureM;
-    private ComponentMapper<TranslationComponent> transformM;
-
     public RenderingSystem(Batch batch) {
         // gets all entities with a TranslationComponent and TextureComponent
         super(Family.all(TranslationComponent.class, TextureComponent.class).get(), new ZComparator());
         comparator = new ZComparator();
         Gdx.app.debug(TAG, "Screen Resolution: " + getScreenSizeInMeters());
-        // creates out componentMappers
-        textureM = ComponentMapper.getFor(TextureComponent.class);
-        transformM = ComponentMapper.getFor(TranslationComponent.class);
 
         // create the array for sorting entities
         renderQueue = new Array<Entity>();
@@ -85,14 +84,34 @@ public class RenderingSystem extends SortedIteratingSystem {
 
         // update camera and sprite batch
         cam.update();
+
+        //Draw the paths
+        if (Utility.DEBUG_MODE) {
+            for (Entity entity : renderQueue) {
+                // Draw the current Path
+                EnemyComponent eComponent = Mapper.enemyCom.get(entity);
+                if (eComponent != null) {
+                    ShapeRenderer sr = new ShapeRenderer();
+                    Gdx.gl.glLineWidth(1);
+                    sr.setProjectionMatrix(cam.combined);
+                    sr.begin(ShapeRenderer.ShapeType.Line);
+                    sr.setColor(Color.WHITE);
+                    for (int i = 0; i < eComponent.getPath().getSegments().size; i++) {
+                        sr.line(eComponent.getPath().getSegments().get(i).getBegin(),
+                                eComponent.getPath().getSegments().get(i).getEnd());
+                    }
+                    sr.end();
+                }
+            }
+        }
         batch.setProjectionMatrix(cam.combined);
         batch.enableBlending();
         batch.begin();
 
         // loop through each entity in our render queue
         for (Entity entity : renderQueue) {
-            TextureComponent tex = textureM.get(entity);
-            TranslationComponent t = transformM.get(entity);
+            TextureComponent tex = Mapper.texCom.get(entity);
+            TranslationComponent t = Mapper.transCom.get(entity);
 
             if (tex.region == null || t.isHidden) {
                 continue;
@@ -106,9 +125,29 @@ public class RenderingSystem extends SortedIteratingSystem {
 
             batch.draw(tex.region, t.position.x - originX, t.position.y - originY, originX, originY, width, height,
                     PixelsToMeters(t.scale.x), PixelsToMeters(t.scale.y), t.rotation);
+            if (Utility.DEBUG_MODE) {
+                SteeringComponent sComponent = Mapper.sCom.get(entity);
+                if (sComponent != null) {
+                    if (sComponent.followPath != null) {
+                        FollowPath<Vector2, LinePathParam> a = sComponent.followPath;
+                        if (a.getTarget() != null) {
+                            width = tex.region.getRegionWidth();
+                            height = tex.region.getRegionHeight();
+
+                            originX = width / 6f;
+                            originY = height / 6f;
+                            float x = a.getInternalTargetPosition().x;
+                            float y = a.getInternalTargetPosition().y;
+                            batch.draw(tex.region, x - originX, y - originY, originX, originY, width / 3, height / 3,
+                                    PixelsToMeters(t.scale.x), PixelsToMeters(t.scale.y), t.rotation);
+                        }
+                    }
+                }
+            }
         }
 
         batch.end();
+
         renderQueue.clear();
     }
 
