@@ -45,7 +45,6 @@ public class PlayerEntity extends Entity {
         StateComponent state = engine.createComponent(StateComponent.class);
         state.set(StateComponent.STATE_NORMAL);
         super.add(state);
-        add(state);
 
         Array<TextureRegion> keyFrames = new Array<TextureRegion>();
         keyFrames.add(Utility.getTextureRegionAsset("playerShip1"));
