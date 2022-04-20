@@ -4,8 +4,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ai.steer.SteeringBehavior;
-import com.badlogic.gdx.math.Vector2;
 import com.github.grhscompsci2.galaga.ai.SteeringPresets;
 import com.github.grhscompsci2.galaga.components.EnemyComponent;
 import com.github.grhscompsci2.galaga.components.Mapper;
@@ -57,7 +55,7 @@ public class EnemySystem extends IteratingSystem {
     private void entryIdle(Entity entity) {
         SteeringComponent steeringComponent = Mapper.sCom.get(entity);
         EnemyComponent enemyComponent = Mapper.enemyCom.get(entity);
-        StateComponent stateComponent = Mapper.stateCom.get(entity);
+        //StateComponent stateComponent = Mapper.stateCom.get(entity);
         if (steeringComponent.currentMode != SteeringState.ENTRY_IDLE) {
             enemyComponent.setPath(0);
             steeringComponent.setSteeringBehavior(SteeringPresets.goPath(steeringComponent, enemyComponent.getPath()));

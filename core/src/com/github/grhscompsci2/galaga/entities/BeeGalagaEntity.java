@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.EnemyFormation;
 import com.github.grhscompsci2.galaga.Utility;
-import com.github.grhscompsci2.galaga.ai.SteeringPresets;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
@@ -20,7 +19,6 @@ import com.github.grhscompsci2.galaga.components.EnemyComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
 import com.github.grhscompsci2.galaga.components.TypeComponent;
-import com.github.grhscompsci2.galaga.components.SteeringComponent.SteeringState;
 
 public class BeeGalagaEntity extends Entity {
     float x;
