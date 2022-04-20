@@ -1,9 +1,9 @@
 package com.github.grhscompsci2.galaga.b2d;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -23,15 +23,15 @@ public class BodyFactory {
 
     // categories for our bodies
     public final static short CATEGORY_PLAYER = 0x0001; // 0000000000000001 in binary
-    public final static short CATEGORY_MONSTER = 0x0002; // 0000000000000010 in binary
-    public final static short CATEGORY_MISSLE = 0x0004; // 0000000000000100 in binary
+    public final static short CATEGORY_ENEMY = 0x0002; // 0000000000000010 in binary
+    public final static short CATEGORY_BULLET = 0x0004; // 0000000000000100 in binary
     public final static short CATEGORY_OBSTACLE = 0x0008; // 0000000000001000 in binary
 
     // masks for our bodies
-    public final static short MASK_PLAYER = CATEGORY_MONSTER | CATEGORY_MISSLE | CATEGORY_OBSTACLE; // or
-                                                                                                    // ~CATEGORY_PLAYER
-    public final static short MASK_MONSTER = CATEGORY_PLAYER | CATEGORY_MISSLE; // or ~CATEGORY_MONSTER
-    public final static short MASK_MISSLE = -1;
+    public final static short MASK_PLAYER = CATEGORY_ENEMY | CATEGORY_BULLET | CATEGORY_OBSTACLE; // or
+                                                                                                  // ~CATEGORY_PLAYER
+    public final static short MASK_ENEMY = CATEGORY_PLAYER | CATEGORY_BULLET; // or ~CATEGORY_ENEMY
+    public final static short MASK_BULLET = -1;
     public final static short MASK_OBSTACLE = -1;
 
     private BodyFactory(World world) {
@@ -177,5 +177,10 @@ public class BodyFactory {
         for (Fixture fix : bod.getFixtureList()) {
             fix.setSensor(true);
         }
+    }
+
+    public Body makeBoxPolyBody(Vector3 position, float posy, float width, int stone2, BodyType dynamicbody,
+            boolean b) {
+        return null;
     }
 }
