@@ -292,12 +292,18 @@ public class ArcadeScreen extends ScreenAdapter {
 			for (int j = 0; j < EnemyFormation.formation[i].length; j++) {
 				BeeGalagaEntity bee = new BeeGalagaEntity(EnemyFormation.formation[i][j].x,
 						EnemyFormation.formation[i][j].y);
-				bee.init(engine, bodyFactory, 0);
-				engine.addEntity(bee);
-			}
-		}
-
-		/*
+						bee.init(engine, bodyFactory, 0);
+						engine.addEntity(bee);
+					}
+				}
+				
+				for (float x = 0f; x <= 28.0f; x += 28.0f) {
+				float y = 2.5f;
+				BoundariesEntity be = new BoundariesEntity(x, y);
+				be.init(engine, bodyFactory);
+				engine.addEntity(be);
+				}
+				/*
 		 * }
 		 * }
 		 * 
@@ -321,6 +327,7 @@ public class ArcadeScreen extends ScreenAdapter {
 		 * 
 		 * }
 		 */
+
 		for (float x = 0f; x <= 28.0f; x += 28.0f) {
 			float y = 2.5f;
 			float s1 = .25f;
@@ -337,6 +344,5 @@ public class ArcadeScreen extends ScreenAdapter {
 		BoundariesEntity be2 = new BoundariesEntity(x, y, s1, s2);
 		be2.init(engine, bodyFactory);
 		engine.addEntity(be2);
-
 	}
 }
