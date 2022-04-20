@@ -1,5 +1,8 @@
 package com.github.grhscompsci2.galaga.screens;
 
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntityListener;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -19,6 +22,7 @@ import com.github.grhscompsci2.galaga.MyGdxGame;
 import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.b2d.B2dContactListener;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
+import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.entities.BeeGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.BoundariesEntity;
 import com.github.grhscompsci2.galaga.entities.ButterflyGalagaEntity;
@@ -27,12 +31,15 @@ import com.github.grhscompsci2.galaga.entities.LevelEntity;
 import com.github.grhscompsci2.galaga.entities.LivesEntity;
 import com.github.grhscompsci2.galaga.entities.PlayerEntity;
 import com.github.grhscompsci2.galaga.systems.AnimationSystem;
+import com.github.grhscompsci2.galaga.systems.BulletSystem;
 import com.github.grhscompsci2.galaga.systems.CollisionSystem;
 import com.github.grhscompsci2.galaga.systems.EnemySystem;
 import com.github.grhscompsci2.galaga.systems.PhysicsDebugSystem;
 import com.github.grhscompsci2.galaga.systems.PhysicsSystem;
 import com.github.grhscompsci2.galaga.systems.PlayerControlSystem;
 import com.github.grhscompsci2.galaga.systems.RenderingSystem;
+import com.github.grhscompsci2.galaga.systems.StateSystem;
+import com.github.grhscompsci2.galaga.systems.SteeringSystem;
 
 public class ArcadeScreen extends ScreenAdapter {
 
@@ -71,14 +78,32 @@ public class ArcadeScreen extends ScreenAdapter {
 		setUpTable();
 		engine = new PooledEngine();
 
+		Family bodyFamily = Family.all(B2dBodyComponent.class).get();
+		EntityListener b2dListener = new EntityListener() {
+			@Override
+			public void entityAdded(Entity entity) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void entityRemoved(Entity entity) {
+				if (entity.getComponent(B2dBodyComponent.class) != null)
+					world.destroyBody(entity.getComponent(B2dBodyComponent.class).body);
+			}
+		};
 		// add all the relevant systems our engine should run
 		engine.addSystem(renderingSystem);
 		engine.addSystem(new AnimationSystem());
 		engine.addSystem(new PhysicsDebugSystem(world, renderingSystem.getCamera()));
 		engine.addSystem(new PhysicsSystem(world));
 		engine.addSystem(new CollisionSystem());
-		engine.addSystem(new PlayerControlSystem(controller, parent));
+		engine.addSystem(new StateSystem());
+		engine.addSystem(new BulletSystem());
+		engine.addSystem(new SteeringSystem());
+		engine.addSystem(new PlayerControlSystem(controller, parent, bodyFactory));
 		engine.addSystem(new EnemySystem());
+		engine.addEntityListener(bodyFamily, b2dListener);
 	}
 
 	@Override
@@ -99,13 +124,39 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addEntity(player);
 
 		// needs to be fixed. States for the game should add all these entities
-		createFormation1();
-		createLives();
-
-		// needs to be fixed. States for the game should add all these entities
+		/*
+		 * createFormation1();
+		 * createLives();
+		 */
+		BeeGalagaEntity bee = new BeeGalagaEntity(20, 10);
+		bee.init(engine, bodyFactory, 0);
+		engine.addEntity(bee);
+		createBoundries(engine, bodyFactory);
 		LevelEntity le = new LevelEntity();
 		le.init(engine, bodyFactory);
 		engine.addEntity(le);
+	}
+
+	private void createBoundries(PooledEngine engine2, BodyFactory bodyFactory2) {
+		// Create Player bumpers to keep players on the field.
+		for (float x = 0f; x <= 28.0f; x += 28.0f) {
+			float y = 2.5f;
+			float s1 = .25f;
+			float s2 = .25f;
+			BoundariesEntity be = new BoundariesEntity(x, y, s1, s2);
+			be.init(engine, bodyFactory);
+			engine.addEntity(be);
+		}
+
+		// Create Bullet bumper to destroy bullets that go too high
+		float w = Utility.SCREEN_WIDTH_METERS - 0.5f;
+		float h = 2.0f;
+		float x = Utility.SCREEN_WIDTH_METERS / 2.0f;
+		float y = Utility.SCREEN_HEIGHT_METERS - h;
+
+		BoundariesEntity be2 = new BoundariesEntity(x, y, w, h);
+		be2.init(engine, bodyFactory);
+		engine.addEntity(be2);
 	}
 
 	@Override
@@ -122,6 +173,7 @@ public class ArcadeScreen extends ScreenAdapter {
 
 		Utility.background.render(delta, rest);
 		engine.update(delta);
+
 		arcadeStage.draw();
 	}
 
@@ -275,6 +327,22 @@ public class ArcadeScreen extends ScreenAdapter {
 		 * 
 		 * }
 		 */
-		 
+
+		for (float x = 0f; x <= 28.0f; x += 28.0f) {
+			float y = 2.5f;
+			float s1 = .25f;
+			float s2 = .25f;
+			BoundariesEntity be = new BoundariesEntity(x, y, s1, s2);
+			be.init(engine, bodyFactory);
+			engine.addEntity(be);
+		}
+
+		float x = 1.0f;
+		float y = 40.0f;
+		float s1 = 40.0f;
+		float s2 = .25f;
+		BoundariesEntity be2 = new BoundariesEntity(x, y, s1, s2);
+		be2.init(engine, bodyFactory);
+		engine.addEntity(be2);
 	}
 }
