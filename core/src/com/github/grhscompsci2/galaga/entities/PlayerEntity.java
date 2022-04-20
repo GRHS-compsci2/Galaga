@@ -49,6 +49,7 @@ public class PlayerEntity extends Entity {
         Array<TextureRegion> keyFrames = new Array<TextureRegion>();
         keyFrames.add(Utility.getTextureRegionAsset("playerShip1"));
         Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames);
+
         AnimationComponent animationComponent = engine.createComponent(AnimationComponent.class);
         animationComponent.animations.put(StateComponent.STATE_NORMAL, ani);
         animationComponent.animations.put(StateComponent.STATE_ENTRY, ani);
@@ -60,5 +61,6 @@ public class PlayerEntity extends Entity {
     public static Vector3 getPosition() {
         Vector3 position = new Vector3(x, y, 0.0f);
         return position;
+
     }
 }
