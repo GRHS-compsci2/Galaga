@@ -299,7 +299,7 @@ public class ArcadeScreen extends ScreenAdapter {
 				
 				for (float x = 0f; x <= 28.0f; x += 28.0f) {
 				float y = 2.5f;
-				BoundariesEntity be = new BoundariesEntity(x, y);
+				BoundariesEntity be = new BoundariesEntity(x, y,1f,1f);
 				be.init(engine, bodyFactory);
 				engine.addEntity(be);
 				}
