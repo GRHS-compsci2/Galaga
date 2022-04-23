@@ -2,7 +2,9 @@ package com.github.grhscompsci2.galaga.components;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.steer.utils.Path;
 import com.badlogic.gdx.ai.steer.utils.paths.LinePath;
+import com.badlogic.gdx.ai.steer.utils.paths.LinePath.LinePathParam;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
@@ -14,6 +16,7 @@ public class EnemyComponent implements Component, Poolable {
     private boolean goingLeft;
     // The home position in the formation
     private Vector2 home;
+    private Vector2 realHome;
     // array to hold all possible paths
     private LinePath<Vector2> path;
 
@@ -29,6 +32,7 @@ public class EnemyComponent implements Component, Poolable {
         idleTime = 0;
         // set the home position
         home = new Vector2(x, y);
+        realHome = home;
         // create LinePaths (curves) for each path
         path = entryPath;
     }
@@ -52,38 +56,16 @@ public class EnemyComponent implements Component, Poolable {
     }
 
     /**
-     * This method will update the position of the formation, so all enemies can
-     * move in sync
-     * 
-     * @param deltaTime the elapsed time
-     * @return the new position of the enemy
-     */
-    public Vector2 updateFormation(float deltaTime) {
-        Vector2 position = new Vector2();
-        idleTime += deltaTime;
-
-        float x = (idleTime - 2) * 2;
-        if (goingLeft) {
-            x *= -1;
-        }
-        if (idleTime > 4) {
-            idleTime = 0;
-            goingLeft = !goingLeft;
-        }
-        position.set(x, 0);
-
-        return position.add(home);
-    }
-
-    /**
      * Check to see if we are close enough to home
      * 
      * @param vector2
      */
     public boolean areWeThereYet(float tolerance, Vector2 position) {
         Vector2 extremity = path.getEndPoint();
+        Gdx.app.debug(TAG, "[" + position.x + ", " + position.y + "] to [" + extremity.x + ", " + extremity.y + "] is "
+                + position.dst2(extremity));
         if (position.dst2(extremity) < tolerance * tolerance) {
-            Gdx.app.debug(TAG, "Close Enough! " + position.dst2(extremity));
+            Gdx.app.debug(TAG, "Close Enough!");
             return true;
         }
         return false;
@@ -96,5 +78,14 @@ public class EnemyComponent implements Component, Poolable {
 
     public Vector2 getHome() {
         return home;
+    }
+
+    public Vector2 updateHome(Vector2 offset) {
+        home = realHome.add(offset);
+        return home;
+    }
+
+    public void setPath(Path<Vector2, LinePathParam> path2) {
+        this.path=(LinePath<Vector2>)path2;
     }
 }

@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.ai.SteeringPresets;
 import com.github.grhscompsci2.galaga.components.EnemyComponent;
 import com.github.grhscompsci2.galaga.components.Mapper;
@@ -56,7 +57,6 @@ public class EnemySystem extends IteratingSystem {
             stateComponent.set(StateComponent.STATE_ENTRY_GO_HOME);
             steeringComponent.currentMode = SteeringState.STOP;
         }
-
     }
 
     private void entryGoHome(Entity entity) {
@@ -64,13 +64,10 @@ public class EnemySystem extends IteratingSystem {
         EnemyComponent enemyComponent = Mapper.enemyCom.get(entity);
         StateComponent stateComponent = Mapper.stateCom.get(entity);
         // Go to the home position
-        // if (steeringComponent.currentMode != SteeringState.GO) {
         steeringComponent
                 .setSteeringBehavior(
                         SteeringPresets.goPoint(steeringComponent, enemyComponent.updateHome(idler), 0.5f));
         enemyComponent.setPath(steeringComponent.followPath.getPath());
-        // steeringComponent.currentMode = SteeringState.GO;
-        // }
         if (enemyComponent.areWeThereYet(steeringComponent.followPath.getArrivalTolerance(),
                 steeringComponent.getPosition())) {
             steeringComponent.currentMode = SteeringState.STOP;
@@ -85,8 +82,7 @@ public class EnemySystem extends IteratingSystem {
             steeringComponent.steeringBehavior = null;
             steeringComponent.currentMode = SteeringState.GO;
         }
-        steeringComponent.setPosition(enemyComponent.updateHome(idler));// .add(idler));
-        // }
+        steeringComponent.setPosition(enemyComponent.updateHome(idler));
     }
 
     /**
@@ -96,20 +92,24 @@ public class EnemySystem extends IteratingSystem {
      * @param deltaTime the elapsed time
      */
     public void updateFormation(float deltaTime) {
-        if (deltaTime > 1)
-            deltaTime = 1;
-        idleTime += deltaTime;
+        //if (Utility.frameUpdate) {
+            if (deltaTime > 1)
+                deltaTime = 1;
+            idleTime += deltaTime;
 
-        float x = (idleTime) / 8;
-        if (goingLeft) {
-            x *= -1;
-        }
-        if (idleTime > 1) {
-            idleTime = 0;
-            goingLeft = !goingLeft;
-        }
-        idler.set(x, 0);
-        // Gdx.app.debug(TAG, "Idler: " + idler);
+            float x = (float)Math.sin(idleTime)/10;
+            /*
+             * if (goingLeft) {
+             * x *= -1;
+             * }
+             */
+            if (idleTime > 2*Math.PI) {
+                idleTime = 0;
+            }
+            idler.set(x, 0);
+            Gdx.app.debug(TAG, "Idler: " + idler);
+           // Utility.frameUpdate=false;
+        //}
     }
 
 }

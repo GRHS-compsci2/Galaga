@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
+import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.components.CollisionComponent;
 import com.github.grhscompsci2.galaga.components.Mapper;
 import com.github.grhscompsci2.galaga.components.StateComponent;
@@ -32,15 +33,18 @@ public class CollisionSystem extends IteratingSystem {
 					// enemy or player is hit by bullet
 					sc.set(StateComponent.STATE_HIT);
 					entity.remove(CollisionComponent.class);
+					entity.remove(B2dBodyComponent.class);
 				} else if (usType.type == TypeComponent.PLAYER && themType.type == TypeComponent.ENEMY) {
 					// Player is hit by Enemy
 					sc.set(StateComponent.STATE_HIT);
 					entity.remove(CollisionComponent.class);
+					entity.remove(B2dBodyComponent.class);
 				} else if (usType.type == TypeComponent.BULLET) {
 					// Bullet has hit something
 					sc.set(StateComponent.STATE_DEAD);
 					Gdx.app.debug(TAG,"Bullet");
 					entity.remove(CollisionComponent.class);
+					entity.remove(B2dBodyComponent.class);
 				}
 				cc.collisionEntity = null; // collision handled reset component
 			}
