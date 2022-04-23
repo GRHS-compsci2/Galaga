@@ -48,8 +48,10 @@ public class BeeGalagaEntity extends Entity {
                 keyFrames.add(Utility.getTextureRegionAsset("explosion1"));
                 keyFrames.add(Utility.getTextureRegionAsset("explosion2"));
                 keyFrames.add(Utility.getTextureRegionAsset("explosion3"));
+                keyFrames.add(Utility.getTextureRegionAsset("explosion4"));
+                keyFrames.add(Utility.getTextureRegionAsset("explosion5"));
 
-                Animation<TextureRegion> explosionAni = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE,
+                Animation<TextureRegion> explosionAni = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE/2,
                                 keyFrames,
                                 PlayMode.NORMAL);
                 aComponent.animations.put(StateComponent.STATE_HIT, explosionAni);
