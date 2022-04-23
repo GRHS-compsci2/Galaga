@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
+import com.github.grhscompsci2.galaga.EnemyFormation;
 import com.github.grhscompsci2.galaga.Utility;
+import com.github.grhscompsci2.galaga.ai.PathPresets;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
@@ -34,7 +36,8 @@ public class GreenBatGalagaEntity extends Entity {
         keyFrames.add(Utility.getTextureRegionAsset("greenBat1"));
         keyFrames.add(Utility.getTextureRegionAsset("greenBat2"));
 
-        Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames,PlayMode.LOOP);
+        Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames,
+                PlayMode.LOOP);
 
         AnimationComponent aComponent = engine.createComponent(AnimationComponent.class);
         aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
@@ -42,11 +45,12 @@ public class GreenBatGalagaEntity extends Entity {
         aComponent.animations.put(StateComponent.STATE_ENTRY_IDLE, ani);
 
         keyFrames.clear();
-        keyFrames.add(Utility.getTextureRegionAsset("explosion1"));        
-        keyFrames.add(Utility.getTextureRegionAsset("explosion2"));        
+        keyFrames.add(Utility.getTextureRegionAsset("explosion1"));
+        keyFrames.add(Utility.getTextureRegionAsset("explosion2"));
         keyFrames.add(Utility.getTextureRegionAsset("explosion3"));
-        
-        Animation<TextureRegion> explosionAni = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames, PlayMode.NORMAL);
+
+        Animation<TextureRegion> explosionAni = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames,
+                PlayMode.NORMAL);
         aComponent.animations.put(StateComponent.STATE_HIT, explosionAni);
         super.add(aComponent);
 
@@ -68,13 +72,13 @@ public class GreenBatGalagaEntity extends Entity {
         super.add(b2d);
 
         EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
-        enemyComponent.initPaths(x, y);
-        enemyComponent.setPath(0);
+        enemyComponent.initPaths(EnemyFormation.formation[0][2].x, EnemyFormation.formation[0][2].y,
+                PathPresets.ENTRY_PATH_0);
         super.add(enemyComponent);
 
-        CollisionComponent collisionComponent=engine.createComponent(CollisionComponent.class);
+        CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);
         add(collisionComponent);
-        
+
         TypeComponent typeComponent = engine.createComponent(TypeComponent.class);
         typeComponent.type = TypeComponent.ENEMY;
         add(typeComponent);

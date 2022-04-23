@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
+import com.github.grhscompsci2.galaga.EnemyFormation;
 import com.github.grhscompsci2.galaga.Utility;
+import com.github.grhscompsci2.galaga.ai.PathPresets;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
@@ -74,8 +76,8 @@ public class ButterflyGalagaEntity extends Entity {
         super.add(b2d);
 
         EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
-        enemyComponent.initPaths(x, y);
-        enemyComponent.setPath(0);
+        enemyComponent.initPaths(EnemyFormation.formation[0][0].x, EnemyFormation.formation[0][0].y,
+                PathPresets.ENTRY_PATH_0);
         super.add(enemyComponent);
 
         CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);

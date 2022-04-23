@@ -11,10 +11,12 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.components.EnemyComponent;
 import com.github.grhscompsci2.galaga.components.Mapper;
+import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.SteeringComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
@@ -85,20 +87,27 @@ public class RenderingSystem extends SortedIteratingSystem {
         // update camera and sprite batch
         cam.update();
 
-        //Draw the paths
+        // Draw the paths
         if (Utility.DEBUG_MODE) {
             for (Entity entity : renderQueue) {
                 // Draw the current Path
                 EnemyComponent eComponent = Mapper.enemyCom.get(entity);
+                StateComponent sComponent = Mapper.stateCom.get(entity);
+                TranslationComponent t = Mapper.transCom.get(entity);
+
                 if (eComponent != null) {
                     ShapeRenderer sr = new ShapeRenderer();
                     Gdx.gl.glLineWidth(1);
                     sr.setProjectionMatrix(cam.combined);
                     sr.begin(ShapeRenderer.ShapeType.Line);
                     sr.setColor(Color.WHITE);
-                    for (int i = 0; i < eComponent.getPath().getSegments().size; i++) {
-                        sr.line(eComponent.getPath().getSegments().get(i).getBegin(),
-                                eComponent.getPath().getSegments().get(i).getEnd());
+                    if (sComponent.getState() == StateComponent.STATE_ENTRY)
+                        for (int i = 0; i < eComponent.getPath().getSegments().size; i++) {
+                            sr.line(eComponent.getPath().getSegments().get(i).getBegin(),
+                                    eComponent.getPath().getSegments().get(i).getEnd());
+                        }
+                    else {
+                        sr.line(t.getPosition(), new Vector3(eComponent.getHome(), 0));
                     }
                     sr.end();
                 }

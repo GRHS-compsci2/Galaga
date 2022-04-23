@@ -5,7 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.steer.Steerable;
 import com.badlogic.gdx.ai.steer.SteeringAcceleration;
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
+import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.ai.steer.behaviors.FollowPath;
+import com.badlogic.gdx.ai.steer.behaviors.Seek;
 import com.badlogic.gdx.ai.steer.utils.paths.LinePath.LinePathParam;
 import com.badlogic.gdx.ai.utils.Location;
 import com.badlogic.gdx.math.Vector2;
@@ -17,18 +19,18 @@ import com.github.grhscompsci2.galaga.b2d.Box2dLocation;
 public class SteeringComponent implements Steerable<Vector2>, Component, Poolable {
 
     public static enum SteeringState {
-        ENTRY, ENTRY_IDLE, SWARM, DIVE, REHOME, NONE
+        GO, STOP
     }
 
-    private final String TAG=SteeringComponent.class.getSimpleName();
-    public SteeringState currentMode = SteeringState.NONE;
+    private final String TAG = SteeringComponent.class.getSimpleName();
+    public SteeringState currentMode = SteeringState.STOP;
     public Body body;
     public FollowPath<Vector2, LinePathParam> followPath;
     // Steering Data
-    //Don't go too fast
+    // Don't go too fast
     float maxLinearSpeed = 10f;
     float maxAngularSpeed = 20f;
-    //accellerate and decellerate almost instantly
+    // accellerate and decellerate almost instantly
     float maxLinearAcceleration = 10000.0f;
     float maxAngularAcceleration = 10000.0f;
     float zeroThreshold = 0.1f;
@@ -48,13 +50,13 @@ public class SteeringComponent implements Steerable<Vector2>, Component, Poolabl
         if (steeringBehavior != null) {
             steeringBehavior.calculateSteering(STEERING_OUTPUT);
             applySteering(STEERING_OUTPUT, delta);
-            Gdx.app.debug(TAG, "Position: "+body.getPosition()+" Steering Output:"+STEERING_OUTPUT.linear);
+            Gdx.app.debug(TAG, "Position: " + body.getPosition() + " Steering Output:" + STEERING_OUTPUT.linear);
         }
     }
 
     @Override
     public void reset() {
-        currentMode = SteeringState.NONE;
+        currentMode = SteeringState.STOP;
         body = null;
         steeringBehavior = null;
     }
@@ -224,17 +226,20 @@ public class SteeringComponent implements Steerable<Vector2>, Component, Poolabl
     }
 
     public void setSteeringBehavior(FollowPath<Vector2, LinePathParam> goPath) {
-        this.followPath=goPath;
-        this.steeringBehavior=goPath;
+        this.followPath = goPath;
+        this.steeringBehavior = goPath;
     }
 
     public void setPosition(Vector2 startPoint) {
         body.setTransform(startPoint, 0);
     }
 
-    public boolean areWeThereYet() {
-        Vector2 position=body.getPosition();
-        return false;
+    public void setSteeringBehavior(Seek<Vector2> spotSeek) {
+        this.steeringBehavior = spotSeek;
+    }
+
+    public void setSteeringBehavior(Arrive<Vector2> spotArrive) {
+        this.steeringBehavior = spotArrive;
     }
 
 }

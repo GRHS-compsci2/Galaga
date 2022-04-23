@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.EnemyFormation;
 import com.github.grhscompsci2.galaga.Utility;
+import com.github.grhscompsci2.galaga.ai.PathPresets;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
@@ -21,70 +22,71 @@ import com.github.grhscompsci2.galaga.components.TranslationComponent;
 import com.github.grhscompsci2.galaga.components.TypeComponent;
 
 public class BeeGalagaEntity extends Entity {
-    float x;
-    float y;
+        float x;
+        float y;
 
-    public BeeGalagaEntity(float x, float y) {
-        this.x = x;
-        this.y = y;
-    }
+        public BeeGalagaEntity(float x, float y) {
+                this.x = x;
+                this.y = y;
+        }
 
-    public void init(Engine engine, BodyFactory bodyFactory, int path) {
+        public void init(Engine engine, BodyFactory bodyFactory, int path) {
 
-        Array<TextureRegion> keyFrames = new Array<TextureRegion>();
-        keyFrames.add(Utility.getTextureRegionAsset("bee1"));
-        keyFrames.add(Utility.getTextureRegionAsset("bee2"));
+                Array<TextureRegion> keyFrames = new Array<TextureRegion>();
+                keyFrames.add(Utility.getTextureRegionAsset("bee1"));
+                keyFrames.add(Utility.getTextureRegionAsset("bee2"));
 
-        Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames,
-                PlayMode.LOOP);
+                Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames,
+                                PlayMode.LOOP);
 
-        AnimationComponent aComponent = engine.createComponent(AnimationComponent.class);
-        aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
-        aComponent.animations.put(StateComponent.STATE_ENTRY, ani);
-        aComponent.animations.put(StateComponent.STATE_ENTRY_IDLE, ani);
+                AnimationComponent aComponent = engine.createComponent(AnimationComponent.class);
+                aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
+                aComponent.animations.put(StateComponent.STATE_ENTRY, ani);
+                aComponent.animations.put(StateComponent.STATE_ENTRY_IDLE, ani);
 
-        keyFrames.clear();
-        keyFrames.add(Utility.getTextureRegionAsset("explosion1"));
-        keyFrames.add(Utility.getTextureRegionAsset("explosion2"));
-        keyFrames.add(Utility.getTextureRegionAsset("explosion3"));
+                keyFrames.clear();
+                keyFrames.add(Utility.getTextureRegionAsset("explosion1"));
+                keyFrames.add(Utility.getTextureRegionAsset("explosion2"));
+                keyFrames.add(Utility.getTextureRegionAsset("explosion3"));
 
-        Animation<TextureRegion> explosionAni = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames,
-                PlayMode.NORMAL);
-        aComponent.animations.put(StateComponent.STATE_HIT, explosionAni);
-        super.add(aComponent);
+                Animation<TextureRegion> explosionAni = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE,
+                                keyFrames,
+                                PlayMode.NORMAL);
+                aComponent.animations.put(StateComponent.STATE_HIT, explosionAni);
+                super.add(aComponent);
 
-        TextureComponent tex = engine.createComponent(TextureComponent.class);
-        tex.region = Utility.getTextureRegionAsset("bee1");
-        super.add(tex);
+                TextureComponent tex = engine.createComponent(TextureComponent.class);
+                tex.region = Utility.getTextureRegionAsset("bee1");
+                super.add(tex);
 
-        StateComponent sComponent = engine.createComponent(StateComponent.class);
-        sComponent.set(StateComponent.STATE_ENTRY);
-        super.add(sComponent);
+                StateComponent sComponent = engine.createComponent(StateComponent.class);
+                sComponent.set(StateComponent.STATE_ENTRY);
+                super.add(sComponent);
 
-        TranslationComponent pos = engine.createComponent(TranslationComponent.class);
-        // pos.setPosition(x, y);
-        super.add(pos);
+                TranslationComponent pos = engine.createComponent(TranslationComponent.class);
+                // pos.setPosition(x, y);
+                super.add(pos);
 
-        B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
-        b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody,
-                BodyFactory.CATEGORY_ENEMY, BodyFactory.MASK_ENEMY, true);
-        b2d.body.setUserData(this);
-        super.add(b2d);
+                B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
+                b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody,
+                                BodyFactory.CATEGORY_ENEMY, BodyFactory.MASK_ENEMY, true);
+                b2d.body.setUserData(this);
+                super.add(b2d);
 
-        EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
-        enemyComponent.initPaths(EnemyFormation.formation[0][0].x, EnemyFormation.formation[0][0].y);
-        enemyComponent.setPath(0);
-        super.add(enemyComponent);
+                EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
+                enemyComponent.initPaths(EnemyFormation.formation[0][0].x, EnemyFormation.formation[0][0].y,
+                                PathPresets.ENTRY_PATH_0);
+                super.add(enemyComponent);
 
-        CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);
-        add(collisionComponent);
+                CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);
+                add(collisionComponent);
 
-        TypeComponent typeComponent = engine.createComponent(TypeComponent.class);
-        typeComponent.type = TypeComponent.ENEMY;
-        add(typeComponent);
+                TypeComponent typeComponent = engine.createComponent(TypeComponent.class);
+                typeComponent.type = TypeComponent.ENEMY;
+                add(typeComponent);
 
-        SteeringComponent steeringComponent = engine.createComponent(SteeringComponent.class);
-        steeringComponent.body = b2d.body;
-        add(steeringComponent);
-    }
+                SteeringComponent steeringComponent = engine.createComponent(SteeringComponent.class);
+                steeringComponent.body = b2d.body;
+                super.add(steeringComponent);
+        }
 }
