@@ -30,8 +30,11 @@ public class GreenBatGalagaEntity extends Entity {
         this.y = y;
     }
 
-    public void init(Engine engine, BodyFactory bodyFactory) {
+    public GreenBatGalagaEntity() {
+    }
 
+    public void init(Engine engine, BodyFactory bodyFactory) {
+/*
         Array<TextureRegion> keyFrames = new Array<TextureRegion>();
         keyFrames.add(Utility.getTextureRegionAsset("greenBat1"));
         keyFrames.add(Utility.getTextureRegionAsset("greenBat2"));
@@ -81,6 +84,6 @@ public class GreenBatGalagaEntity extends Entity {
 
         TypeComponent typeComponent = engine.createComponent(TypeComponent.class);
         typeComponent.type = TypeComponent.ENEMY;
-        add(typeComponent);
+        add(typeComponent);*/
     }
 }

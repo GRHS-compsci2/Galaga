@@ -92,7 +92,7 @@ public class EnemySystem extends IteratingSystem {
      * @param deltaTime the elapsed time
      */
     public void updateFormation(float deltaTime) {
-        //if (Utility.frameUpdate) {
+        if (Utility.frameUpdate) {
             if (deltaTime > 1)
                 deltaTime = 1;
             idleTime += deltaTime;
@@ -107,9 +107,9 @@ public class EnemySystem extends IteratingSystem {
                 idleTime = 0;
             }
             idler.set(x, 0);
-            Gdx.app.debug(TAG, "Idler: " + idler);
-           // Utility.frameUpdate=false;
-        //}
+            //Gdx.app.debug(TAG, "Idler: " + idler);
+            Utility.frameUpdate=false;
+        }
     }
 
 }

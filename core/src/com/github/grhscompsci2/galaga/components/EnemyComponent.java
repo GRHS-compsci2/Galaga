@@ -26,12 +26,12 @@ public class EnemyComponent implements Component, Poolable {
      * @param x the x coordinate of the home position
      * @param y the y coordinate of the home position
      */
-    public void initPaths(float x, float y, LinePath<Vector2> entryPath) {
+    public void initPaths(Vector2 home, LinePath<Vector2> entryPath) {
         // formation starts going right
         goingLeft = false;
         idleTime = 0;
         // set the home position
-        home = new Vector2(x, y);
+        this.home = home;
         realHome = home;
         // create LinePaths (curves) for each path
         path = entryPath;
@@ -62,10 +62,10 @@ public class EnemyComponent implements Component, Poolable {
      */
     public boolean areWeThereYet(float tolerance, Vector2 position) {
         Vector2 extremity = path.getEndPoint();
-        Gdx.app.debug(TAG, "[" + position.x + ", " + position.y + "] to [" + extremity.x + ", " + extremity.y + "] is "
-                + position.dst2(extremity));
+       // Gdx.app.debug(TAG, "[" + position.x + ", " + position.y + "] to [" + extremity.x + ", " + extremity.y + "] is "
+         //       + position.dst2(extremity));
         if (position.dst2(extremity) < tolerance * tolerance) {
-            Gdx.app.debug(TAG, "Close Enough!");
+           // Gdx.app.debug(TAG, "Close Enough!");
             return true;
         }
         return false;

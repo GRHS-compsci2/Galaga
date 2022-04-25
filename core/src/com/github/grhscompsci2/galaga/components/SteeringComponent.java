@@ -50,7 +50,7 @@ public class SteeringComponent implements Steerable<Vector2>, Component, Poolabl
         if (steeringBehavior != null) {
             steeringBehavior.calculateSteering(STEERING_OUTPUT);
             applySteering(STEERING_OUTPUT, delta);
-            Gdx.app.debug(TAG, "Position: " + body.getPosition() + " Steering Output:" + STEERING_OUTPUT.linear);
+            //Gdx.app.debug(TAG, "Position: " + body.getPosition() + " Steering Output:" + STEERING_OUTPUT.linear);
         }
     }
 

@@ -71,13 +71,13 @@ public class ArcadeScreen extends ScreenAdapter {
 		bodyFactory = BodyFactory.getInstance(world);
 		controller = new KeyboardController();
 		arcadeStage = new Stage(new FitViewport(Utility.SCREEN_WIDTH, Utility.SCREEN_HEIGHT, new OrthographicCamera()));
-		EnemyFormation.init();
 		RenderingSystem renderingSystem = new RenderingSystem(arcadeStage.getBatch());
 		cam = renderingSystem.getCamera();
 		arcadeStage.getBatch().setProjectionMatrix(cam.combined);
 		setUpTable();
 		engine = new PooledEngine();
-
+        
+		EnemyFormation.init(engine,bodyFactory);
 		Family bodyFamily = Family.all(B2dBodyComponent.class).get();
 		EntityListener b2dListener = new EntityListener() {
 			@Override
@@ -128,9 +128,9 @@ public class ArcadeScreen extends ScreenAdapter {
 		 * createFormation1();
 		 * createLives();
 		 */
-		BeeGalagaEntity bee = new BeeGalagaEntity(20, 10);
+		/*BeeGalagaEntity bee = new BeeGalagaEntity(20, 10);
 		bee.init(engine, bodyFactory, 0);
-		engine.addEntity(bee);
+		engine.addEntity(bee);*/
 		createBoundries(engine, bodyFactory);
 		LevelEntity le = new LevelEntity();
 		le.init(engine, bodyFactory);
@@ -270,7 +270,7 @@ public class ArcadeScreen extends ScreenAdapter {
 	 * require readjustment. Eventually we will update this to "level start", where
 	 * the entities are created a the start of the level and their paths/order are
 	 * set
-	 */
+	 *
 	private void createFormation1() {
 		for (int i = 0; i < 2; i++) {
 			for (int j = 0; j < EnemyFormation.formation[i].length; j++) {
@@ -326,7 +326,7 @@ public class ArcadeScreen extends ScreenAdapter {
 		 * float y = 23.0f;
 		 * 
 		 * }
-		 */
+		 *
 
 		for (float x = 0f; x <= 28.0f; x += 28.0f) {
 			float y = 2.5f;
@@ -344,5 +344,5 @@ public class ArcadeScreen extends ScreenAdapter {
 		BoundariesEntity be2 = new BoundariesEntity(x, y, s1, s2);
 		be2.init(engine, bodyFactory);
 		engine.addEntity(be2);
-	}
+	}*/
 }

@@ -87,6 +87,7 @@ public class RenderingSystem extends SortedIteratingSystem {
         // update camera and sprite batch
         cam.update();
 
+        Utility.frameUpdate=true;
         // Draw the paths
         if (Utility.DEBUG_MODE) {
             for (Entity entity : renderQueue) {

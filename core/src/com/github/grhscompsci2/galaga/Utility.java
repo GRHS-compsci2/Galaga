@@ -41,6 +41,7 @@ public final class Utility {
     public static Background background = new Background();
     private static Music music;
     private static Sound sound;
+    public static boolean frameUpdate;
 
     public static void unloadAsset(String assetFilenamePath) {
         if (_assetManager.isLoaded(assetFilenamePath)) {
