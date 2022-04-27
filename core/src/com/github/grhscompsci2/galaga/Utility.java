@@ -35,6 +35,7 @@ public final class Utility {
     public static final String galagaExplosion1 = "music/galagaExplosion1.mp3";
     public static final String galagaExplosion2 = "music/galagaExplosion2.mp3";
     public static final float PPM = 8;
+    public static final float SPRITE_WIDTH = 1.5f;
 
     public static float SCREEN_WIDTH_METERS=SCREEN_WIDTH/PPM;
     public static float SCREEN_HEIGHT_METERS=SCREEN_HEIGHT/PPM;

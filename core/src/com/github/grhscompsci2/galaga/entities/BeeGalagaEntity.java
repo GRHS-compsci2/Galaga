@@ -62,7 +62,7 @@ public class BeeGalagaEntity extends EnemyEntity {
         super.add(pos);
 
         B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
-        b2d.body = bodyFactory.makeBoxPolyBody(home.x, home.y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody,
+        b2d.body = bodyFactory.makeBoxPolyBody(home.x, home.y, Utility.SPRITE_WIDTH, Utility.SPRITE_WIDTH, BodyFactory.STONE, BodyType.DynamicBody,
                 BodyFactory.CATEGORY_ENEMY, BodyFactory.MASK_ENEMY, true);
         b2d.body.setUserData(this);
         super.add(b2d);

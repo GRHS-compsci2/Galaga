@@ -32,17 +32,19 @@ public class CollisionSystem extends IteratingSystem {
 			if (themType != null) {
 				usBody.body.setType(BodyType.StaticBody);
 				if ((usType.type == TypeComponent.ENEMY || usType.type == TypeComponent.PLAYER)
-						&& themType.type == TypeComponent.BULLET) {
-					// enemy or player is hit by bullet
+        && themType.type == TypeComponent.BULLET) {
+          // enemy or player is hit by bullet
 					sc.set(StateComponent.STATE_HIT);
 					entity.remove(CollisionComponent.class);
-
+          usBody.body.setActive(false);
+          
 				} else if (usType.type == TypeComponent.PLAYER && themType.type == TypeComponent.ENEMY) {
-					// Player is hit by Enemy
+          // Player is hit by Enemy
 					sc.set(StateComponent.STATE_HIT);
 					entity.remove(CollisionComponent.class);
+          usBody.body.setActive(false);
 				} else if (usType.type == TypeComponent.BULLET) {
-					// Bullet has hit something
+          // Bullet has hit something
 					sc.set(StateComponent.STATE_DEAD);
 					Gdx.app.debug(TAG,"Bullet");
 					entity.remove(CollisionComponent.class);

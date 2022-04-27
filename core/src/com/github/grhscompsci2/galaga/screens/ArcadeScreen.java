@@ -23,10 +23,7 @@ import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.b2d.B2dContactListener;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
-import com.github.grhscompsci2.galaga.entities.BeeGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.BoundariesEntity;
-import com.github.grhscompsci2.galaga.entities.ButterflyGalagaEntity;
-import com.github.grhscompsci2.galaga.entities.GreenBatGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.LevelEntity;
 import com.github.grhscompsci2.galaga.entities.LivesEntity;
 import com.github.grhscompsci2.galaga.entities.PlayerEntity;
@@ -77,19 +74,18 @@ public class ArcadeScreen extends ScreenAdapter {
 		setUpTable();
 		engine = new PooledEngine();
         
-		EnemyFormation.init(engine,bodyFactory);
 		Family bodyFamily = Family.all(B2dBodyComponent.class).get();
 		EntityListener b2dListener = new EntityListener() {
-			@Override
+      @Override
 			public void entityAdded(Entity entity) {
-				// TODO Auto-generated method stub
-
+        // TODO Auto-generated method stub
+        
 			}
-
+      
 			@Override
 			public void entityRemoved(Entity entity) {
-				if (entity.getComponent(B2dBodyComponent.class) != null)
-					world.destroyBody(entity.getComponent(B2dBodyComponent.class).body);
+        if (entity.getComponent(B2dBodyComponent.class) != null)
+        world.destroyBody(entity.getComponent(B2dBodyComponent.class).body);
 			}
 		};
 		// add all the relevant systems our engine should run
@@ -105,10 +101,11 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addSystem(new EnemySystem());
 		engine.addEntityListener(bodyFamily, b2dListener);
 	}
-
+  
 	@Override
 	public void show() {
-		// initialize variables to control the delay when we start
+    EnemyFormation.init(engine,bodyFactory);
+    // initialize variables to control the delay when we start
 		resumeTime = 0;
 		blinkTime = 0;
 		// rest will be true when we are delaying, false when we are active

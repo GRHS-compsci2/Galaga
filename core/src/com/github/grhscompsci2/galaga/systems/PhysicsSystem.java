@@ -3,6 +3,7 @@ package com.github.grhscompsci2.galaga.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -13,6 +14,7 @@ import com.github.grhscompsci2.galaga.components.TranslationComponent;
 
 public class PhysicsSystem extends IteratingSystem {
 
+  private static final String TAG=PhysicsSystem.class.getName();
     private static final float MAX_STEP_TIME = 1 / 45f;
     private static float accumulator = 0f;
 

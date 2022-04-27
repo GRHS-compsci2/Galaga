@@ -63,7 +63,7 @@ public class RenderingSystem extends SortedIteratingSystem {
 
     public RenderingSystem(Batch batch) {
         // gets all entities with a TranslationComponent and TextureComponent
-        super(Family.all(TranslationComponent.class, TextureComponent.class).get(), new ZComparator());
+        super(Family.all(TranslationComponent.class, TextureComponent.class).get(), new ZComparator(),1);
         comparator = new ZComparator();
         Gdx.app.debug(TAG, "Screen Resolution: " + getScreenSizeInMeters());
 
@@ -132,7 +132,7 @@ public class RenderingSystem extends SortedIteratingSystem {
 
             float originX = width / 2f;
             float originY = height / 2f;
-
+            //Gdx.app.debug(TAG,"Position: "+(t.position.x - originX)+", "+(t.position.y - originY));
             batch.draw(tex.region, t.position.x - originX, t.position.y - originY, originX, originY, width, height,
                     PixelsToMeters(t.scale.x), PixelsToMeters(t.scale.y), t.rotation);
             if (Utility.DEBUG_MODE) {
