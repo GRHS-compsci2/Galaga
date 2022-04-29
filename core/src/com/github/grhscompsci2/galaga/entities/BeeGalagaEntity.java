@@ -16,6 +16,7 @@ import com.github.grhscompsci2.galaga.components.CollisionComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.SteeringComponent;
 import com.github.grhscompsci2.galaga.components.EnemyComponent;
+import com.github.grhscompsci2.galaga.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
 import com.github.grhscompsci2.galaga.components.TypeComponent;
@@ -68,7 +69,7 @@ public class BeeGalagaEntity extends EnemyEntity {
         super.add(b2d);
 
         EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
-        enemyComponent.initPaths(home, PathPresets.ENTRY_PATH_0);
+        enemyComponent.initPaths(home, PathPresets.ENTRY_PATH_1);
         super.add(enemyComponent);
 
         CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);
@@ -81,6 +82,8 @@ public class BeeGalagaEntity extends EnemyEntity {
         SteeringComponent steeringComponent = engine.createComponent(SteeringComponent.class);
         steeringComponent.body = b2d.body;
         super.add(steeringComponent);
+
+        super.add(inactiveComponent);
     }
 
 }

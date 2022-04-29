@@ -3,12 +3,14 @@ package com.github.grhscompsci2.galaga.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.github.grhscompsci2.galaga.BulletManager;
+import com.github.grhscompsci2.galaga.MyGdxGame;
 import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.ai.SteeringPresets;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.components.EnemyComponent;
+import com.github.grhscompsci2.galaga.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.components.Mapper;
 import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.SteeringComponent;
@@ -20,11 +22,17 @@ public class EnemySystem extends IteratingSystem {
   private static Vector2 idler = new Vector2();
   private static boolean goingLeft = false;
   private static float idleTime = 0;
+  private BulletManager bulMan;
+  private MyGdxGame parent;
 
   @SuppressWarnings("unchecked")
-  public EnemySystem() {
+  public EnemySystem(MyGdxGame parent, BulletManager bulMan) {
     // get all of the entites with the enemy component
-    super(Family.all(EnemyComponent.class).get());
+    super(Family.all(EnemyComponent.class)
+        .exclude(InactiveComponent.class)
+        .get());
+    this.bulMan = bulMan;
+    this.parent = parent;
   }
 
   @Override
@@ -81,15 +89,15 @@ public class EnemySystem extends IteratingSystem {
 
   private void entryIdle(Entity entity) {
     SteeringComponent steeringComponent = Mapper.sCom.get(entity);
-    B2dBodyComponent b2dBodyComponent=Mapper.b2dCom.get(entity);
-    TranslationComponent translationComponent=Mapper.transCom.get(entity);
+    B2dBodyComponent b2dBodyComponent = Mapper.b2dCom.get(entity);
+    TranslationComponent translationComponent = Mapper.transCom.get(entity);
     EnemyComponent enemyComponent = Mapper.enemyCom.get(entity);
     if (steeringComponent.currentMode != SteeringState.GO) {
       steeringComponent.steeringBehavior = null;
       steeringComponent.currentMode = SteeringState.GO;
     }
-    Vector2 idlePosition=enemyComponent.updateHome(idler);
-    b2dBodyComponent.body.setTransform(idlePosition,0);
+    Vector2 idlePosition = enemyComponent.updateHome(idler);
+    b2dBodyComponent.body.setTransform(idlePosition, 0);
     translationComponent.setPosition(idlePosition);
   }
 
@@ -101,25 +109,25 @@ public class EnemySystem extends IteratingSystem {
    */
   public void updateFormation(float deltaTime) {
     if (Utility.frameUpdate) {
-      /*if (deltaTime > 1)
-        deltaTime = 1;
-      */
+      /*
+       * if (deltaTime > 1)
+       * deltaTime = 1;
+       */
 
-      //float x = idleTime;
+      // float x = idleTime;
 
       if (goingLeft) {
-        idleTime += 2*deltaTime;
-      }
-      else{
-        idleTime -= 2*deltaTime;
+        idleTime += 2 * deltaTime;
+      } else {
+        idleTime -= 2 * deltaTime;
       }
 
-      if (Math.abs(idleTime) > 2.5*Utility.SPRITE_WIDTH) {
+      if (Math.abs(idleTime) > 2.5 * Utility.SPRITE_WIDTH) {
         goingLeft = !goingLeft;
       }
 
       idler.set(idleTime, 0);
-      //Gdx.app.debug(TAG, "Idler: " + idler);
+      // Gdx.app.debug(TAG, "Idler: " + idler);
       Utility.frameUpdate = false;
     }
   }

@@ -217,4 +217,8 @@ public final class Utility {
         return outVector;
     }
 
+    public static void playPew(MyGdxGame parent) {
+      playSoundAsset(parent, shotFired);
+    }
+
 }

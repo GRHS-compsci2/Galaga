@@ -12,7 +12,7 @@ import com.github.grhscompsci2.galaga.entities.GreenBatGalagaEntity;
 public class EnemyFormation {
   private static String TAG = EnemyFormation.class.getSimpleName();
   public static EnemyEntity[][] formation = {
-      // bat rows
+      /*// bat rows
       {
           new GreenBatGalagaEntity(), new GreenBatGalagaEntity(), new GreenBatGalagaEntity(),
           new GreenBatGalagaEntity(),
@@ -33,7 +33,7 @@ public class EnemyFormation {
           new BeeGalagaEntity(), new BeeGalagaEntity(), new BeeGalagaEntity(), new BeeGalagaEntity(),
           new BeeGalagaEntity(), new BeeGalagaEntity(), new BeeGalagaEntity(), new BeeGalagaEntity(),
           new BeeGalagaEntity(), new BeeGalagaEntity()
-      },
+      },*/
       {
           new BeeGalagaEntity(), new BeeGalagaEntity(), new BeeGalagaEntity(), new BeeGalagaEntity(),
           new BeeGalagaEntity(), new BeeGalagaEntity(), new BeeGalagaEntity(), new BeeGalagaEntity(),
@@ -49,14 +49,6 @@ public class EnemyFormation {
       for (int j = 0; j < formation[i].length; j++) {
         float x = xStart + (j * 2);
         Gdx.app.debug(TAG, "X:" + x + "Y:" + y);
-        if (i == 0) {
-          formation[i][j] = new GreenBatGalagaEntity();
-        } else if (i < 3) {
-          formation[i][j] = new ButterflyGalagaEntity();
-        } else {
-          formation[i][j] = new BeeGalagaEntity();
-
-        }
         formation[i][j].init(engine, factory, new Vector2(x, y));
         engine.addEntity(formation[i][j]);
       }

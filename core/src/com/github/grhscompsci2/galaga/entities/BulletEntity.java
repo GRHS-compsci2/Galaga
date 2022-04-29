@@ -2,68 +2,72 @@ package com.github.grhscompsci2.galaga.entities;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool.Poolable;
 import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
-import com.github.grhscompsci2.galaga.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
-import com.github.grhscompsci2.galaga.components.BulletComponent;
 import com.github.grhscompsci2.galaga.components.CollisionComponent;
+import com.github.grhscompsci2.galaga.components.InactiveComponent;
+import com.github.grhscompsci2.galaga.components.Mapper;
 import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
 import com.github.grhscompsci2.galaga.components.TypeComponent;
 
-public class BulletEntity extends Entity {
+public class BulletEntity extends Entity implements Poolable {
+  InactiveComponent inactiveComponent;
 
-    public void init(Engine engine, BodyFactory bodyFactory, BulletComponent.OWNER owner, float x, float y) {
+  public void init(Engine engine, BodyFactory bodyFactory) {
 
-        Array<TextureRegion> keyFrames = new Array<TextureRegion>();
-        keyFrames.add(Utility.getTextureRegionAsset("playerBullet1"));
+    TextureComponent tex = engine.createComponent(TextureComponent.class);
+    tex.region = Utility.getTextureRegionAsset("playerBullet1");
+    super.add(tex);
 
-        Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames,
-                PlayMode.NORMAL);
+    StateComponent sComponent = engine.createComponent(StateComponent.class);
+    sComponent.set(StateComponent.STATE_NORMAL);
+    super.add(sComponent);
 
-        AnimationComponent aComponent = engine.createComponent(AnimationComponent.class);
-        aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
-        super.add(aComponent);
+    TranslationComponent pos = engine.createComponent(TranslationComponent.class);
+    super.add(pos);
 
-        TextureComponent tex = engine.createComponent(TextureComponent.class);
-        tex.region = Utility.getTextureRegionAsset("playerBullet1");
-        super.add(tex);
+    B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
+    b2d.body = bodyFactory.makeBoxPolyBody(0, 0, 0.24f, 0.24f, BodyFactory.STONE, BodyType.DynamicBody,
+        BodyFactory.CATEGORY_BULLET, BodyFactory.MASK_BULLET, true);
+    b2d.body.setBullet(true);
+    bodyFactory.makeAllFixturesSensors(b2d.body);
+    b2d.body.setUserData(this);
+    add(b2d);
 
-        StateComponent sComponent = engine.createComponent(StateComponent.class);
-        sComponent.set(StateComponent.STATE_NORMAL);
-        super.add(sComponent);
+    CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);
+    add(collisionComponent);
 
-        TranslationComponent pos = engine.createComponent(TranslationComponent.class);
+    TypeComponent typeComponent = engine.createComponent(TypeComponent.class);
+    typeComponent.type = TypeComponent.BULLET;
+    add(typeComponent);
 
-        pos.setPosition(x, y);
+    inactiveComponent = engine.createComponent(InactiveComponent.class);
+    super.add(inactiveComponent);
 
-        super.add(pos);
+    if(!engine.getEntities().contains(this, true))
+      engine.addEntity(this);
+  }
 
-        B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
-        b2d.body = bodyFactory.makeBoxPolyBody(x, y, 0.24f, 0.24f, BodyFactory.STONE, BodyType.DynamicBody,
-                BodyFactory.CATEGORY_BULLET, BodyFactory.MASK_BULLET, true);
-        b2d.body.setBullet(true);
-        bodyFactory.makeAllFixturesSensors(b2d.body);
-        b2d.body.setUserData(this);
-        add(b2d);
+  @Override
+  public void reset() {
+    StateComponent stateComponent=Mapper.stateCom.get(this);
+    stateComponent.set(StateComponent.STATE_NORMAL);
+    add(inactiveComponent);
 
-        CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);
-        add(collisionComponent);
+  }
 
-        TypeComponent typeComponent = engine.createComponent(TypeComponent.class);
-        typeComponent.type = TypeComponent.BULLET;
-        add(typeComponent);
-
-        BulletComponent bulletComponent = engine.createComponent(BulletComponent.class);
-        bulletComponent.owner = owner;
-        bulletComponent.yVel = bulletComponent.speed;
-        add(bulletComponent);
-    }
+  public void revive(Vector2 position, float xVel, float yVel) {
+    TranslationComponent translationComponent = Mapper.transCom.get(this);
+    B2dBodyComponent b2dBodyComponent = Mapper.b2dCom.get(this);
+    translationComponent.setPosition(position);
+    b2dBodyComponent.body.setTransform(position, 0);
+    b2dBodyComponent.body.setLinearVelocity(xVel, yVel);
+    remove(inactiveComponent.getClass());
+  }
 }

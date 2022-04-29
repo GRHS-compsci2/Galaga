@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.github.grhscompsci2.galaga.BulletManager;
 import com.github.grhscompsci2.galaga.EnemyFormation;
 import com.github.grhscompsci2.galaga.KeyboardController;
 import com.github.grhscompsci2.galaga.MyGdxGame;
@@ -74,6 +75,7 @@ public class ArcadeScreen extends ScreenAdapter {
 		setUpTable();
 		engine = new PooledEngine();
         
+    BulletManager bulMan=new BulletManager(engine, bodyFactory);
 		Family bodyFamily = Family.all(B2dBodyComponent.class).get();
 		EntityListener b2dListener = new EntityListener() {
       @Override
@@ -94,11 +96,11 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addSystem(new PhysicsDebugSystem(world, renderingSystem.getCamera()));
 		engine.addSystem(new PhysicsSystem(world));
 		engine.addSystem(new CollisionSystem());
-		engine.addSystem(new StateSystem());
+		engine.addSystem(new StateSystem(bulMan));
 		engine.addSystem(new BulletSystem());
 		engine.addSystem(new SteeringSystem());
-		engine.addSystem(new PlayerControlSystem(controller, parent, bodyFactory));
-		engine.addSystem(new EnemySystem());
+		engine.addSystem(new PlayerControlSystem(controller, parent, bulMan));
+		engine.addSystem(new EnemySystem(parent, bulMan));
 		engine.addEntityListener(bodyFamily, b2dListener);
 	}
   

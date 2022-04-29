@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.components.EnemyComponent;
+import com.github.grhscompsci2.galaga.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.components.Mapper;
 import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.SteeringComponent;
@@ -63,7 +64,9 @@ public class RenderingSystem extends SortedIteratingSystem {
 
     public RenderingSystem(Batch batch) {
         // gets all entities with a TranslationComponent and TextureComponent
-        super(Family.all(TranslationComponent.class, TextureComponent.class).get(), new ZComparator(),1);
+        super(Family.all(TranslationComponent.class, TextureComponent.class)
+        .exclude(InactiveComponent.class)
+        .get(), new ZComparator(),1);
         comparator = new ZComparator();
         Gdx.app.debug(TAG, "Screen Resolution: " + getScreenSizeInMeters());
 

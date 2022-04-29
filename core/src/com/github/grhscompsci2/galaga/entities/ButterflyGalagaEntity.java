@@ -14,6 +14,7 @@ import com.github.grhscompsci2.galaga.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.components.CollisionComponent;
 import com.github.grhscompsci2.galaga.components.EnemyComponent;
+import com.github.grhscompsci2.galaga.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.SteeringComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
@@ -80,5 +81,7 @@ public class ButterflyGalagaEntity extends EnemyEntity {
     SteeringComponent steeringComponent = engine.createComponent(SteeringComponent.class);
     steeringComponent.body = b2d.body;
     super.add(steeringComponent);
+
+    super.add(inactiveComponent);
   }
 }
