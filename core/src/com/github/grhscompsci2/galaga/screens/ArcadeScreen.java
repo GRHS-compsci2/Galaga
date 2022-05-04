@@ -32,6 +32,7 @@ import com.github.grhscompsci2.galaga.systems.AnimationSystem;
 import com.github.grhscompsci2.galaga.systems.BulletSystem;
 import com.github.grhscompsci2.galaga.systems.CollisionSystem;
 import com.github.grhscompsci2.galaga.systems.EnemySystem;
+import com.github.grhscompsci2.galaga.systems.LevelSystem;
 import com.github.grhscompsci2.galaga.systems.PhysicsDebugSystem;
 import com.github.grhscompsci2.galaga.systems.PhysicsSystem;
 import com.github.grhscompsci2.galaga.systems.PlayerControlSystem;
@@ -101,6 +102,7 @@ public class ArcadeScreen extends ScreenAdapter {
 		engine.addSystem(new SteeringSystem());
 		engine.addSystem(new PlayerControlSystem(controller, parent, bulMan));
 		engine.addSystem(new EnemySystem(parent, bulMan));
+    engine.addSystem(new LevelSystem());
 		engine.addEntityListener(bodyFamily, b2dListener);
 	}
   

@@ -68,7 +68,7 @@ public class ButterflyGalagaEntity extends EnemyEntity {
     super.add(b2d);
 
     EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
-    enemyComponent.initPaths(home, PathPresets.ENTRY_PATH_0);
+    enemyComponent.initPaths(home, PathPresets.ENTRY_PATH_4);
     super.add(enemyComponent);
 
     CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);

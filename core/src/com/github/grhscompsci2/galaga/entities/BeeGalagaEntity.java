@@ -85,5 +85,4 @@ public class BeeGalagaEntity extends EnemyEntity {
 
         super.add(inactiveComponent);
     }
-
 }

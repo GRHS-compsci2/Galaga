@@ -12,7 +12,7 @@ public class SteeringSystem extends IteratingSystem {
     @SuppressWarnings("unchecked")
     public SteeringSystem() {
         super(Family.all(SteeringComponent.class)
-        //.exclude(InactiveComponent.class)
+        .exclude(InactiveComponent.class)
         .get());
     }
 

@@ -24,7 +24,7 @@ public class PhysicsSystem extends IteratingSystem {
 
     public PhysicsSystem(World world) {
         super(Family.all(B2dBodyComponent.class, TranslationComponent.class)
-        //.exclude(InactiveComponent.class)
+        .exclude(InactiveComponent.class)
         .get());
         this.world = world;
         this.bodiesQueue = new Array<Entity>();

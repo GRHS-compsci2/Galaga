@@ -90,4 +90,8 @@ public class EnemyComponent implements Component, Poolable {
   public void setPath(Path<Vector2, LinePathParam> path2) {
     this.path = (LinePath<Vector2>) path2;
   }
+
+  public void setPath(LinePath<Vector2> path){
+    this.path=path;
+  }
 }

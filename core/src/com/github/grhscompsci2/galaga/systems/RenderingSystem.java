@@ -99,7 +99,7 @@ public class RenderingSystem extends SortedIteratingSystem {
                 StateComponent sComponent = Mapper.stateCom.get(entity);
                 TranslationComponent t = Mapper.transCom.get(entity);
 
-                if (eComponent != null) {
+                if (eComponent != null&&eComponent.getPath()!=null) {
                     ShapeRenderer sr = new ShapeRenderer();
                     Gdx.gl.glLineWidth(1);
                     sr.setProjectionMatrix(cam.combined);

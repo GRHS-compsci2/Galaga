@@ -26,7 +26,7 @@ public class PlayerControlSystem extends IteratingSystem {
 
   public PlayerControlSystem(KeyboardController keyCon, MyGdxGame game, BulletManager bulMan) {
     super(Family.all(PlayerComponent.class)
-        //.exclude(InactiveComponent.class)
+        .exclude(InactiveComponent.class)
         .get());
     parentGdxGame = game;
     controller = keyCon;
@@ -57,7 +57,7 @@ public class PlayerControlSystem extends IteratingSystem {
       float initialX = b2body.body.getPosition().x;
       float initialY = b2body.body.getPosition().y + 1f;
 
-      bulMan.fire(new Vector2(initialX, initialY), 0f, 200f);
+      bulMan.fire(new Vector2(initialX, initialY), 0f, 25f);
       Utility.playPew(parentGdxGame);
       player.timeSinceLastShot = 0;
 

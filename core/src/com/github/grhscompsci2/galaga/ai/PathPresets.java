@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class PathPresets {
-  public static final Vector2[] ENTRY_WP_0 = {
+  public static final Vector2[] ENTRY_WP_4 = {
       // side parabola up to the circle
       new Vector2(36, 4), new Vector2(28, 4), new Vector2(26.5625f, 5),
       new Vector2(25, 6), new Vector2(23.5625f, 7), new Vector2(22.25f, 8), new Vector2(21.0625f, 9),
@@ -37,6 +37,6 @@ public class PathPresets {
       new Vector2(15, 15.5625f), new Vector2(14, 16.25f), new Vector2(13, 17.0625f), new Vector2(12, 18)
   };
 
-  public static final LinePath<Vector2> ENTRY_PATH_0 = new LinePath<Vector2>(new Array<Vector2>(ENTRY_WP_0), true);
+  public static final LinePath<Vector2> ENTRY_PATH_4 = new LinePath<Vector2>(new Array<Vector2>(ENTRY_WP_4), true);
   public static final LinePath<Vector2> ENTRY_PATH_1 = new LinePath<Vector2>(new Array<Vector2>(ENTRY_WP_1), true);
 }
