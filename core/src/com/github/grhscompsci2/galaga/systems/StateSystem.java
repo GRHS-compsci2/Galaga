@@ -30,11 +30,10 @@ public class StateSystem extends IteratingSystem {
     StateComponent state = Mapper.stateCom.get(entity);
     B2dBodyComponent b2d = Mapper.b2dCom.get(entity);
     if (state.getState() == StateComponent.STATE_HIT) {
-      //b2d.body.setTransform(0,0,0);
-      b2d.body.setLinearVelocity(0,0);
+      //Freeze the hit thing
+      b2d.body.setLinearVelocity(0, 0);
       b2d.body.setAngularVelocity(0);
       b2d.body.setType(BodyType.StaticBody);
-      //b2d.body.setTransform(b2d.body.getPosition(), 0);
       // is there an animation for a hit?
       if (ani.animations.containsKey(state.getState())) {
         if (ani.animations.get(state.getState()).isAnimationFinished(state.time)) {

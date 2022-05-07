@@ -19,7 +19,7 @@ public class PathPresets {
       new Vector2(23.122f, 15.5f), new Vector2(22.646f, 15f), new Vector2(21.936f, 14.5f), new Vector2(20f, 14f),
       // Exit parabola
       new Vector2(19f, 14.063f), new Vector2(18f, 14.25f), new Vector2(17f, 14.5625f), new Vector2(16f, 15f),
-      new Vector2(15, 15.5625f), new Vector2(14, 16.25f), new Vector2(13, 17.0625f), new Vector2(12, 18)
+      new Vector2(15, 15.5625f), new Vector2(14, 16.25f), //new Vector2(13, 17.0625f), new Vector2(12, 18)
   };
   public static final Vector2[] ENTRY_WP_1 = {
       // entry parabola
@@ -34,7 +34,7 @@ public class PathPresets {
       new Vector2(22.646f, 15f), new Vector2(21.936f, 14.5f), new Vector2(20f, 14f),
       // Exit parabola
       new Vector2(19f, 14.063f), new Vector2(18f, 14.25f), new Vector2(17f, 14.5625f), new Vector2(16f, 15f),
-      new Vector2(15, 15.5625f), new Vector2(14, 16.25f), new Vector2(13, 17.0625f), new Vector2(12, 18)
+      new Vector2(15, 15.5625f), new Vector2(14, 16.25f), //new Vector2(13, 17.0625f), new Vector2(12, 18)
   };
 
   public static final LinePath<Vector2> ENTRY_PATH_4 = new LinePath<Vector2>(new Array<Vector2>(ENTRY_WP_4), true);

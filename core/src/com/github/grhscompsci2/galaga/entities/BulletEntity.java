@@ -50,24 +50,26 @@ public class BulletEntity extends Entity implements Poolable {
     inactiveComponent = engine.createComponent(InactiveComponent.class);
     super.add(inactiveComponent);
 
-    if(!engine.getEntities().contains(this, true))
+    if (!engine.getEntities().contains(this, true))
       engine.addEntity(this);
   }
 
   @Override
   public void reset() {
-    StateComponent stateComponent=Mapper.stateCom.get(this);
+    StateComponent stateComponent = Mapper.stateCom.get(this);
     stateComponent.set(StateComponent.STATE_NORMAL);
     add(inactiveComponent);
 
   }
 
   public void revive(Vector2 position, float xVel, float yVel) {
-    TranslationComponent translationComponent = Mapper.transCom.get(this);
     B2dBodyComponent b2dBodyComponent = Mapper.b2dCom.get(this);
-    translationComponent.setPosition(position);
+    CollisionComponent collisionComponent = Mapper.collisionCom.get(this);
+    b2dBodyComponent.body.setActive(true);
+    b2dBodyComponent.body.setType(BodyType.DynamicBody);
     b2dBodyComponent.body.setTransform(position, 0);
     b2dBodyComponent.body.setLinearVelocity(xVel, yVel);
+    collisionComponent.collisionEntity = null;
     remove(inactiveComponent.getClass());
   }
 }

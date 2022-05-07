@@ -11,7 +11,7 @@ import com.github.grhscompsci2.galaga.components.Mapper;
 public class BulletSystem extends IteratingSystem {
   public BulletSystem() {
     super(Family.all(BulletComponent.class)
-        //.exclude(InactiveComponent.class)
+        .exclude(InactiveComponent.class)
         .get());
   }
 

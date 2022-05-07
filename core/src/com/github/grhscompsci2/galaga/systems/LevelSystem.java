@@ -28,10 +28,7 @@ public class LevelSystem extends IteratingSystem {
       EnemyFormation.launchNext(deltaTime);
       //Gdx.app.debug(TAG, "Waited "+deltaTime);
     }
-    else if(enemies.isEmpty()){
-      Gdx.app.debug(TAG, "NEXT LEVEL");
-      EnemyFormation.startLaunching();
-    }
+    
     EnemyFormation.setWaveDone(true);
     for(Entity e:enemies){
       StateComponent stateComponent=Mapper.stateCom.get(e);
@@ -39,7 +36,9 @@ public class LevelSystem extends IteratingSystem {
         EnemyFormation.setWaveDone(false);
       }
     }
-
+    if(enemies.isEmpty()&&!EnemyFormation.stillLaunching()){
+      EnemyFormation.nextLevel();
+    }
     enemies.clear();
   }
 

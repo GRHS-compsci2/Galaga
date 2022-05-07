@@ -13,14 +13,17 @@ import com.github.grhscompsci2.galaga.entities.GreenBatGalagaEntity;
 public class EnemyFormation {
   private static String TAG = EnemyFormation.class.getSimpleName();
 
-  private static final float LAUNCH_DELAY = 0.5f;
+  private static final float LAUNCH_DELAY = 0.25f;
   private static float waveTimer = 0;
+  private static float idleTime = 0;
   private static boolean launching = true;
   private static boolean waveDone = false;
+  private static boolean goingLeft = false;
 
   private static int level = 0;
   private static int group = 0;
   private static int position = 0;
+  private static Vector2 idler = new Vector2();
 
   // waves[level][group][position]
   private static Wave[][][] waves = {
@@ -69,9 +72,7 @@ public class EnemyFormation {
           new BeeGalagaEntity(), new BeeGalagaEntity(), new BeeGalagaEntity(), new BeeGalagaEntity(),
           new BeeGalagaEntity(), new BeeGalagaEntity()
       },
-
       {
-
           new BeeGalagaEntity(), new BeeGalagaEntity(), new BeeGalagaEntity(), new BeeGalagaEntity(),
           new BeeGalagaEntity(), new BeeGalagaEntity(), new BeeGalagaEntity(), new BeeGalagaEntity(),
           new BeeGalagaEntity(), new BeeGalagaEntity()
@@ -96,11 +97,11 @@ public class EnemyFormation {
   public static void launchNext(float deltaTime) {
     if (waveTimer == 0 && position < waves[level][group].length) {
       EnemyEntity entity = formation[waves[level][group][position].getX()][waves[level][group][position].getY()];
-      entity.remove(InactiveComponent.class);
+      entity.revive();
       entity.setPath(waves[level][group][position].getPath());
       position++;
     }
-    if (waveDone&&position==waves[level][group].length) {
+    if (waveDone && position == waves[level][group].length) {
       position = 0;
       group++;
 
@@ -116,7 +117,7 @@ public class EnemyFormation {
     }
     waveTimer += deltaTime;
     if (waveTimer >= LAUNCH_DELAY) {
-      Gdx.app.debug(TAG, "Waited " + waveTimer);
+      Gdx.app.debug(TAG, "Level:"+level+" group:"+group+" position:"+position);
       waveTimer = 0;
     }
   }
@@ -135,5 +136,37 @@ public class EnemyFormation {
 
   public static boolean getWaveDone() {
     return waveDone;
+  }
+
+  /**
+   * This method will update the position of the formation, so all enemies can
+   * move in sync
+   * 
+   * @param deltaTime the elapsed time
+   */
+  public static void updateFormation(float deltaTime) {
+    if (goingLeft) {
+      idleTime += 2 * deltaTime;
+    } else {
+      idleTime -= 2 * deltaTime;
+    }
+
+    if (Math.abs(idleTime) > 2.5 * Utility.SPRITE_WIDTH) {
+      idleTime = Math.copySign((float) (2.5 * Utility.SPRITE_WIDTH), idleTime);
+      goingLeft = !goingLeft;
+    }
+
+    idler.set(idleTime, 0);
+  }
+
+  public static Vector2 getIdle() {
+    return idler;
+  }
+
+  public static void nextLevel() {
+    level = 0;
+    group = 0;
+    position = 0;
+    launching=true;
   }
 }

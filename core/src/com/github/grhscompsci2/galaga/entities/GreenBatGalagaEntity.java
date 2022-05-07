@@ -14,7 +14,6 @@ import com.github.grhscompsci2.galaga.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.components.CollisionComponent;
 import com.github.grhscompsci2.galaga.components.EnemyComponent;
-import com.github.grhscompsci2.galaga.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.SteeringComponent;
 import com.github.grhscompsci2.galaga.components.TextureComponent;
@@ -61,6 +60,7 @@ public class GreenBatGalagaEntity extends EnemyEntity {
     B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
     b2d.body = bodyFactory.makeBoxPolyBody(home.x, home.y, Utility.SPRITE_WIDTH, Utility.SPRITE_WIDTH,
         BodyFactory.STONE, BodyType.DynamicBody, BodyFactory.CATEGORY_ENEMY, BodyFactory.MASK_ENEMY, true);
+    b2d.body.setUserData(this);
     super.add(b2d);
 
     EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);

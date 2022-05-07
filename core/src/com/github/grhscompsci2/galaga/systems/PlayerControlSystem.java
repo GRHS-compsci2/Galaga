@@ -9,13 +9,10 @@ import com.github.grhscompsci2.galaga.KeyboardController;
 import com.github.grhscompsci2.galaga.MyGdxGame;
 import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.MyGdxGame.ScreenType;
-import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
-import com.github.grhscompsci2.galaga.components.BulletComponent;
 import com.github.grhscompsci2.galaga.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.components.Mapper;
 import com.github.grhscompsci2.galaga.components.PlayerComponent;
-import com.github.grhscompsci2.galaga.entities.BulletEntity;
 
 public class PlayerControlSystem extends IteratingSystem {
   private String TAG = PlayerControlSystem.class.getSimpleName();

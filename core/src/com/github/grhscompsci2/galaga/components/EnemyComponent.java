@@ -6,14 +6,12 @@ import com.badlogic.gdx.ai.steer.utils.Path;
 import com.badlogic.gdx.ai.steer.utils.paths.LinePath;
 import com.badlogic.gdx.ai.steer.utils.paths.LinePath.LinePathParam;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Pool.Poolable;
+import com.github.grhscompsci2.galaga.EnemyFormation;
 
-public class EnemyComponent implements Component, Poolable {
+public class EnemyComponent implements Component {
 
   private static final String TAG = EnemyComponent.class.getSimpleName();
-  // used to push the formation back and forth during idle entry
-  private float idleTime;
-  private boolean goingLeft;
+
   // The home position in the formation
   private Vector2 home;
   private Vector2 realHome;
@@ -27,9 +25,6 @@ public class EnemyComponent implements Component, Poolable {
    * @param y the y coordinate of the home position
    */
   public void initPaths(Vector2 home, LinePath<Vector2> entryPath) {
-    // formation starts going right
-    goingLeft = false;
-    idleTime = 0;
     // set the home position
     this.home = home;
     realHome = home.cpy();
@@ -62,28 +57,19 @@ public class EnemyComponent implements Component, Poolable {
    */
   public boolean areWeThereYet(float tolerance, Vector2 position) {
     Vector2 extremity = path.getEndPoint();
-    // Gdx.app.debug(TAG, "[" + position.x + ", " + position.y + "] to [" +
-    // extremity.x + ", " + extremity.y + "] is "
-    // + position.dst2(extremity));
     if (position.dst2(extremity) < tolerance * tolerance) {
-      // Gdx.app.debug(TAG, "Close Enough!");
       return true;
     }
     return false;
-  }
-
-  @Override
-  public void reset() {
-
   }
 
   public Vector2 getHome() {
     return home;
   }
 
-  public Vector2 updateHome(Vector2 offset) {
+  public Vector2 updateHome() {
     home = realHome.cpy();
-    home.add(offset);
+    home.add(EnemyFormation.getIdle());
     return home;
   }
 
@@ -91,7 +77,7 @@ public class EnemyComponent implements Component, Poolable {
     this.path = (LinePath<Vector2>) path2;
   }
 
-  public void setPath(LinePath<Vector2> path){
-    this.path=path;
+  public void setPath(LinePath<Vector2> path) {
+    this.path = path;
   }
 }

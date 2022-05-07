@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
 import com.github.grhscompsci2.galaga.BulletManager;
+import com.github.grhscompsci2.galaga.EnemyFormation;
 import com.github.grhscompsci2.galaga.MyGdxGame;
 import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.ai.SteeringPresets;
@@ -19,9 +20,6 @@ import com.github.grhscompsci2.galaga.components.SteeringComponent.SteeringState
 
 public class EnemySystem extends IteratingSystem {
   private static String TAG = EnemySystem.class.getSimpleName();
-  private static Vector2 idler = new Vector2();
-  private static boolean goingLeft = false;
-  private static float idleTime = 0;
   private BulletManager bulMan;
   private MyGdxGame parent;
 
@@ -34,13 +32,15 @@ public class EnemySystem extends IteratingSystem {
     this.bulMan = bulMan;
     this.parent = parent;
   }
-
+  public void update(float deltaTime) {
+    super.update(deltaTime);
+    EnemyFormation.updateFormation(deltaTime);
+  }
   @Override
   protected void processEntity(Entity entity, float deltaTime) {
     // grab the specific enemy and body components for the entity
     StateComponent stateComponent = Mapper.stateCom.get(entity);
 
-    updateFormation(deltaTime);
     switch (stateComponent.getState()) {
       case StateComponent.STATE_ENTRY:
         entry(entity);
@@ -78,7 +78,7 @@ public class EnemySystem extends IteratingSystem {
     // Go to the home position
     steeringComponent
         .setSteeringBehavior(
-            SteeringPresets.goPoint(steeringComponent, enemyComponent.updateHome(idler), 0.5f));
+            SteeringPresets.goPoint(steeringComponent, enemyComponent.updateHome(), 0.5f));
     enemyComponent.setPath(steeringComponent.followPath.getPath());
     if (enemyComponent.areWeThereYet(steeringComponent.followPath.getArrivalTolerance(),
         steeringComponent.getPosition())) {
@@ -96,40 +96,10 @@ public class EnemySystem extends IteratingSystem {
       steeringComponent.steeringBehavior = null;
       steeringComponent.currentMode = SteeringState.GO;
     }
-    Vector2 idlePosition = enemyComponent.updateHome(idler);
+    Vector2 idlePosition = enemyComponent.updateHome();
     b2dBodyComponent.body.setTransform(idlePosition, 0);
     translationComponent.setPosition(idlePosition);
   }
 
-  /**
-   * This method will update the position of the formation, so all enemies can
-   * move in sync
-   * 
-   * @param deltaTime the elapsed time
-   */
-  public void updateFormation(float deltaTime) {
-    if (Utility.frameUpdate) {
-      /*
-       * if (deltaTime > 1)
-       * deltaTime = 1;
-       */
-
-      // float x = idleTime;
-
-      if (goingLeft) {
-        idleTime += 2 * deltaTime;
-      } else {
-        idleTime -= 2 * deltaTime;
-      }
-
-      if (Math.abs(idleTime) > 2.5 * Utility.SPRITE_WIDTH) {
-        goingLeft = !goingLeft;
-      }
-
-      idler.set(idleTime, 0);
-      // Gdx.app.debug(TAG, "Idler: " + idler);
-      Utility.frameUpdate = false;
-    }
-  }
-
+  
 }
