@@ -26,16 +26,14 @@ public class StateSystem extends IteratingSystem {
 
   @Override
   protected void processEntity(Entity entity, float deltaTime) {
-    AnimationComponent ani = Mapper.animCom.get(entity);
     StateComponent state = Mapper.stateCom.get(entity);
     B2dBodyComponent b2d = Mapper.b2dCom.get(entity);
     if (state.getState() == StateComponent.STATE_HIT) {
       //Freeze the hit thing
-      b2d.body.setLinearVelocity(0, 0);
-      b2d.body.setAngularVelocity(0);
       b2d.body.setType(BodyType.StaticBody);
       // is there an animation for a hit?
-      if (ani.animations.containsKey(state.getState())) {
+      AnimationComponent ani = Mapper.animCom.get(entity);
+      if (ani!=null&&ani.animations.containsKey(state.getState())) {
         if (ani.animations.get(state.getState()).isAnimationFinished(state.time)) {
           state.set(StateComponent.STATE_DEAD);
         }

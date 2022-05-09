@@ -18,228 +18,229 @@ import com.github.grhscompsci2.galaga.b2d.Box2dLocation;
 
 public class SteeringComponent implements Steerable<Vector2>, Component, Poolable {
 
-    public static enum SteeringState {
-        GO, STOP
+  public static enum SteeringState {
+    GO, STOP
+  }
+
+  private final String TAG = SteeringComponent.class.getSimpleName();
+  public SteeringState currentMode = SteeringState.STOP;
+  public Body body;
+  public FollowPath<Vector2, LinePathParam> followPath;
+  // Steering Data
+  // Don't go too fast
+  float maxLinearSpeed = 10f;
+  float maxAngularSpeed = 20f;
+  // accellerate and decellerate almost instantly
+  float maxLinearAcceleration = 10000.0f;
+  float maxAngularAcceleration = 10000.0f;
+  float zeroThreshold = 0.1f;
+  public SteeringBehavior<Vector2> steeringBehavior;
+  private static final SteeringAcceleration<Vector2> STEERING_OUTPUT = new SteeringAcceleration<Vector2>(
+      new Vector2());
+  private float boundingRadius = 0.10f;
+  private boolean tagged = true;
+  private boolean independentFacing = false;
+
+  /**
+   * Call this to update the steering behaviour (per frame)
+   * 
+   * @param delta delta time between frames
+   */
+  public void update(float delta) {
+    if (steeringBehavior != null) {
+      steeringBehavior.calculateSteering(STEERING_OUTPUT);
+      applySteering(STEERING_OUTPUT, delta);
+      // Gdx.app.debug(TAG, "Position: " + body.getPosition() + " Steering Output:" +
+      // STEERING_OUTPUT.linear);
+    }
+  }
+
+  @Override
+  public void reset() {
+    currentMode = SteeringState.STOP;
+    body = null;
+    steeringBehavior = null;
+  }
+
+  /**
+   * apply steering to the Box2d body
+   * 
+   * @param steering  the steering vector
+   * @param deltaTime the delta time
+   */
+  protected void applySteering(SteeringAcceleration<Vector2> steering, float deltaTime) {
+    boolean anyAccelerations = false;
+
+    // Update position and linear velocity.
+    if (!STEERING_OUTPUT.linear.isZero()) {
+      // this method internally scales the force by deltaTime
+      body.applyForceToCenter(STEERING_OUTPUT.linear, true);
+      anyAccelerations = true;
     }
 
-    private final String TAG = SteeringComponent.class.getSimpleName();
-    public SteeringState currentMode = SteeringState.STOP;
-    public Body body;
-    public FollowPath<Vector2, LinePathParam> followPath;
-    // Steering Data
-    // Don't go too fast
-    float maxLinearSpeed = 10f;
-    float maxAngularSpeed = 20f;
-    // accellerate and decellerate almost instantly
-    float maxLinearAcceleration = 10000.0f;
-    float maxAngularAcceleration = 10000.0f;
-    float zeroThreshold = 0.1f;
-    public SteeringBehavior<Vector2> steeringBehavior;
-    private static final SteeringAcceleration<Vector2> STEERING_OUTPUT = new SteeringAcceleration<Vector2>(
-            new Vector2());
-    private float boundingRadius = 0.10f;
-    private boolean tagged = true;
-    private boolean independentFacing = false;
-
-    /**
-     * Call this to update the steering behaviour (per frame)
-     * 
-     * @param delta delta time between frames
-     */
-    public void update(float delta) {
-        if (steeringBehavior != null) {
-            steeringBehavior.calculateSteering(STEERING_OUTPUT);
-            applySteering(STEERING_OUTPUT, delta);
-            //Gdx.app.debug(TAG, "Position: " + body.getPosition() + " Steering Output:" + STEERING_OUTPUT.linear);
-        }
+    // Update orientation and angular velocity
+    if (isIndependentFacing()) {
+      if (STEERING_OUTPUT.angular != 0) {
+        // this method internally scales the torque by deltaTime
+        body.applyTorque(STEERING_OUTPUT.angular, true);
+        anyAccelerations = true;
+      }
+    } else {
+      // If we haven't got any velocity, then we can do nothing.
+      Vector2 linVel = getLinearVelocity();
+      if (!linVel.isZero(getZeroLinearSpeedThreshold())) {
+        float newOrientation = vectorToAngle(linVel);
+        body.setAngularVelocity((newOrientation - getAngularVelocity()) * deltaTime); // this is superfluous if
+        // independentFacing is
+        // always true
+        body.setTransform(body.getPosition(), newOrientation);
+      }
     }
 
-    @Override
-    public void reset() {
-        currentMode = SteeringState.STOP;
-        body = null;
-        steeringBehavior = null;
+    if (anyAccelerations) {
+      // Cap the linear speed
+      Vector2 velocity = body.getLinearVelocity();
+      float currentSpeedSquare = velocity.len2();
+      float maxLinearSpeed = getMaxLinearSpeed();
+      if (currentSpeedSquare > (maxLinearSpeed * maxLinearSpeed)) {
+        body.setLinearVelocity(velocity.scl(maxLinearSpeed / (float) Math.sqrt(currentSpeedSquare)));
+      }
+      // Cap the angular speed
+      float maxAngVelocity = getMaxAngularSpeed();
+      if (body.getAngularVelocity() > maxAngVelocity) {
+        body.setAngularVelocity(maxAngVelocity);
+      }
     }
+  }
 
-    /**
-     * apply steering to the Box2d body
-     * 
-     * @param steering  the steering vector
-     * @param deltaTime teh delta time
-     */
-    protected void applySteering(SteeringAcceleration<Vector2> steering, float deltaTime) {
-        boolean anyAccelerations = false;
+  @Override
+  public float vectorToAngle(Vector2 vector) {
+    return Utility.vectorToAngle(vector);
+  }
 
-        // Update position and linear velocity.
-        if (!STEERING_OUTPUT.linear.isZero()) {
-            // this method internally scales the force by deltaTime
-            body.applyForceToCenter(STEERING_OUTPUT.linear, true);
-            anyAccelerations = true;
-        }
+  @Override
+  public Vector2 angleToVector(Vector2 outVector, float angle) {
+    return Utility.angleToVector(outVector, angle);
+  }
 
-        // Update orientation and angular velocity
-        if (isIndependentFacing()) {
-            if (STEERING_OUTPUT.angular != 0) {
-                // this method internally scales the torque by deltaTime
-                body.applyTorque(STEERING_OUTPUT.angular, true);
-                anyAccelerations = true;
-            }
-        } else {
-            // If we haven't got any velocity, then we can do nothing.
-            Vector2 linVel = getLinearVelocity();
-            if (!linVel.isZero(getZeroLinearSpeedThreshold())) {
-                float newOrientation = vectorToAngle(linVel);
-                body.setAngularVelocity((newOrientation - getAngularVelocity()) * deltaTime); // this is superfluous if
-                // independentFacing is
-                // always true
-                body.setTransform(body.getPosition(), newOrientation);
-            }
-        }
+  @Override
+  public Location<Vector2> newLocation() {
+    return new Box2dLocation();
+  }
 
-        if (anyAccelerations) {
-            // Cap the linear speed
-            Vector2 velocity = body.getLinearVelocity();
-            float currentSpeedSquare = velocity.len2();
-            float maxLinearSpeed = getMaxLinearSpeed();
-            if (currentSpeedSquare > (maxLinearSpeed * maxLinearSpeed)) {
-                body.setLinearVelocity(velocity.scl(maxLinearSpeed / (float) Math.sqrt(currentSpeedSquare)));
-            }
-            // Cap the angular speed
-            float maxAngVelocity = getMaxAngularSpeed();
-            if (body.getAngularVelocity() > maxAngVelocity) {
-                body.setAngularVelocity(maxAngVelocity);
-            }
-        }
-    }
+  public boolean isIndependentFacing() {
+    return independentFacing;
+  }
 
-    @Override
-    public float vectorToAngle(Vector2 vector) {
-        return Utility.vectorToAngle(vector);
-    }
+  public void setIndependentFacing(boolean independentFacing) {
+    this.independentFacing = independentFacing;
+  }
 
-    @Override
-    public Vector2 angleToVector(Vector2 outVector, float angle) {
-        return Utility.angleToVector(outVector, angle);
-    }
+  @Override
+  public Vector2 getPosition() {
+    return body.getPosition();
+  }
 
-    @Override
-    public Location<Vector2> newLocation() {
-        return new Box2dLocation();
-    }
+  @Override
+  public float getOrientation() {
+    return body.getAngle();
+  }
 
-    public boolean isIndependentFacing() {
-        return independentFacing;
-    }
+  @Override
+  public void setOrientation(float orientation) {
+    body.setTransform(getPosition(), orientation);
+  }
 
-    public void setIndependentFacing(boolean independentFacing) {
-        this.independentFacing = independentFacing;
-    }
+  @Override
+  public float getZeroLinearSpeedThreshold() {
+    return zeroThreshold;
+  }
 
-    @Override
-    public Vector2 getPosition() {
-        return body.getPosition();
-    }
+  @Override
+  public void setZeroLinearSpeedThreshold(float value) {
+    zeroThreshold = value;
+  }
 
-    @Override
-    public float getOrientation() {
-        return body.getAngle();
-    }
+  @Override
+  public float getMaxLinearSpeed() {
+    return maxLinearSpeed;
+  }
 
-    @Override
-    public void setOrientation(float orientation) {
-        body.setTransform(getPosition(), orientation);
-    }
+  @Override
+  public void setMaxLinearSpeed(float maxLinearSpeed) {
+    this.maxLinearSpeed = maxLinearSpeed;
+  }
 
-    @Override
-    public float getZeroLinearSpeedThreshold() {
-        return zeroThreshold;
-    }
+  @Override
+  public float getMaxLinearAcceleration() {
+    return maxLinearAcceleration;
+  }
 
-    @Override
-    public void setZeroLinearSpeedThreshold(float value) {
-        zeroThreshold = value;
-    }
+  @Override
+  public void setMaxLinearAcceleration(float maxLinearAcceleration) {
+    this.maxLinearAcceleration = maxLinearAcceleration;
+  }
 
-    @Override
-    public float getMaxLinearSpeed() {
-        return maxLinearSpeed;
-    }
+  @Override
+  public float getMaxAngularSpeed() {
+    return maxAngularSpeed;
+  }
 
-    @Override
-    public void setMaxLinearSpeed(float maxLinearSpeed) {
-        this.maxLinearSpeed = maxLinearSpeed;
-    }
+  @Override
+  public void setMaxAngularSpeed(float maxAngularSpeed) {
+    this.maxAngularSpeed = maxAngularSpeed;
+  }
 
-    @Override
-    public float getMaxLinearAcceleration() {
-        return maxLinearAcceleration;
-    }
+  @Override
+  public float getMaxAngularAcceleration() {
+    return maxAngularAcceleration;
+  }
 
-    @Override
-    public void setMaxLinearAcceleration(float maxLinearAcceleration) {
-        this.maxLinearAcceleration = maxLinearAcceleration;
-    }
+  @Override
+  public void setMaxAngularAcceleration(float maxAngularAcceleration) {
+    this.maxAngularAcceleration = maxAngularAcceleration;
+  }
 
-    @Override
-    public float getMaxAngularSpeed() {
-        return maxAngularSpeed;
-    }
+  @Override
+  public Vector2 getLinearVelocity() {
+    return body.getLinearVelocity();
+  }
 
-    @Override
-    public void setMaxAngularSpeed(float maxAngularSpeed) {
-        this.maxAngularSpeed = maxAngularSpeed;
-    }
+  @Override
+  public float getAngularVelocity() {
+    return body.getAngularVelocity();
+  }
 
-    @Override
-    public float getMaxAngularAcceleration() {
-        return maxAngularAcceleration;
-    }
+  @Override
+  public float getBoundingRadius() {
+    return boundingRadius;
+  }
 
-    @Override
-    public void setMaxAngularAcceleration(float maxAngularAcceleration) {
-        this.maxAngularAcceleration = maxAngularAcceleration;
-    }
+  @Override
+  public boolean isTagged() {
+    return tagged;
+  }
 
-    @Override
-    public Vector2 getLinearVelocity() {
-        return body.getLinearVelocity();
-    }
+  @Override
+  public void setTagged(boolean tagged) {
+    this.tagged = tagged;
+  }
 
-    @Override
-    public float getAngularVelocity() {
-        return body.getAngularVelocity();
-    }
+  public void setSteeringBehavior(FollowPath<Vector2, LinePathParam> goPath) {
+    this.followPath = goPath;
+    this.steeringBehavior = goPath;
+  }
 
-    @Override
-    public float getBoundingRadius() {
-        return boundingRadius;
-    }
+  public void setPosition(Vector2 startPoint) {
+    body.setTransform(startPoint, 0);
+  }
 
-    @Override
-    public boolean isTagged() {
-        return tagged;
-    }
+  public void setSteeringBehavior(Seek<Vector2> spotSeek) {
+    this.steeringBehavior = spotSeek;
+  }
 
-    @Override
-    public void setTagged(boolean tagged) {
-        this.tagged = tagged;
-    }
-
-    public void setSteeringBehavior(FollowPath<Vector2, LinePathParam> goPath) {
-        this.followPath = goPath;
-        this.steeringBehavior = goPath;
-    }
-
-    public void setPosition(Vector2 startPoint) {
-        body.setTransform(startPoint, 0);
-    }
-
-    public void setSteeringBehavior(Seek<Vector2> spotSeek) {
-        this.steeringBehavior = spotSeek;
-    }
-
-    public void setSteeringBehavior(Arrive<Vector2> spotArrive) {
-        this.steeringBehavior = spotArrive;
-    }
+  public void setSteeringBehavior(Arrive<Vector2> spotArrive) {
+    this.steeringBehavior = spotArrive;
+  }
 
 }
