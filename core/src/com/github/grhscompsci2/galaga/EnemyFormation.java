@@ -4,7 +4,10 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
+import com.github.grhscompsci2.galaga.components.EnemyComponent;
 import com.github.grhscompsci2.galaga.components.InactiveComponent;
+import com.github.grhscompsci2.galaga.components.Mapper;
+import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.entities.BeeGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.ButterflyGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.EnemyEntity;
@@ -97,8 +100,11 @@ public class EnemyFormation {
   public static void launchNext(float deltaTime) {
     if (waveTimer == 0 && position < waves[level][group].length) {
       EnemyEntity entity = formation[waves[level][group][position].getX()][waves[level][group][position].getY()];
-      entity.revive();
-      entity.setPath(waves[level][group][position].getPath());
+      StateComponent sc = Mapper.stateCom.get(entity);
+      EnemyComponent ec = Mapper.enemyCom.get(entity);
+      sc.set(StateComponent.STATE_ENTRY);
+      ec.setPath(waves[level][group][position].getPath());
+      entity.remove(InactiveComponent.class);
       position++;
     }
     if (waveDone && position == waves[level][group].length) {
@@ -117,7 +123,7 @@ public class EnemyFormation {
     }
     waveTimer += deltaTime;
     if (waveTimer >= LAUNCH_DELAY) {
-      Gdx.app.debug(TAG, "Level:"+level+" group:"+group+" position:"+position);
+      //Gdx.app.debug(TAG, "Level:" + level + " group:" + group + " position:" + position);
       waveTimer = 0;
     }
   }
@@ -167,6 +173,6 @@ public class EnemyFormation {
     level = 0;
     group = 0;
     position = 0;
-    launching=true;
+    launching = true;
   }
 }

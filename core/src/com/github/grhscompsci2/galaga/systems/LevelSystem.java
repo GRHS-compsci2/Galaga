@@ -26,17 +26,17 @@ public class LevelSystem extends IteratingSystem {
     super.update(deltaTime);
     if (EnemyFormation.stillLaunching()) {
       EnemyFormation.launchNext(deltaTime);
-      //Gdx.app.debug(TAG, "Waited "+deltaTime);
+      // Gdx.app.debug(TAG, "Waited "+deltaTime);
     }
-    
+
     EnemyFormation.setWaveDone(true);
-    for(Entity e:enemies){
-      StateComponent stateComponent=Mapper.stateCom.get(e);
-      if(stateComponent.getState()!=StateComponent.STATE_ENTRY_IDLE){
+    for (Entity e : enemies) {
+      StateComponent stateComponent = Mapper.stateCom.get(e);
+      if (stateComponent.getState() != StateComponent.STATE_ENTRY_IDLE) {
         EnemyFormation.setWaveDone(false);
       }
     }
-    if(enemies.isEmpty()&&!EnemyFormation.stillLaunching()){
+    if (enemies.isEmpty() && !EnemyFormation.stillLaunching()) {
       EnemyFormation.nextLevel();
     }
     enemies.clear();

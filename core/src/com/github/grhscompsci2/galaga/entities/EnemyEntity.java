@@ -16,7 +16,6 @@ import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.components.CollisionComponent;
 import com.github.grhscompsci2.galaga.components.EnemyComponent;
 import com.github.grhscompsci2.galaga.components.InactiveComponent;
-import com.github.grhscompsci2.galaga.components.Mapper;
 import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.components.SteeringComponent;
 import com.github.grhscompsci2.galaga.components.TranslationComponent;
@@ -48,7 +47,7 @@ public class EnemyEntity extends Entity {
     super.add(pos);
 
     B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
-    b2d.body = factory.makeBoxPolyBody(home.x, home.y, Utility.SPRITE_WIDTH, Utility.SPRITE_WIDTH,
+    b2d.body = factory.makeBoxPolyBody(-5, -5, Utility.SPRITE_WIDTH, Utility.SPRITE_WIDTH,
         BodyFactory.STONE, BodyType.DynamicBody, BodyFactory.CATEGORY_ENEMY, BodyFactory.MASK_ENEMY, true);
     b2d.body.setUserData(this);
     super.add(b2d);
@@ -69,21 +68,5 @@ public class EnemyEntity extends Entity {
     super.add(steeringComponent);
 
     super.add(inactiveComponent);
-  }
-
-  public void revive() {
-    StateComponent sc = Mapper.stateCom.get(this);
-    B2dBodyComponent b2c = Mapper.b2dCom.get(this);
-    sc.set(StateComponent.STATE_ENTRY);
-    b2c.body.setType(BodyType.DynamicBody);
-    remove(InactiveComponent.class);
-  }
-
-  public void setPath(int path) {
-    EnemyComponent enemyComponent = this.getComponent(EnemyComponent.class);
-    // switch (path) {
-    // case 4:
-    enemyComponent.setPath(PathPresets.ENTRY_PATH_4);
-    // break;
   }
 }

@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.github.grhscompsci2.galaga.BulletManager;
 import com.github.grhscompsci2.galaga.EnemyFormation;
 import com.github.grhscompsci2.galaga.MyGdxGame;
@@ -32,10 +33,12 @@ public class EnemySystem extends IteratingSystem {
     this.bulMan = bulMan;
     this.parent = parent;
   }
+
   public void update(float deltaTime) {
     super.update(deltaTime);
     EnemyFormation.updateFormation(deltaTime);
   }
+
   @Override
   protected void processEntity(Entity entity, float deltaTime) {
     // grab the specific enemy and body components for the entity
@@ -50,7 +53,26 @@ public class EnemySystem extends IteratingSystem {
         break;
       case StateComponent.STATE_ENTRY_IDLE:
         entryIdle(entity);
+        break;
+      case StateComponent.STATE_DEAD:
+        die(entity);
+        break;
     }
+  }
+
+  private void die(Entity entity) {
+    StateComponent sc = Mapper.stateCom.get(entity);
+    B2dBodyComponent b2c = Mapper.b2dCom.get(entity);
+    b2c.body.setTransform(-5, -5, 0);
+    sc.set(StateComponent.STATE_NORMAL);
+    entity.add(new InactiveComponent());
+  }
+
+  public void revive(Entity entity) {
+    StateComponent sc = Mapper.stateCom.get(entity);
+    B2dBodyComponent b2c = Mapper.b2dCom.get(entity);
+    b2c.body.setActive(true);
+    sc.set(StateComponent.STATE_ENTRY);
   }
 
   private void entry(Entity entity) {
@@ -60,7 +82,7 @@ public class EnemySystem extends IteratingSystem {
     if (steeringComponent != null) {
       if (steeringComponent.currentMode != SteeringState.GO) {
         steeringComponent.setSteeringBehavior(SteeringPresets.goPath(steeringComponent, enemyComponent.getPath()));
-        steeringComponent.setPosition(enemyComponent.getPath().getStartPoint());
+        steeringComponent.setPosition(enemyComponent.getFirstPoint());
         steeringComponent.currentMode = SteeringState.GO;
       }
       if (enemyComponent.areWeThereYet(steeringComponent.followPath.getArrivalTolerance(),
@@ -72,17 +94,15 @@ public class EnemySystem extends IteratingSystem {
   }
 
   private void entryGoHome(Entity entity) {
-    SteeringComponent steeringComponent = Mapper.sCom.get(entity);
+    SteeringComponent steerCom = Mapper.sCom.get(entity);
     EnemyComponent enemyComponent = Mapper.enemyCom.get(entity);
     StateComponent stateComponent = Mapper.stateCom.get(entity);
     // Go to the home position
-    steeringComponent
-        .setSteeringBehavior(
-            SteeringPresets.goPoint(steeringComponent, enemyComponent.updateHome(), 0.5f));
-    enemyComponent.setPath(steeringComponent.followPath.getPath());
-    if (enemyComponent.areWeThereYet(steeringComponent.followPath.getArrivalTolerance(),
-        steeringComponent.getPosition())) {
-      steeringComponent.currentMode = SteeringState.STOP;
+    steerCom.setSteeringBehavior(
+        SteeringPresets.goPoint(steerCom, enemyComponent.updateHome(), 0.5f));
+    enemyComponent.setPath(steerCom.followPath.getPath());
+    if (enemyComponent.areWeThereYet(steerCom.followPath.getArrivalTolerance(), steerCom.getPosition())) {
+      steerCom.currentMode = SteeringState.STOP;
       stateComponent.set(StateComponent.STATE_ENTRY_IDLE);
     }
   }
@@ -90,7 +110,6 @@ public class EnemySystem extends IteratingSystem {
   private void entryIdle(Entity entity) {
     SteeringComponent steeringComponent = Mapper.sCom.get(entity);
     B2dBodyComponent b2dBodyComponent = Mapper.b2dCom.get(entity);
-    TranslationComponent translationComponent = Mapper.transCom.get(entity);
     EnemyComponent enemyComponent = Mapper.enemyCom.get(entity);
     if (steeringComponent.currentMode != SteeringState.GO) {
       steeringComponent.steeringBehavior = null;
@@ -98,8 +117,6 @@ public class EnemySystem extends IteratingSystem {
     }
     Vector2 idlePosition = enemyComponent.updateHome();
     b2dBodyComponent.body.setTransform(idlePosition, 0);
-    translationComponent.setPosition(idlePosition);
   }
 
-  
 }

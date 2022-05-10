@@ -29,8 +29,10 @@ public class StateSystem extends IteratingSystem {
     StateComponent state = Mapper.stateCom.get(entity);
     B2dBodyComponent b2d = Mapper.b2dCom.get(entity);
     if (state.getState() == StateComponent.STATE_HIT) {
+      //set the rotation to zero
+      b2d.body.setTransform(b2d.body.getPosition().x, b2d.body.getPosition().y, 0);
       //Freeze the hit thing
-      b2d.body.setType(BodyType.StaticBody);
+      b2d.body.setActive(false);
       // is there an animation for a hit?
       AnimationComponent ani = Mapper.animCom.get(entity);
       if (ani!=null&&ani.animations.containsKey(state.getState())) {

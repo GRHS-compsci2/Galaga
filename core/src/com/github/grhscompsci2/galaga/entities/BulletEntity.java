@@ -17,7 +17,6 @@ import com.github.grhscompsci2.galaga.components.TranslationComponent;
 import com.github.grhscompsci2.galaga.components.TypeComponent;
 
 public class BulletEntity extends Entity implements Poolable {
-  InactiveComponent inactiveComponent;
 
   public void init(Engine engine, BodyFactory bodyFactory) {
 
@@ -47,7 +46,7 @@ public class BulletEntity extends Entity implements Poolable {
     typeComponent.type = TypeComponent.BULLET;
     add(typeComponent);
 
-    inactiveComponent = engine.createComponent(InactiveComponent.class);
+    InactiveComponent inactiveComponent = engine.createComponent(InactiveComponent.class);
     super.add(inactiveComponent);
 
     if (!engine.getEntities().contains(this, true))
@@ -57,19 +56,19 @@ public class BulletEntity extends Entity implements Poolable {
   @Override
   public void reset() {
     StateComponent stateComponent = Mapper.stateCom.get(this);
+    B2dBodyComponent b2dBodyComponent = Mapper.b2dCom.get(this);
     stateComponent.set(StateComponent.STATE_NORMAL);
-    add(inactiveComponent);
+    b2dBodyComponent.body.setTransform(-5,-5, 0);
+    add(new InactiveComponent());
 
   }
 
   public void revive(Vector2 position, float xVel, float yVel) {
     B2dBodyComponent b2dBodyComponent = Mapper.b2dCom.get(this);
-    CollisionComponent collisionComponent = Mapper.collisionCom.get(this);
     b2dBodyComponent.body.setActive(true);
     b2dBodyComponent.body.setType(BodyType.DynamicBody);
     b2dBodyComponent.body.setTransform(position, 0);
     b2dBodyComponent.body.setLinearVelocity(xVel, yVel);
-    collisionComponent.collisionEntity = null;
-    remove(inactiveComponent.getClass());
+    remove(InactiveComponent.class);
   }
 }

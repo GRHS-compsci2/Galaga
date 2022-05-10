@@ -17,4 +17,5 @@ public class Mapper {
                         .getFor(TranslationComponent.class);
         public static final ComponentMapper<TypeComponent> typeCom = ComponentMapper.getFor(TypeComponent.class);
         public static final ComponentMapper<SteeringComponent> sCom = ComponentMapper.getFor(SteeringComponent.class);
+        public static final ComponentMapper<InactiveComponent> iCom = ComponentMapper.getFor(InactiveComponent.class);
 }

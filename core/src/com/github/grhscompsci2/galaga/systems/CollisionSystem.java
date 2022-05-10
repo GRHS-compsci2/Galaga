@@ -3,6 +3,7 @@ package com.github.grhscompsci2.galaga.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Gdx;
 import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.components.CollisionComponent;
 import com.github.grhscompsci2.galaga.components.InactiveComponent;
@@ -27,15 +28,20 @@ public class CollisionSystem extends IteratingSystem {
     CollisionComponent cc = Mapper.collisionCom.get(entity);
     Entity collidedEntity = cc.collisionEntity;
     if (collidedEntity != null) {
-      StateComponent sc = Mapper.stateCom.get(entity);
       TypeComponent usType = Mapper.typeCom.get(entity);
       TypeComponent themType = Mapper.typeCom.get(collidedEntity);
+      StateComponent sc = Mapper.stateCom.get(entity);
 
-      if (themType != null&&usType.type!=themType.type) {
+      if (themType != null && usType.type != themType.type && sc.getState() != StateComponent.STATE_HIT) {
         //
         if (usType.type == TypeComponent.ENEMY || usType.type == TypeComponent.PLAYER
             || themType.type == TypeComponent.BULLET) {
+          if (Mapper.stateCom.has(collidedEntity)) {
+            StateComponent colSc = Mapper.stateCom.get(collidedEntity);
+            colSc.set(StateComponent.STATE_HIT);
+          }
           // enemy or player is hit by bullet
+          Gdx.app.debug(TAG, "Collision between " + entity + " and " + collidedEntity);
           sc.set(StateComponent.STATE_HIT);
         }
       }

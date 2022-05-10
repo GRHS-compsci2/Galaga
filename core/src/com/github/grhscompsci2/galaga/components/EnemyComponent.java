@@ -7,6 +7,7 @@ import com.badlogic.gdx.ai.steer.utils.paths.LinePath;
 import com.badlogic.gdx.ai.steer.utils.paths.LinePath.LinePathParam;
 import com.badlogic.gdx.math.Vector2;
 import com.github.grhscompsci2.galaga.EnemyFormation;
+import com.github.grhscompsci2.galaga.ai.PathPresets;
 
 public class EnemyComponent implements Component {
 
@@ -50,6 +51,10 @@ public class EnemyComponent implements Component {
     return path.getEndPoint();
   }
 
+  public Vector2 getFirstPoint() {
+    return path.getStartPoint();
+  }
+
   /**
    * Check to see if we are close enough to home
    * 
@@ -80,4 +85,19 @@ public class EnemyComponent implements Component {
   public void setPath(LinePath<Vector2> path) {
     this.path = path;
   }
+
+  public void setPath(int path) {
+    switch (path) {
+      case 1:
+        this.path = PathPresets.ENTRY_PATH_1;
+        break;
+      case 2:
+      case 3:
+      case 4:
+        this.path = PathPresets.ENTRY_PATH_4;
+        break;
+    }
+
+  }
+
 }
