@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
+import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.components.EnemyComponent;
 import com.github.grhscompsci2.galaga.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.components.Mapper;
@@ -102,8 +103,10 @@ public class EnemyFormation {
       EnemyEntity entity = formation[waves[level][group][position].getX()][waves[level][group][position].getY()];
       StateComponent sc = Mapper.stateCom.get(entity);
       EnemyComponent ec = Mapper.enemyCom.get(entity);
+      B2dBodyComponent b2dc = Mapper.b2dCom.get(entity);
       sc.set(StateComponent.STATE_ENTRY);
       ec.setPath(waves[level][group][position].getPath());
+      b2dc.body.setActive(true);
       entity.remove(InactiveComponent.class);
       position++;
     }

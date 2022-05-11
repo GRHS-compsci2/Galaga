@@ -1,7 +1,6 @@
 package com.github.grhscompsci2.galaga.entities;
 
 import com.badlogic.ashley.core.Engine;
-import com.badlogic.gdx.ai.steer.utils.paths.LinePath;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;

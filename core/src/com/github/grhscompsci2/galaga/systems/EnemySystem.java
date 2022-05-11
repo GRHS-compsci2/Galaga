@@ -111,12 +111,14 @@ public class EnemySystem extends IteratingSystem {
     SteeringComponent steeringComponent = Mapper.sCom.get(entity);
     B2dBodyComponent b2dBodyComponent = Mapper.b2dCom.get(entity);
     EnemyComponent enemyComponent = Mapper.enemyCom.get(entity);
+    TranslationComponent translationComponent = Mapper.transCom.get(entity);
     if (steeringComponent.currentMode != SteeringState.GO) {
       steeringComponent.steeringBehavior = null;
       steeringComponent.currentMode = SteeringState.GO;
     }
     Vector2 idlePosition = enemyComponent.updateHome();
     b2dBodyComponent.body.setTransform(idlePosition, 0);
+    translationComponent.setPosition(idlePosition);
   }
 
 }

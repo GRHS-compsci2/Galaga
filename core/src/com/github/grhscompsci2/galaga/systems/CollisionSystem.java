@@ -24,28 +24,33 @@ public class CollisionSystem extends IteratingSystem {
 
   @Override
   protected void processEntity(Entity entity, float deltaTime) {
-    // get player collision component
+    // get collision component
     CollisionComponent cc = Mapper.collisionCom.get(entity);
     Entity collidedEntity = cc.collisionEntity;
     if (collidedEntity != null) {
-      TypeComponent usType = Mapper.typeCom.get(entity);
-      TypeComponent themType = Mapper.typeCom.get(collidedEntity);
-      StateComponent sc = Mapper.stateCom.get(entity);
-
-      if (themType != null && usType.type != themType.type && sc.getState() != StateComponent.STATE_HIT) {
-        //
-        if (usType.type == TypeComponent.ENEMY || usType.type == TypeComponent.PLAYER
-            || themType.type == TypeComponent.BULLET) {
-          if (Mapper.stateCom.has(collidedEntity)) {
-            StateComponent colSc = Mapper.stateCom.get(collidedEntity);
-            colSc.set(StateComponent.STATE_HIT);
-          }
-          // enemy or player is hit by bullet
-          Gdx.app.debug(TAG, "Collision between " + entity + " and " + collidedEntity);
-          sc.set(StateComponent.STATE_HIT);
-        }
+      if (Mapper.typeCom.has(entity)) {
+        hitCheck(entity);
+      }
+      if (Mapper.typeCom.has(collidedEntity)) {
+        hitCheck(collidedEntity);
       }
     }
     cc.collisionEntity = null; // collision handled reset component
+  }
+  
+  public void hitCheck(Entity entity){
+    TypeComponent tC = Mapper.typeCom.get(entity);
+    StateComponent sC = Mapper.stateCom.get(entity);
+    if (sC.getState() != StateComponent.STATE_HIT && sC.getState() != StateComponent.STATE_DEAD) {
+      switch (tC.type) {
+        case TypeComponent.BULLET:
+          sC.set(StateComponent.STATE_DEAD);
+          break;
+        case TypeComponent.PLAYER:
+        case TypeComponent.ENEMY:
+          sC.set(StateComponent.STATE_HIT);
+          break;
+      }
+    }
   }
 }

@@ -50,6 +50,7 @@ public class EnemyEntity extends Entity {
     b2d.body = factory.makeBoxPolyBody(-5, -5, Utility.SPRITE_WIDTH, Utility.SPRITE_WIDTH,
         BodyFactory.STONE, BodyType.DynamicBody, BodyFactory.CATEGORY_ENEMY, BodyFactory.MASK_ENEMY, true);
     b2d.body.setUserData(this);
+    b2d.body.setActive(false);
     super.add(b2d);
 
     EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);

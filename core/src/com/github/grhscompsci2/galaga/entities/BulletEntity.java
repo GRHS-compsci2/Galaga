@@ -37,6 +37,7 @@ public class BulletEntity extends Entity implements Poolable {
     b2d.body.setBullet(true);
     bodyFactory.makeAllFixturesSensors(b2d.body);
     b2d.body.setUserData(this);
+    b2d.body.setActive(false);
     add(b2d);
 
     CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);
@@ -58,6 +59,7 @@ public class BulletEntity extends Entity implements Poolable {
     StateComponent stateComponent = Mapper.stateCom.get(this);
     B2dBodyComponent b2dBodyComponent = Mapper.b2dCom.get(this);
     stateComponent.set(StateComponent.STATE_NORMAL);
+    b2dBodyComponent.body.setActive(false);
     b2dBodyComponent.body.setTransform(-5,-5, 0);
     add(new InactiveComponent());
 
