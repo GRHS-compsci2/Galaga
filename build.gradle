@@ -29,6 +29,7 @@ allprojects {
         aiVersion = '1.8.2'
         gdxControllersVersion = '2.1.0'
         tenPatchVersion = '5.2.2'
+        tweenEngineVersion = '6.3.4'
     }
 
     repositories {
@@ -77,13 +78,13 @@ project(":html") {
         api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion:sources"
         api "com.badlogicgames.gdx-controllers:gdx-controllers-gwt:$gdxControllersVersion"
         api "com.badlogicgames.gdx-controllers:gdx-controllers-gwt:$gdxControllersVersion:sources"
+        api "com.github.arcnor:universal-tween-engine:$tweenEngineVersion:sources"
         api "com.github.raeleus.TenPatch:tenpatch:$tenPatchVersion:sources"
     }
 }
 
 project(":core") {
     apply plugin: "java-library"
-
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -92,6 +93,7 @@ project(":core") {
         api "com.badlogicgames.ashley:ashley:$ashleyVersion"
         api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
+        api "com.github.arcnor:universal-tween-engine:$tweenEngineVersion"
         api "com.github.raeleus.TenPatch:tenpatch:$tenPatchVersion"
     }
 }

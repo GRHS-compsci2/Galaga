@@ -7,8 +7,8 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.github.grhscompsci2.galaga.MyGdxGame;
-import com.github.grhscompsci2.galaga.components.CollisionComponent;
-import com.github.grhscompsci2.galaga.components.Mapper;
+import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
+import com.github.grhscompsci2.galaga.ashley.components.CollisionComponent;
 
 public class B2dContactListener implements ContactListener {
 
@@ -40,7 +40,7 @@ public class B2dContactListener implements ContactListener {
       CollisionComponent col = ent.getComponent(CollisionComponent.class);
       CollisionComponent colb = colEnt.getComponent(CollisionComponent.class);
 
-      if (!Mapper.iCom.has(ent) && !Mapper.iCom.has(colEnt)) {
+      if (!K2ComponentMappers.collision.has(ent) && !K2ComponentMappers.inactive.has(colEnt)) {
         if (col != null) {
           col.collisionEntity = colEnt;
         }

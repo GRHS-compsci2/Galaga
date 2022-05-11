@@ -3,11 +3,11 @@ package com.github.grhscompsci2.galaga;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
+import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
+import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
+import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
+import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
-import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
-import com.github.grhscompsci2.galaga.components.InactiveComponent;
-import com.github.grhscompsci2.galaga.components.Mapper;
-import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.entities.BulletEntity;
 
 public class BulletManager {
@@ -35,8 +35,8 @@ public class BulletManager {
   }
 
   private void revive(BulletEntity bullet, Vector2 position, float xVel, float yVel) {
-    B2dBodyComponent b2dBodyComponent=Mapper.b2dCom.get(bullet);
-    StateComponent stateComponent=Mapper.stateCom.get(bullet);
+    BodyComponent b2dBodyComponent=K2ComponentMappers.body.get(bullet);
+    StateComponent stateComponent=K2ComponentMappers.state.get(bullet);
 
     b2dBodyComponent.body.setActive(true);
     float angle=180-(yVel/Math.abs(yVel)*180);

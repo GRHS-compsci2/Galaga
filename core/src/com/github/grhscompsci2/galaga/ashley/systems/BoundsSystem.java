@@ -1,0 +1,58 @@
+package com.github.grhscompsci2.galaga.ashley.systems;
+
+import com.badlogic.ashley.core.ComponentMapper;
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
+import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.math.Vector2;
+import com.github.grhscompsci2.galaga.ashley.VectorUtils;
+import com.github.grhscompsci2.galaga.ashley.components.BoundsComponent;
+import com.github.grhscompsci2.galaga.ashley.components.CircleBoundsComponent;
+import com.github.grhscompsci2.galaga.ashley.components.TransformComponent;
+
+/**
+ * Created by barry on 12/13/15 @ 2:20 PM.
+ */
+public class BoundsSystem extends IteratingSystem {
+
+  ComponentMapper<BoundsComponent> bm;
+  ComponentMapper<CircleBoundsComponent> cm;
+  ComponentMapper<TransformComponent> tm;
+
+  public BoundsSystem() {
+    super(Family.all(TransformComponent.class)
+        .one(BoundsComponent.class, CircleBoundsComponent.class).get());
+
+    bm = ComponentMapper.getFor(BoundsComponent.class);
+    cm = ComponentMapper.getFor(CircleBoundsComponent.class);
+    tm = ComponentMapper.getFor(TransformComponent.class);
+  }
+
+  @Override
+  protected void processEntity(Entity entity, float deltaTime) {
+    TransformComponent tfm = tm.get(entity);
+
+    float xOffsetAdjust = tfm.scale.x >= 0f ? 1f : -1f;
+    float yOffsetAdjust = tfm.scale.y >= 0f ? 1f : -1f;
+
+    if (bm.has(entity)) {
+      BoundsComponent bounds = bm.get(entity);
+      Vector2 rotatedOffset = bounds.offset.cpy().scl(xOffsetAdjust, yOffsetAdjust);
+      if (tfm.rotation != 0f) {
+        rotatedOffset = VectorUtils.rotateVector(rotatedOffset, tfm.rotation);
+      }
+
+      bounds.bounds.x = tfm.position.x + tfm.originOffset.x - bounds.bounds.width * 0.5f + rotatedOffset.x;
+      bounds.bounds.y = tfm.position.y + tfm.originOffset.y - bounds.bounds.height * 0.5f + rotatedOffset.y;
+    } else if (cm.has(entity)) {
+      CircleBoundsComponent bounds = cm.get(entity);
+      Vector2 rotatedOffset = bounds.offset.cpy().scl(xOffsetAdjust, yOffsetAdjust);
+      if (tfm.rotation != 0f) {
+        rotatedOffset = VectorUtils.rotateVector(rotatedOffset, tfm.rotation);
+      }
+
+      bounds.circle.x = tfm.position.x + tfm.originOffset.x + rotatedOffset.x;
+      bounds.circle.y = tfm.position.y + tfm.originOffset.y + rotatedOffset.y;
+    }
+  }
+}

@@ -9,17 +9,17 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.ai.PathPresets;
+import com.github.grhscompsci2.galaga.ashley.components.AnimationComponent;
+import com.github.grhscompsci2.galaga.ashley.components.B2dBodyComponent;
+import com.github.grhscompsci2.galaga.ashley.components.CollisionComponent;
+import com.github.grhscompsci2.galaga.ashley.components.EnemyComponent;
+import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
+import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
+import com.github.grhscompsci2.galaga.ashley.components.SteeringComponent;
+import com.github.grhscompsci2.galaga.ashley.components.TextureComponent;
+import com.github.grhscompsci2.galaga.ashley.components.TranslationComponent;
+import com.github.grhscompsci2.galaga.ashley.components.TypeComponent;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
-import com.github.grhscompsci2.galaga.components.AnimationComponent;
-import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
-import com.github.grhscompsci2.galaga.components.CollisionComponent;
-import com.github.grhscompsci2.galaga.components.EnemyComponent;
-import com.github.grhscompsci2.galaga.components.InactiveComponent;
-import com.github.grhscompsci2.galaga.components.StateComponent;
-import com.github.grhscompsci2.galaga.components.SteeringComponent;
-import com.github.grhscompsci2.galaga.components.TextureComponent;
-import com.github.grhscompsci2.galaga.components.TranslationComponent;
-import com.github.grhscompsci2.galaga.components.TypeComponent;
 
 public class ButterflyGalagaEntity extends EnemyEntity {
   public void init(Engine engine, BodyFactory bodyFactory, Vector2 home) {

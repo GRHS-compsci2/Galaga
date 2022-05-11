@@ -3,12 +3,12 @@ package com.github.grhscompsci2.galaga;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
+import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
+import com.github.grhscompsci2.galaga.ashley.components.EnemyComponent;
+import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
+import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
-import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
-import com.github.grhscompsci2.galaga.components.EnemyComponent;
-import com.github.grhscompsci2.galaga.components.InactiveComponent;
-import com.github.grhscompsci2.galaga.components.Mapper;
-import com.github.grhscompsci2.galaga.components.StateComponent;
 import com.github.grhscompsci2.galaga.entities.BeeGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.ButterflyGalagaEntity;
 import com.github.grhscompsci2.galaga.entities.EnemyEntity;
@@ -101,9 +101,9 @@ public class EnemyFormation {
   public static void launchNext(float deltaTime) {
     if (waveTimer == 0 && position < waves[level][group].length) {
       EnemyEntity entity = formation[waves[level][group][position].getX()][waves[level][group][position].getY()];
-      StateComponent sc = Mapper.stateCom.get(entity);
-      EnemyComponent ec = Mapper.enemyCom.get(entity);
-      B2dBodyComponent b2dc = Mapper.b2dCom.get(entity);
+      StateComponent sc = K2ComponentMappers.state.get(entity);
+      EnemyComponent ec = K2ComponentMappers.enemy.get(entity);
+      BodyComponent b2dc = K2ComponentMappers.body.get(entity);
       sc.set(StateComponent.STATE_ENTRY);
       ec.setPath(waves[level][group][position].getPath());
       b2dc.body.setActive(true);

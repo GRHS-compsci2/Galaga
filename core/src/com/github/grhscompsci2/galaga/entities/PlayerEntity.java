@@ -8,14 +8,14 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.Utility;
+import com.github.grhscompsci2.galaga.ashley.components.AnimationComponent;
+import com.github.grhscompsci2.galaga.ashley.components.B2dBodyComponent;
+import com.github.grhscompsci2.galaga.ashley.components.PlayerComponent;
+import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
+import com.github.grhscompsci2.galaga.ashley.components.TextureComponent;
+import com.github.grhscompsci2.galaga.ashley.components.TranslationComponent;
+import com.github.grhscompsci2.galaga.ashley.components.TypeComponent;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
-import com.github.grhscompsci2.galaga.components.AnimationComponent;
-import com.github.grhscompsci2.galaga.components.B2dBodyComponent;
-import com.github.grhscompsci2.galaga.components.PlayerComponent;
-import com.github.grhscompsci2.galaga.components.StateComponent;
-import com.github.grhscompsci2.galaga.components.TextureComponent;
-import com.github.grhscompsci2.galaga.components.TranslationComponent;
-import com.github.grhscompsci2.galaga.components.TypeComponent;
 
 public class PlayerEntity extends Entity {
     static float x = 18.0f;

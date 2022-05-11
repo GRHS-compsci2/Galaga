@@ -7,10 +7,10 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.Utility;
+import com.github.grhscompsci2.galaga.ashley.components.AnimationComponent;
+import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
+import com.github.grhscompsci2.galaga.ashley.components.TextureComponent;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
-import com.github.grhscompsci2.galaga.components.AnimationComponent;
-import com.github.grhscompsci2.galaga.components.StateComponent;
-import com.github.grhscompsci2.galaga.components.TextureComponent;
 
 public class GreenBatGalagaEntity extends EnemyEntity {
   public void init(Engine engine, BodyFactory bodyFactory, Vector2 home) {

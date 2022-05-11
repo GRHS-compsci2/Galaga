@@ -5,8 +5,8 @@ import com.badlogic.gdx.ai.steer.utils.paths.LinePath;
 import com.badlogic.gdx.ai.steer.utils.paths.LinePath.LinePathParam;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.github.grhscompsci2.galaga.ashley.components.SteeringComponent;
 import com.github.grhscompsci2.galaga.b2d.Box2dLocation;
-import com.github.grhscompsci2.galaga.components.SteeringComponent;
 
 public class SteeringPresets {
 
