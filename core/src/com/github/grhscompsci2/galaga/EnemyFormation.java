@@ -8,11 +8,11 @@ import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
 import com.github.grhscompsci2.galaga.ashley.components.EnemyComponent;
 import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
+import com.github.grhscompsci2.galaga.ashley.entities.enemies.BeeGalagaEntity;
+import com.github.grhscompsci2.galaga.ashley.entities.enemies.ButterflyGalagaEntity;
+import com.github.grhscompsci2.galaga.ashley.entities.enemies.EnemyEntity;
+import com.github.grhscompsci2.galaga.ashley.entities.enemies.GreenBatGalagaEntity;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
-import com.github.grhscompsci2.galaga.entities.BeeGalagaEntity;
-import com.github.grhscompsci2.galaga.entities.ButterflyGalagaEntity;
-import com.github.grhscompsci2.galaga.entities.EnemyEntity;
-import com.github.grhscompsci2.galaga.entities.GreenBatGalagaEntity;
 
 public class EnemyFormation {
   private static String TAG = EnemyFormation.class.getSimpleName();
@@ -83,7 +83,17 @@ public class EnemyFormation {
       }
   };
 
-  public static void init(Engine engine, BodyFactory factory) {
+  private static Engine engine;
+
+  private static BodyFactory bodyFactory;
+
+  public static void init(Engine e, BodyFactory f) {
+    engine = e;
+    bodyFactory = f;
+    init();
+  }
+
+  public static void init() {
     float centerX = (Utility.SCREEN_WIDTH_METERS) / 2;
     float y = Utility.SCREEN_HEIGHT_METERS - 5;
     for (int i = 0; i < formation.length; i++) {
@@ -91,7 +101,7 @@ public class EnemyFormation {
       for (int j = 0; j < formation[i].length; j++) {
         float x = xStart + (j * 2);
         Gdx.app.debug(TAG, "X:" + x + "Y:" + y);
-        formation[i][j].init(engine, factory, new Vector2(x, y));
+        formation[i][j].init(engine, bodyFactory, new Vector2(x, y));
         engine.addEntity(formation[i][j]);
       }
       y -= 2;
@@ -126,7 +136,8 @@ public class EnemyFormation {
     }
     waveTimer += deltaTime;
     if (waveTimer >= LAUNCH_DELAY) {
-      //Gdx.app.debug(TAG, "Level:" + level + " group:" + group + " position:" + position);
+      // Gdx.app.debug(TAG, "Level:" + level + " group:" + group + " position:" +
+      // position);
       waveTimer = 0;
     }
   }
@@ -173,6 +184,7 @@ public class EnemyFormation {
   }
 
   public static void nextLevel() {
+    init();
     level = 0;
     group = 0;
     position = 0;

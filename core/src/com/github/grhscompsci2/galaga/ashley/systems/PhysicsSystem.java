@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
-import com.github.grhscompsci2.galaga.ashley.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
 import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.TransformComponent;
@@ -24,7 +23,7 @@ public class PhysicsSystem extends IteratingSystem {
   private Array<Entity> bodiesQueue;
 
   public PhysicsSystem(World world) {
-    super(Family.all(B2dBodyComponent.class, TransformComponent.class)
+    super(Family.all(BodyComponent.class, TransformComponent.class)
         .exclude(InactiveComponent.class)
         .get());
     this.world = world;

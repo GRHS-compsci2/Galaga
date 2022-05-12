@@ -91,9 +91,13 @@ public class EnemyComponent implements Component {
       case 1:
         this.path = PathPresets.ENTRY_PATH_1;
         break;
-      case 2:
-      case 3:
-      case 4:
+        case 2:
+        this.path = PathPresets.ENTRY_PATH_2;
+        break;
+        case 3:
+        this.path = PathPresets.ENTRY_PATH_3;
+        break;
+        case 4:
         this.path = PathPresets.ENTRY_PATH_4;
         break;
     }

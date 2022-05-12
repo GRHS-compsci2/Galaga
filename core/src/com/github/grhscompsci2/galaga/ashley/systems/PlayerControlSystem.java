@@ -4,31 +4,28 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
-import com.github.grhscompsci2.galaga.BulletManager;
 import com.github.grhscompsci2.galaga.KeyboardController;
 import com.github.grhscompsci2.galaga.MyGdxGame;
-import com.github.grhscompsci2.galaga.Utility;
-import com.github.grhscompsci2.galaga.MyGdxGame.ScreenType;
 import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
-import com.github.grhscompsci2.galaga.ashley.components.B2dBodyComponent;
 import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
 import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.PlayerComponent;
+import com.github.grhscompsci2.galaga.ashley.entities.bullets.BulletFactory;
+import com.github.grhscompsci2.galaga.gdx.helpers.IGameProcessor.ScreenType;
 
 public class PlayerControlSystem extends IteratingSystem {
   private String TAG = PlayerControlSystem.class.getSimpleName();
 
   KeyboardController controller;
   MyGdxGame parentGdxGame;
-  BulletManager bulMan;
-
-  public PlayerControlSystem(KeyboardController keyCon, MyGdxGame game, BulletManager bulMan) {
+  BulletFactory bulletFactory;
+  public PlayerControlSystem(KeyboardController keyCon, MyGdxGame game, BulletFactory bulletFactory) {
     super(Family.all(PlayerComponent.class)
         .exclude(InactiveComponent.class)
         .get());
-    parentGdxGame = game;
-    controller = keyCon;
-    this.bulMan = bulMan;
+    this.parentGdxGame = game;
+    this.controller = keyCon;
+    this.bulletFactory=bulletFactory;
   }
 
   @Override
@@ -48,15 +45,15 @@ public class PlayerControlSystem extends IteratingSystem {
     }
     if (controller.esc) {
       controller.esc = false;
-      parentGdxGame.setScreen(ScreenType.Pause);
+      parentGdxGame.switchScreens(ScreenType.Pause);
     }
 
-    if (controller.spacebar && (player.timeSinceLastShot >= player.shootDelay || player.numMissiles == 0)) {
+    if (controller.spacebar && bulletFactory.getNumPlayerBullets()<3&&(player.timeSinceLastShot >= player.shootDelay || player.numMissiles == 0)) {
       float initialX = b2body.body.getPosition().x;
       float initialY = b2body.body.getPosition().y + 1f;
 
-      bulMan.fire(new Vector2(initialX, initialY), 0f, 25f);
-      Utility.playPew(parentGdxGame);
+      bulletFactory.playerFire(new Vector2(initialX, initialY), 0f, 25f);
+
       player.timeSinceLastShot = 0;
 
       player.numMissiles++;
@@ -66,4 +63,5 @@ public class PlayerControlSystem extends IteratingSystem {
       player.timeSinceLastShot += deltaTime;
     }
   }
+
 }

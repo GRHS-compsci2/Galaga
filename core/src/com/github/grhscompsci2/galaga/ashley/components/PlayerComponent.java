@@ -8,4 +8,7 @@ public class PlayerComponent implements Component {
   public int numMissiles = 0;
   public int score = 0;
   public float speed = 15.0f;
+  public Object playerBullets;
+  public int totalMissles;
+
 }

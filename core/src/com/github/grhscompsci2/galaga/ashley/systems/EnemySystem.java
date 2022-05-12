@@ -4,9 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
-import com.github.grhscompsci2.galaga.BulletManager;
 import com.github.grhscompsci2.galaga.EnemyFormation;
-import com.github.grhscompsci2.galaga.MyGdxGame;
 import com.github.grhscompsci2.galaga.ai.SteeringPresets;
 import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
 import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
@@ -16,20 +14,20 @@ import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
 import com.github.grhscompsci2.galaga.ashley.components.SteeringComponent;
 import com.github.grhscompsci2.galaga.ashley.components.TransformComponent;
 import com.github.grhscompsci2.galaga.ashley.components.SteeringComponent.SteeringState;
+import com.github.grhscompsci2.galaga.ashley.entities.bullets.BulletFactory;
 
 public class EnemySystem extends IteratingSystem {
   private static String TAG = EnemySystem.class.getSimpleName();
-  private BulletManager bulMan;
-  private MyGdxGame parent;
+
+  private BulletFactory bulletFactory;
 
   @SuppressWarnings("unchecked")
-  public EnemySystem(MyGdxGame parent, BulletManager bulMan) {
+  public EnemySystem(BulletFactory bulletFactory) {
     // get all of the entites with the enemy component
     super(Family.all(EnemyComponent.class)
         .exclude(InactiveComponent.class)
         .get());
-    this.bulMan = bulMan;
-    this.parent = parent;
+    this.bulletFactory=bulletFactory;
   }
 
   public void update(float deltaTime) {
@@ -52,34 +50,7 @@ public class EnemySystem extends IteratingSystem {
       case StateComponent.STATE_ENTRY_IDLE:
         entryIdle(entity);
         break;
-      case StateComponent.STATE_HIT:
-        weAreHit(entity);
-        break;
-      case StateComponent.STATE_DEAD:
-        die(entity);
-        break;
     }
-  }
-
-  private void weAreHit(Entity entity) {
-
-  }
-
-  private void die(Entity entity) {
-    StateComponent sc = K2ComponentMappers.state.get(entity);
-    BodyComponent b2c = K2ComponentMappers.body.get(entity);
-    b2c.body.setTransform(-5, -5, 0);
-    b2c.body.setActive(false);
-    sc.set(StateComponent.STATE_NORMAL);
-    entity.add(new InactiveComponent());
-  }
-
-  public void revive(Entity entity) {
-    StateComponent sc = K2ComponentMappers.state.get(entity);
-    BodyComponent b2c = K2ComponentMappers.body.get(entity);
-    b2c.body.setActive(true);
-    sc.set(StateComponent.STATE_ENTRY);
-    entity.remove(InactiveComponent.class);
   }
 
   private void entry(Entity entity) {

@@ -1,4 +1,4 @@
-package com.github.grhscompsci2.galaga.entities;
+package com.github.grhscompsci2.galaga.ashley.entities.enemies;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -11,13 +11,13 @@ import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.ai.PathPresets;
 import com.github.grhscompsci2.galaga.ashley.components.AnimationComponent;
-import com.github.grhscompsci2.galaga.ashley.components.B2dBodyComponent;
+import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
 import com.github.grhscompsci2.galaga.ashley.components.CollisionComponent;
 import com.github.grhscompsci2.galaga.ashley.components.EnemyComponent;
 import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
 import com.github.grhscompsci2.galaga.ashley.components.SteeringComponent;
-import com.github.grhscompsci2.galaga.ashley.components.TranslationComponent;
+import com.github.grhscompsci2.galaga.ashley.components.TransformComponent;
 import com.github.grhscompsci2.galaga.ashley.components.TypeComponent;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 
@@ -34,19 +34,19 @@ public class EnemyEntity extends Entity {
     keyFrames.add(Utility.getTextureRegionAsset("explosion4"));
     keyFrames.add(Utility.getTextureRegionAsset("explosion5"));
 
-    Animation<TextureRegion> explosionAni = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE / 2,
+    Animation<TextureRegion> explosionAni = new Animation<TextureRegion>(Utility.ANI_FRAME_RATE / 2,
         keyFrames, PlayMode.NORMAL);
     AnimationComponent aComponent = engine.createComponent(AnimationComponent.class);
-    aComponent.animations.put(StateComponent.STATE_HIT, explosionAni);
+    aComponent.animations.put(StateComponent.STATE_DYING, explosionAni);
     super.add(aComponent);
 
     StateComponent sComponent = engine.createComponent(StateComponent.class);
     super.add(sComponent);
 
-    TranslationComponent pos = engine.createComponent(TranslationComponent.class);
+    TransformComponent pos = engine.createComponent(TransformComponent.class);
     super.add(pos);
 
-    B2dBodyComponent b2d = engine.createComponent(B2dBodyComponent.class);
+    BodyComponent b2d = engine.createComponent(BodyComponent.class);
     b2d.body = factory.makeBoxPolyBody(-5, -5, Utility.SPRITE_WIDTH, Utility.SPRITE_WIDTH,
         BodyFactory.STONE, BodyType.DynamicBody, BodyFactory.CATEGORY_ENEMY, BodyFactory.MASK_ENEMY, true);
     b2d.body.setUserData(this);

@@ -1,4 +1,4 @@
-package com.github.grhscompsci2.galaga.entities;
+package com.github.grhscompsci2.galaga.ashley.entities;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;

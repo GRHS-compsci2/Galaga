@@ -1,4 +1,4 @@
-package com.github.grhscompsci2.galaga.entities;
+package com.github.grhscompsci2.galaga.ashley.entities.enemies;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -8,17 +8,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.Utility;
-import com.github.grhscompsci2.galaga.ai.PathPresets;
 import com.github.grhscompsci2.galaga.ashley.components.AnimationComponent;
-import com.github.grhscompsci2.galaga.ashley.components.B2dBodyComponent;
-import com.github.grhscompsci2.galaga.ashley.components.CollisionComponent;
-import com.github.grhscompsci2.galaga.ashley.components.EnemyComponent;
-import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
-import com.github.grhscompsci2.galaga.ashley.components.SteeringComponent;
 import com.github.grhscompsci2.galaga.ashley.components.TextureComponent;
-import com.github.grhscompsci2.galaga.ashley.components.TranslationComponent;
-import com.github.grhscompsci2.galaga.ashley.components.TypeComponent;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 
 public class ButterflyGalagaEntity extends EnemyEntity {
@@ -29,7 +21,7 @@ public class ButterflyGalagaEntity extends EnemyEntity {
     keyFrames.add(Utility.getTextureRegionAsset("butterfly1"));
     keyFrames.add(Utility.getTextureRegionAsset("butterfly2"));
 
-    Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames,
+    Animation<TextureRegion> ani = new Animation<TextureRegion>(Utility.ANI_FRAME_RATE, keyFrames,
         PlayMode.LOOP);
 
     AnimationComponent aComponent =getComponent(AnimationComponent.class);

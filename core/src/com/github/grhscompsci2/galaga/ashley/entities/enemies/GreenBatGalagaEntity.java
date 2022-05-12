@@ -1,4 +1,4 @@
-package com.github.grhscompsci2.galaga.entities;
+package com.github.grhscompsci2.galaga.ashley.entities.enemies;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -12,15 +12,14 @@ import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
 import com.github.grhscompsci2.galaga.ashley.components.TextureComponent;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 
-public class BeeGalagaEntity extends EnemyEntity {
-  @Override
+public class GreenBatGalagaEntity extends EnemyEntity {
   public void init(Engine engine, BodyFactory bodyFactory, Vector2 home) {
     super.init(engine, bodyFactory, home);
     Array<TextureRegion> keyFrames = new Array<TextureRegion>();
-    keyFrames.add(Utility.getTextureRegionAsset("bee1"));
-    keyFrames.add(Utility.getTextureRegionAsset("bee2"));
+    keyFrames.add(Utility.getTextureRegionAsset("greenBat1"));
+    keyFrames.add(Utility.getTextureRegionAsset("greenBat2"));
 
-    Animation<TextureRegion> ani = new Animation<TextureRegion>(AnimationComponent.FRAME_RATE, keyFrames,
+    Animation<TextureRegion> ani = new Animation<TextureRegion>(Utility.ANI_FRAME_RATE, keyFrames,
         PlayMode.LOOP);
 
     AnimationComponent aComponent = getComponent(AnimationComponent.class);
@@ -29,7 +28,7 @@ public class BeeGalagaEntity extends EnemyEntity {
     aComponent.animations.put(StateComponent.STATE_ENTRY_IDLE, ani);
 
     TextureComponent tex = engine.createComponent(TextureComponent.class);
-    tex.region = Utility.getTextureRegionAsset("bee1");
+    tex.region = Utility.getTextureRegionAsset("greenBat1");
     super.add(tex);
   }
 }

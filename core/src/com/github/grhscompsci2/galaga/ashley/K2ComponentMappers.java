@@ -36,6 +36,7 @@ public class K2ComponentMappers {
   public static ComponentMapper<PlayerComponent> player = ComponentMapper.getFor(PlayerComponent.class);
   public static ComponentMapper<RemainInBoundsComponent> remainInBounds = ComponentMapper
       .getFor(RemainInBoundsComponent.class);
+  public static ComponentMapper<RemoveComponent> remove = ComponentMapper.getFor(RemoveComponent.class);
   public static ComponentMapper<RotationComponent> rotation = ComponentMapper.getFor(RotationComponent.class);
   public static ComponentMapper<ScreenWrapComponent> screenWrap = ComponentMapper.getFor(ScreenWrapComponent.class);
   public static ComponentMapper<ShakeComponent> shake = ComponentMapper.getFor(ShakeComponent.class);

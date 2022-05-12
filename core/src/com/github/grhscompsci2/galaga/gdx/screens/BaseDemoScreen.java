@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.github.grhscompsci2.galaga.Utility;
+import com.github.grhscompsci2.galaga.ashley.systems.AnimationSystem;
 import com.github.grhscompsci2.galaga.ashley.systems.DebugSystem;
 import com.github.grhscompsci2.galaga.ashley.systems.RenderingSystem;
 import com.github.grhscompsci2.galaga.ashley.systems.TextRenderingSystem;
@@ -27,7 +28,7 @@ public abstract class BaseDemoScreen extends LazyInitScreen{
 
     private void baseInit(){
         engine = new PooledEngine();
-        renderer = new RenderingSystem(game.getBatch(), game.getCamera(), Utility.PPM);
+        renderer = new RenderingSystem(game.getBatch(), game.getCamera(), Utility.PPM/2);
     }
     @Override
     protected void init() {
@@ -36,6 +37,7 @@ public abstract class BaseDemoScreen extends LazyInitScreen{
         engine.addSystem(renderer);
         engine.addSystem(new TextRenderingSystem(game.getBatch(), game.getGUICamera(), game.getCamera()));
         engine.addSystem(new DebugSystem(game.getCamera(), Color.BLUE, Color.MAGENTA, Input.Keys.TAB));
+        engine.addSystem(new AnimationSystem());
     }
 
     @Override

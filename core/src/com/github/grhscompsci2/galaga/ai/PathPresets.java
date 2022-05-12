@@ -37,6 +37,8 @@ public class PathPresets {
       new Vector2(15, 15.5625f), new Vector2(14, 16.25f), //new Vector2(13, 17.0625f), new Vector2(12, 18)
   };
 
-  public static final LinePath<Vector2> ENTRY_PATH_4 = new LinePath<Vector2>(new Array<Vector2>(ENTRY_WP_4), true);
   public static final LinePath<Vector2> ENTRY_PATH_1 = new LinePath<Vector2>(new Array<Vector2>(ENTRY_WP_1), true);
+  public static final LinePath<Vector2> ENTRY_PATH_2 = new LinePath<Vector2>(new Array<Vector2>(ENTRY_WP_4), true);
+  public static final LinePath<Vector2> ENTRY_PATH_3 = new LinePath<Vector2>(new Array<Vector2>(ENTRY_WP_1), true);
+  public static final LinePath<Vector2> ENTRY_PATH_4 = new LinePath<Vector2>(new Array<Vector2>(ENTRY_WP_4), true);
 }

@@ -74,6 +74,7 @@ public class MyGdxGame extends Game implements IGameProcessor {
     menuScreen = new MenuScreen(this);
     pauseScreen = new PauseScreen(this);
 
+    Utility.setFromPrefs(prefManager);
     Gdx.input.setInputProcessor(multiplexer);
     switchScreens(ScreenType.Loading);
   }
@@ -85,6 +86,7 @@ public class MyGdxGame extends Game implements IGameProcessor {
     loadingScreen.dispose();
     pauseScreen.dispose();
     menuScreen.dispose();
+    Utility.dispose();
   }
 
   @Override
@@ -97,7 +99,8 @@ public class MyGdxGame extends Game implements IGameProcessor {
     setScreen(getScreenType(screenType));
   }
 
-  public ScreenType getlastScreen() {
+  @Override
+  public ScreenType getLastScreen() {
     return lastScreen;
   }
 
@@ -163,6 +166,12 @@ public class MyGdxGame extends Game implements IGameProcessor {
   @Override
   public IPreferenceManager getPreferenceManager() {
     return prefManager;
+  }
+
+  @Override
+  public void playSound(String soundName) {
+    // TODO Auto-generated method stub
+
   }
 
 }

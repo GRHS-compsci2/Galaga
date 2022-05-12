@@ -40,14 +40,14 @@ public class CollisionSystem extends IteratingSystem {
   public void hitCheck(Entity entity) {
     TypeComponent tC = K2ComponentMappers.type.get(entity);
     StateComponent sC = K2ComponentMappers.state.get(entity);
-    if (sC.get() != StateComponent.STATE_HIT && sC.get() != StateComponent.STATE_DEAD) {
+    if (sC.get() != StateComponent.STATE_DYING && sC.get() != StateComponent.STATE_DEAD) {
       switch (tC.type) {
         case TypeComponent.BULLET:
           sC.set(StateComponent.STATE_DEAD);
           break;
         case TypeComponent.PLAYER:
         case TypeComponent.ENEMY:
-          sC.set(StateComponent.STATE_HIT);
+          sC.set(StateComponent.STATE_DYING);
           break;
       }
     }

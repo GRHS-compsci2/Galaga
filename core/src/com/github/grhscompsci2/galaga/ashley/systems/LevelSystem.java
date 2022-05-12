@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.EnemyFormation;
 import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
 import com.github.grhscompsci2.galaga.ashley.components.EnemyComponent;
-import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
+import com.github.grhscompsci2.galaga.ashley.components.RemoveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
 
 public class LevelSystem extends IteratingSystem {
@@ -17,7 +17,7 @@ public class LevelSystem extends IteratingSystem {
 
   public LevelSystem() {
     super(Family.all(EnemyComponent.class)
-        .exclude(InactiveComponent.class)
+        .exclude(RemoveComponent.class)
         .get());
     enemies = new Array<Entity>();
   }

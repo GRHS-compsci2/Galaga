@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.github.grhscompsci2.galaga.gdx.helpers.IGameProcessor;
+import com.github.grhscompsci2.galaga.gdx.helpers.IPreferenceManager;
 
 public final class Utility {
   public static final AssetManager _assetManager = new AssetManager();
@@ -37,6 +37,7 @@ public final class Utility {
   public static final String galagaExplosion2 = "music/galagaExplosion2.mp3";
   public static final float PPM = 8;
   public static final float SPRITE_WIDTH = 1.5f;
+  public static final float ANI_FRAME_RATE = 0.5f;
 
   public static float SCREEN_WIDTH_METERS = SCREEN_WIDTH / PPM;
   public static float SCREEN_HEIGHT_METERS = SCREEN_HEIGHT / PPM;
@@ -44,6 +45,8 @@ public final class Utility {
   private static Music music;
   private static Sound sound;
   public static boolean frameUpdate;
+  private static float musicVol = 0;
+  private static float soundVol = 0;
 
   public static void unloadAsset(String assetFilenamePath) {
     if (_assetManager.isLoaded(assetFilenamePath)) {
@@ -100,14 +103,10 @@ public final class Utility {
     return sound;
   }
 
-  public static void playSoundAsset(MyGdxGame parent, String soundAssetPath) {
+  public static void playSoundAsset(String soundAssetPath) {
     sound = getSoundAsset(soundAssetPath);
-    float vol = 0;
-    if (parent.getPreferenceManager().getStoredBoolean("Sound", false)) {
-      vol = parent.getPreferenceManager().getStoredFloat("SoundVol", 0.0f);
-    }
-    Gdx.app.debug(TAG, "Volume:" + vol);
-    sound.play(vol);
+    Gdx.app.debug(TAG, "Volume:" + soundVol);
+    sound.play(soundVol);
   }
 
   public static void loadMusicAsset(String musicAssetPath) {
@@ -140,23 +139,12 @@ public final class Utility {
     return music;
   }
 
-  public static void playMusicAsset(IGameProcessor game, String musicAssetPath) {
+  public static void playMusicAsset(String musicAssetPath) {
     music = getMusicAsset(musicAssetPath);
-    float vol = 0;
-    if (game.getPreferenceManager().getStoredBoolean("Music", false)) {
-      vol = game.getPreferenceManager().getStoredFloat("MusicVol", 0.0f);
-    }
-    Gdx.app.debug(TAG, "Volume:" + vol);
-    music.setVolume(vol);
-    music.play();
-  }
 
-  public static void updateVolume(MyGdxGame parent) {
-    float vol = 0;
-    if (parent.getPreferenceManager().getStoredBoolean("Music", false)) {
-      vol = parent.getPreferenceManager().getStoredFloat("MusicVol", 0.0f);
-    }
-    music.setVolume(vol);
+    Gdx.app.debug(TAG, "Volume:" + musicVol);
+    music.setVolume(musicVol);
+    music.play();
   }
 
   public static void loadTextureAtlasAsset() {
@@ -218,8 +206,19 @@ public final class Utility {
     return outVector;
   }
 
-  public static void playPew(MyGdxGame parent) {
-    playSoundAsset(parent, shotFired);
+  public static void dispose() {
+    if (music != null)
+      music.dispose();
+    if (sound != null)
+      sound.dispose();
   }
 
+  public static void setFromPrefs(IPreferenceManager prefManager) {
+    if (prefManager.getStoredBoolean("Sound", true)) {
+      soundVol = prefManager.getStoredFloat("SoundVol", 1.0f);
+    }
+    if (prefManager.getStoredBoolean("Music", true)) {
+      musicVol = prefManager.getStoredFloat("MusicVol", 1.0f);
+    }
+  }
 }
