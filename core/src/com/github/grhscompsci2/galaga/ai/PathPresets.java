@@ -57,10 +57,10 @@ public class PathPresets {
   public static Array<Vector2> genPath4() {
     Array<Vector2> wayPoints;
     wayPoints = new Array<>();
-    wayPoints.addAll(genPoints(288f, 196f, 1, ENTRY_PARABOLA_BOTTOM_RIGHT));
-    wayPoints.addAll(genPoints(196f, 105f, 1, ENTRY_CIRCLE_TOP_LEFT));
-    wayPoints.addAll(genPoints(222f, 182f, 1, ENTRY_CIRCLE_BOTTOM_RIGHT));
-    wayPoints.addAll(genPoints(182f, 144f, 1, ENTRY_PARABOLA_EXIT));
+    wayPoints.addAll(genPoints(224f, 128, 1, ENTRY_PARABOLA_BOTTOM_RIGHT));
+    wayPoints.addAll(genPoints(128f, 218f, 1, ENTRY_CIRCLE_TOP_LEFT));
+    wayPoints.addAll(genPoints(218f, 173f, 1, ENTRY_CIRCLE_BOTTOM_RIGHT));
+    wayPoints.addAll(genPoints(173f, 132f, 1, ENTRY_PARABOLA_EXIT));
     return wayPoints;
   }
 
