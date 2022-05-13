@@ -59,8 +59,8 @@ public class MyGdxGame extends Game implements IGameProcessor {
   public void create() {
     Gdx.app.setLogLevel(Application.LOG_DEBUG);
     batch = new SpriteBatch();
-    cam = new OrthographicCamera(Utility.SCREEN_WIDTH, Utility.SCREEN_HEIGHT);
-    viewport = new FitViewport(Utility.SCREEN_WIDTH, Utility.SCREEN_HEIGHT, cam);
+    cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), cam);
     viewport.apply();
     viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);

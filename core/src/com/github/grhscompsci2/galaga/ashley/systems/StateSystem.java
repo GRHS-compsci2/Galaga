@@ -14,7 +14,6 @@ public class StateSystem extends IteratingSystem {
 
   public StateSystem() {
     super(Family.all(StateComponent.class, TypeComponent.class)
-        .exclude(InactiveComponent.class)
         .get());
   }
 

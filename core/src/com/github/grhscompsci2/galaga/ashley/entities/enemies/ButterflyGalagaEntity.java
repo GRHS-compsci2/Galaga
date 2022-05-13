@@ -1,6 +1,7 @@
 package com.github.grhscompsci2.galaga.ashley.entities.enemies;
 
 import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
@@ -10,12 +11,11 @@ import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.ashley.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
-import com.github.grhscompsci2.galaga.ashley.components.TextureComponent;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 
 public class ButterflyGalagaEntity extends EnemyEntity {
-  public void init(Engine engine, BodyFactory bodyFactory, Vector2 home) {
-    super.init(engine, bodyFactory, home);
+  public void init(PooledEngine engine, BodyFactory bodyFactory, Vector2 home) {
+    super.init(engine, bodyFactory, home,"butterfly1");
 
     Array<TextureRegion> keyFrames = new Array<TextureRegion>();
     keyFrames.add(Utility.getTextureRegionAsset("butterfly1"));
@@ -28,9 +28,5 @@ public class ButterflyGalagaEntity extends EnemyEntity {
     aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
     aComponent.animations.put(StateComponent.STATE_ENTRY_IDLE, ani);
     aComponent.animations.put(StateComponent.STATE_ENTRY, ani);
-
-    TextureComponent tex = engine.createComponent(TextureComponent.class);
-    tex.region = Utility.getTextureRegionAsset("butterfly1");
-    super.add(tex);
   }
 }

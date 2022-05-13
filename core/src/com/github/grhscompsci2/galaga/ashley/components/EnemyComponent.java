@@ -89,16 +89,16 @@ public class EnemyComponent implements Component {
   public void setPath(int path) {
     switch (path) {
       case 1:
-        this.path = PathPresets.ENTRY_PATH_1;
+        this.path = PathPresets.entryPath1;
         break;
         case 2:
-        this.path = PathPresets.ENTRY_PATH_2;
+        this.path = PathPresets.entryPath2;
         break;
         case 3:
-        this.path = PathPresets.ENTRY_PATH_3;
+        this.path = PathPresets.entryPath3;
         break;
         case 4:
-        this.path = PathPresets.ENTRY_PATH_4;
+        this.path = PathPresets.entryPath4;
         break;
     }
 

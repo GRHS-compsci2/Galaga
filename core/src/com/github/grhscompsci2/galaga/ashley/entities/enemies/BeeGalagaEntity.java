@@ -1,6 +1,6 @@
 package com.github.grhscompsci2.galaga.ashley.entities.enemies;
 
-import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
@@ -13,9 +13,10 @@ import com.github.grhscompsci2.galaga.ashley.components.TextureComponent;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 
 public class BeeGalagaEntity extends EnemyEntity {
-  @Override
-  public void init(Engine engine, BodyFactory bodyFactory, Vector2 home) {
-    super.init(engine, bodyFactory, home);
+
+  public void init(PooledEngine engine, BodyFactory bodyFactory, Vector2 home) {
+    super.init(engine, bodyFactory, home, "bee1");
+
     Array<TextureRegion> keyFrames = new Array<TextureRegion>();
     keyFrames.add(Utility.getTextureRegionAsset("bee1"));
     keyFrames.add(Utility.getTextureRegionAsset("bee2"));
@@ -28,8 +29,5 @@ public class BeeGalagaEntity extends EnemyEntity {
     aComponent.animations.put(StateComponent.STATE_ENTRY, ani);
     aComponent.animations.put(StateComponent.STATE_ENTRY_IDLE, ani);
 
-    TextureComponent tex = engine.createComponent(TextureComponent.class);
-    tex.region = Utility.getTextureRegionAsset("bee1");
-    super.add(tex);
   }
 }

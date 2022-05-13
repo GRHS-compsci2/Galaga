@@ -1,7 +1,7 @@
 package com.github.grhscompsci2.galaga.ashley.entities.enemies;
 
-import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
@@ -14,17 +14,20 @@ import com.github.grhscompsci2.galaga.ashley.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
 import com.github.grhscompsci2.galaga.ashley.components.CollisionComponent;
 import com.github.grhscompsci2.galaga.ashley.components.EnemyComponent;
-import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
 import com.github.grhscompsci2.galaga.ashley.components.SteeringComponent;
+import com.github.grhscompsci2.galaga.ashley.components.TextureComponent;
 import com.github.grhscompsci2.galaga.ashley.components.TransformComponent;
 import com.github.grhscompsci2.galaga.ashley.components.TypeComponent;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 
 public class EnemyEntity extends Entity {
-  private InactiveComponent inactiveComponent = new InactiveComponent();
 
-  public void init(Engine engine, BodyFactory factory, Vector2 home) {
+  public void init(PooledEngine engine, BodyFactory factory, Vector2 home, String textureName) {
+
+    TextureComponent tex = engine.createComponent(TextureComponent.class);
+    tex.region = Utility.getTextureRegionAsset(textureName);
+    super.add(tex);
 
     Array<TextureRegion> keyFrames = new Array<TextureRegion>();
     keyFrames.clear();
@@ -40,34 +43,37 @@ public class EnemyEntity extends Entity {
     aComponent.animations.put(StateComponent.STATE_DYING, explosionAni);
     super.add(aComponent);
 
-    StateComponent sComponent = engine.createComponent(StateComponent.class);
-    super.add(sComponent);
-
-    TransformComponent pos = engine.createComponent(TransformComponent.class);
-    super.add(pos);
-
     BodyComponent b2d = engine.createComponent(BodyComponent.class);
-    b2d.body = factory.makeBoxPolyBody(-5, -5, Utility.SPRITE_WIDTH, Utility.SPRITE_WIDTH,
-        BodyFactory.STONE, BodyType.DynamicBody, BodyFactory.CATEGORY_ENEMY, BodyFactory.MASK_ENEMY, true);
+    b2d.body = factory.makeBoxPolyBody(-5, -5, tex.region.getRegionWidth() * 0.75f,
+        tex.region.getRegionHeight() * 0.75f, BodyFactory.STONE, BodyType.DynamicBody, BodyFactory.CATEGORY_ENEMY,
+        BodyFactory.MASK_ENEMY, true);
     b2d.body.setUserData(this);
     b2d.body.setActive(false);
     super.add(b2d);
 
-    EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
-    enemyComponent.initPaths(home, PathPresets.ENTRY_PATH_1);
-    super.add(enemyComponent);
-
     CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);
     add(collisionComponent);
 
-    TypeComponent typeComponent = engine.createComponent(TypeComponent.class);
-    typeComponent.type = TypeComponent.ENEMY;
-    add(typeComponent);
+    EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
+    enemyComponent.initPaths(home, PathPresets.entryPath1);
+    super.add(enemyComponent);
+
+    StateComponent sComponent = engine.createComponent(StateComponent.class);
+    sComponent.set(StateComponent.STATE_NORMAL);
+    super.add(sComponent);
 
     SteeringComponent steeringComponent = engine.createComponent(SteeringComponent.class);
     steeringComponent.body = b2d.body;
     super.add(steeringComponent);
 
-    super.add(inactiveComponent);
+    TransformComponent pos = engine.createComponent(TransformComponent.class);
+    super.add(pos);
+
+    TypeComponent typeComponent = engine.createComponent(TypeComponent.class);
+    typeComponent.type = TypeComponent.ENEMY;
+    add(typeComponent);
+  }
+
+  public void init(PooledEngine engine, BodyFactory bodyFactory, Vector2 vector2) {
   }
 }

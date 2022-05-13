@@ -25,8 +25,6 @@ public final class Utility {
 
   private final static String STATUSUI_TEXTURE_ATLAS_PATH = "skins/galagaSkin.atlas";
   private final static String STATUSUI_SKIN_PATH = "skins/galagaSkin.json";
-  public static int SCREEN_WIDTH = 224;
-  public static int SCREEN_HEIGHT = 288;
   public static TextureAtlas STATUSUI_TEXTUREATLAS = new TextureAtlas(STATUSUI_TEXTURE_ATLAS_PATH);
   public static Skin STATUSUI_SKIN = new Skin(Gdx.files.internal(STATUSUI_SKIN_PATH), STATUSUI_TEXTUREATLAS);
   public static final String themeMusic = "music/galagaTheme.mp3";
@@ -36,6 +34,8 @@ public final class Utility {
   public static final String galagaExplosion1 = "music/galagaExplosion1.mp3";
   public static final String galagaExplosion2 = "music/galagaExplosion2.mp3";
   public static final float PPM = 8;
+  public static int SCREEN_WIDTH = 224;
+  public static int SCREEN_HEIGHT = 288;
   public static final float SPRITE_WIDTH = 1.5f;
   public static final float ANI_FRAME_RATE = 0.5f;
 

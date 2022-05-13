@@ -7,8 +7,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
+import com.github.grhscompsci2.galaga.ashley.components.EnemyComponent;
+import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
 import com.github.grhscompsci2.galaga.ashley.components.TextureComponent;
 import com.github.grhscompsci2.galaga.ashley.components.TransformComponent;
 
@@ -22,7 +27,11 @@ import java.util.Comparator;
  */
 public class RenderingSystem extends IteratingSystem {
 
-  private final float PPM;
+  private float PPM = Utility.PPM;
+  // this gets the height and width of our camera frustrum based off the width and
+  // height of the screen and our pixel per meter ratio
+  final float FRUSTUM_WIDTH = Gdx.graphics.getWidth() / PPM;
+  final float FRUSTUM_HEIGHT = Gdx.graphics.getHeight() / PPM;
 
   private SpriteBatch batch;
   private Array<Entity> renderQueue;
@@ -48,7 +57,9 @@ public class RenderingSystem extends IteratingSystem {
 
     this.batch = batch;
 
+    // set up the camera to match our screen size
     this.cam = cam;
+
   }
 
   @Override
@@ -58,6 +69,31 @@ public class RenderingSystem extends IteratingSystem {
     renderQueue.sort(comparator);
 
     cam.update();
+    if (Utility.DEBUG_MODE) {
+      for (Entity entity : renderQueue) {
+        // Draw the current Path
+        EnemyComponent eComponent = K2ComponentMappers.enemy.get(entity);
+        StateComponent sComponent = K2ComponentMappers.state.get(entity);
+        TransformComponent t = K2ComponentMappers.transform.get(entity);
+
+        if (eComponent != null && eComponent.getPath() != null) {
+          ShapeRenderer sr = new ShapeRenderer();
+          Gdx.gl.glLineWidth(1);
+          sr.setProjectionMatrix(cam.combined);
+          sr.begin(ShapeRenderer.ShapeType.Line);
+          sr.setColor(Color.WHITE);
+          if (sComponent.get() == StateComponent.STATE_ENTRY)
+            for (int i = 0; i < eComponent.getPath().getSegments().size; i++) {
+              sr.line(eComponent.getPath().getSegments().get(i).getBegin(),
+                  eComponent.getPath().getSegments().get(i).getEnd());
+            }
+          else {
+            //sr.line(t.position, new Vector3(eComponent.getHome(), 0));
+          }
+          sr.end();
+        }
+      }
+    }
     batch.setProjectionMatrix(cam.combined);
     batch.enableBlending();
     batch.begin();
@@ -73,8 +109,8 @@ public class RenderingSystem extends IteratingSystem {
       Color c = batch.getColor();
       tintPlaceholder.set(t.tint.r, t.tint.g, t.tint.b, t.tint.a);
       batch.setColor(tintPlaceholder);
-      float width = PixelsToMeters(tex.region.getRegionWidth());
-      float height = PixelsToMeters(tex.region.getRegionHeight());
+      float width = pixelsToMeters(tex.region.getRegionWidth());
+      float height = pixelsToMeters(tex.region.getRegionHeight());
       float halfWidth = width / 2f;
       float halfHeight = height / 2f;
       // Allow for Offset
@@ -103,8 +139,8 @@ public class RenderingSystem extends IteratingSystem {
     return cam;
   }
 
-  private float PixelsToMeters(float pixelValue) {
-    return pixelValue * (1.0f / PPM);
+  private float pixelsToMeters(float pixelValue) {
+    return pixelValue * (1.0f / 1);
   }
 
   private float MetersToPixels(float meterValue) {

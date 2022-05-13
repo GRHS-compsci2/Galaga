@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 public class StateComponent implements Component, Poolable {
   public static final String TAG = StateComponent.class.getSimpleName();
   public static final String STATE_NORMAL = "STATE_NORMAL";
-  public static final String STATE_DYING = "STATE_HIT";
+  public static final String STATE_DYING = "STATE_DYING";
   public static final String STATE_DEAD = "STATE_DEAD";
   public static final String STATE_ENTRY = "STATE_ENTRY";
   public static final String STATE_ENTRY_GO_HOME = "STATE_ENTRY_GO_HOME";

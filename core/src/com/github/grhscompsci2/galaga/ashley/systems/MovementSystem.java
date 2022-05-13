@@ -5,7 +5,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
-import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.TransformComponent;
 import com.github.grhscompsci2.galaga.ashley.components.VelocityComponent;
 
@@ -14,8 +13,7 @@ public class MovementSystem extends IteratingSystem {
   private ComponentMapper<TransformComponent> tm;
 
   public MovementSystem() {
-    super(Family.all(VelocityComponent.class, TransformComponent.class)
-        .exclude(InactiveComponent.class).get());
+    super(Family.all(VelocityComponent.class, TransformComponent.class).get());
     vm = ComponentMapper.getFor(VelocityComponent.class);
     tm = ComponentMapper.getFor(TransformComponent.class);
   }

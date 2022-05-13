@@ -5,40 +5,116 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class PathPresets {
-  public static final Vector2[] ENTRY_WP_4 = {
-      // side parabola up to the circle
-      new Vector2(36, 4), new Vector2(28, 4), new Vector2(26.5625f, 5),
-      new Vector2(25, 6), new Vector2(23.5625f, 7), new Vector2(22.25f, 8), new Vector2(21.0625f, 9),
-      new Vector2(20, 10), new Vector2(19.0625f, 11), new Vector2(18.25f, 12), new Vector2(17.5625f, 13f),
-      new Vector2(17, 14), new Vector2(16.5625f, 15), new Vector2(16.25f, 16), new Vector2(16.0625f, 17),
-      new Vector2(16f, 18f),
-      // circle to top parabola
-      new Vector2(16.536f, 20), new Vector2(17.354f, 21), new Vector2(18.064f, 21.5f),
-      new Vector2(20, 22f), new Vector2(21.963f, 21.5f), new Vector2(22.646f, 21), new Vector2(23.646f, 20f),
-      new Vector2(23.837f, 19f), new Vector2(24f, 18f), new Vector2(23.873f, 17), new Vector2(23.646f, 16f),
-      new Vector2(23.122f, 15.5f), new Vector2(22.646f, 15f), new Vector2(21.936f, 14.5f), new Vector2(20f, 14f),
-      // Exit parabola
-      new Vector2(19f, 14.063f), new Vector2(18f, 14.25f), new Vector2(17f, 14.5625f), new Vector2(16f, 15f),
-      new Vector2(15, 15.5625f), new Vector2(14, 16.25f), //new Vector2(13, 17.0625f), new Vector2(12, 18)
-  };
-  public static final Vector2[] ENTRY_WP_1 = {
-      // entry parabola
-      new Vector2(11f, 38.5f), new Vector2(12f, 34.5f), new Vector2(13f, 32.843f), new Vector2(14f, 31.572f),
-      new Vector2(15f, 30.5f), new Vector2(16f, 29.556f),
-      // Entry Parabola 2
-      new Vector2(17f,28.583f), new Vector2(18f, 27.798f), new Vector2(19f, 26.944f), new Vector2(20f, 26f), 
-      new Vector2(21f, 24.928f), new Vector2(22f, 23.657f), new Vector2(22.5f, 22.899f), new Vector2(23f, 22f), 
-      new Vector2(23.5f, 20.828f),
-      // circle to exit parabola
-      new Vector2(24f, 18f), new Vector2(23.873f, 17), new Vector2(23.646f, 16f), new Vector2(23.122f, 15.5f),
-      new Vector2(22.646f, 15f), new Vector2(21.936f, 14.5f), new Vector2(20f, 14f),
-      // Exit parabola
-      new Vector2(19f, 14.063f), new Vector2(18f, 14.25f), new Vector2(17f, 14.5625f), new Vector2(16f, 15f),
-      new Vector2(15, 15.5625f), new Vector2(14, 16.25f), //new Vector2(13, 17.0625f), new Vector2(12, 18)
-  };
+  public static LinePath<Vector2> entryPath1;
+  public static LinePath<Vector2> entryPath2;
+  public static LinePath<Vector2> entryPath3;
+  public static LinePath<Vector2> entryPath4;
+  private static final float x1 = 173;
+  private static final float y1 = 142;
+  private static final float r = 45;
+  private static final float d = r / 4;
+  private static final float x2 = 112 + r / 2;
+  private static final float y2 = y1 + 4 * r;
+  private static final int MIDDLE_X = 224 / 2;
 
-  public static final LinePath<Vector2> ENTRY_PATH_1 = new LinePath<Vector2>(new Array<Vector2>(ENTRY_WP_1), true);
-  public static final LinePath<Vector2> ENTRY_PATH_2 = new LinePath<Vector2>(new Array<Vector2>(ENTRY_WP_4), true);
-  public static final LinePath<Vector2> ENTRY_PATH_3 = new LinePath<Vector2>(new Array<Vector2>(ENTRY_WP_1), true);
-  public static final LinePath<Vector2> ENTRY_PATH_4 = new LinePath<Vector2>(new Array<Vector2>(ENTRY_WP_4), true);
+  private static final int ENTRY_PARABOLA_TOP_RIGHT = 0;
+  private static final int ENTRY_PARABOLA_TRANSITION = 1;
+  private static final int ENTRY_CIRCLE_BOTTOM_RIGHT = 2;
+  private static final int ENTRY_PARABOLA_EXIT = 3;
+  private static final int ENTRY_PARABOLA_BOTTOM_RIGHT = 4;
+  private static final int ENTRY_CIRCLE_TOP_LEFT = 5;
+
+  public static void init() {
+    entryPath1 = new LinePath<Vector2>(genPath1(), true);
+    entryPath2 = new LinePath<Vector2>(genPath2(), true);
+    entryPath3 = new LinePath<Vector2>(genPath3(), true);
+    entryPath4 = new LinePath<Vector2>(genPath4(), true);
+  }
+
+  // All math is based on 224x288 screen
+  public static Array<Vector2> genPath1() {
+    Array<Vector2> wayPoints;
+    wayPoints = new Array<>();
+    wayPoints.addAll(genPoints(288f, 238f, 1, ENTRY_PARABOLA_TOP_RIGHT));
+    wayPoints.addAll(genPoints(238f, 142f, 1, ENTRY_PARABOLA_TRANSITION));
+    wayPoints.addAll(genPoints(218f, 173f, 1, ENTRY_CIRCLE_BOTTOM_RIGHT));
+    wayPoints.addAll(genPoints(173f, 132f, 1, ENTRY_PARABOLA_EXIT));
+    return wayPoints;
+  }
+
+  public static Array<Vector2> genPath2() {
+    Array<Vector2> arr = genPath1();
+    mirrorYAxis(arr);
+    return arr;
+  }
+
+  public static Array<Vector2> genPath3() {
+    Array<Vector2> arr = genPath4();
+    mirrorYAxis(arr);
+    return arr;
+  }
+
+  public static Array<Vector2> genPath4() {
+    Array<Vector2> wayPoints;
+    wayPoints = new Array<>();
+    wayPoints.addAll(genPoints(288f, 196f, 1, ENTRY_PARABOLA_BOTTOM_RIGHT));
+    wayPoints.addAll(genPoints(196f, 105f, 1, ENTRY_CIRCLE_TOP_LEFT));
+    wayPoints.addAll(genPoints(222f, 182f, 1, ENTRY_CIRCLE_BOTTOM_RIGHT));
+    wayPoints.addAll(genPoints(182f, 144f, 1, ENTRY_PARABOLA_EXIT));
+    return wayPoints;
+  }
+
+  public static Array<Vector2> genPoints(float start, float end, float stepSize, int which) {
+    float range = Math.abs(end - start);
+    int numSteps = (int) (range / stepSize);
+    if (numSteps < 1) {
+      return null;
+    }
+    Array<Vector2> arr = new Array<>();
+    float y = start;
+    float x = start;
+    if (start > end) {
+      stepSize *= -1;
+    }
+    for (int i = 0; i < numSteps; i++) {
+      switch (which) {
+        case ENTRY_PARABOLA_TOP_RIGHT:
+          x = (float) (Math.pow((y - y2) / d, 2) + x2 - r);
+          arr.add(new Vector2(x, y));
+          y += stepSize;
+          break;
+        case ENTRY_PARABOLA_TRANSITION:
+          x = (float) (-1 * Math.pow((y - y1) / d, 2) + x1 + r);
+          arr.add(new Vector2(x, y));
+          y += stepSize;
+          break;
+        case ENTRY_CIRCLE_BOTTOM_RIGHT:
+          y = y1 - (float) Math.sqrt((Math.pow(r, 2)) - (Math.pow(x - x1, 2)));
+          arr.add(new Vector2(x, y));
+          x += stepSize;
+          break;
+        case ENTRY_PARABOLA_EXIT:
+          y = (float) (Math.pow((x - x1) / d, 2) + y1 - r);
+          arr.add(new Vector2(x, y));
+          x += stepSize;
+          break;
+        case ENTRY_PARABOLA_BOTTOM_RIGHT:
+          x = (float) (Math.pow((y - y1) / d, 2) + x1 - r);
+          y += stepSize;
+          break;
+        case ENTRY_CIRCLE_TOP_LEFT:
+          x = y1 - (float) Math.sqrt((Math.pow(r, 2)) - (Math.pow(x - x1, 2)));
+          y += stepSize;
+          break;
+      }
+    }
+    return arr;
+  }
+
+  public static void mirrorYAxis(Array<Vector2> arr) {
+    for (int i = 0; i < arr.size; i++) {
+      float distance = arr.get(i).x - MIDDLE_X;
+      arr.get(i).x = MIDDLE_X - distance;
+    }
+  }
 }

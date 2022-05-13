@@ -1,8 +1,9 @@
 package com.github.grhscompsci2.galaga;
 
-import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.github.grhscompsci2.galaga.ai.PathPresets;
 import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
 import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
 import com.github.grhscompsci2.galaga.ashley.components.EnemyComponent;
@@ -83,28 +84,29 @@ public class EnemyFormation {
       }
   };
 
-  private static Engine engine;
+  private static PooledEngine engine;
 
   private static BodyFactory bodyFactory;
 
-  public static void init(Engine e, BodyFactory f) {
+  public static void init(PooledEngine e, BodyFactory f) {
     engine = e;
     bodyFactory = f;
     init();
   }
 
   public static void init() {
-    float centerX = (Utility.SCREEN_WIDTH_METERS) / 2;
-    float y = Utility.SCREEN_HEIGHT_METERS - 5;
+    PathPresets.init();
+    float centerX = (Utility.SCREEN_WIDTH) / 2;
+    float y = Utility.SCREEN_HEIGHT*7/8;
     for (int i = 0; i < formation.length; i++) {
       float xStart = centerX - (formation[i].length) + 1;
       for (int j = 0; j < formation[i].length; j++) {
-        float x = xStart + (j * 2);
+        float x = xStart + (j * 8);
         Gdx.app.debug(TAG, "X:" + x + "Y:" + y);
         formation[i][j].init(engine, bodyFactory, new Vector2(x, y));
         engine.addEntity(formation[i][j]);
       }
-      y -= 2;
+      y -= 16;
     }
   }
 

@@ -12,7 +12,7 @@ import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 
 public class PurpleBatGalagaEntity extends EnemyEntity {
     public void init(Engine engine, BodyFactory bodyFactory) {
-        super.init(engine, bodyFactory, new Vector2(0,0));
+       /* super.init(engine, bodyFactory, new Vector2(0,0));
         Array<TextureRegion> keyFrames = new Array<TextureRegion>();
         keyFrames.add(Utility.getTextureRegionAsset("purpleBat1"));
         keyFrames.add(Utility.getTextureRegionAsset("purpleBat2"));
@@ -20,6 +20,6 @@ public class PurpleBatGalagaEntity extends EnemyEntity {
         Animation<TextureRegion> ani = new Animation<TextureRegion>(Utility.ANI_FRAME_RATE, keyFrames);
 
         AnimationComponent aComponent = engine.createComponent(AnimationComponent.class);
-        aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
+        aComponent.animations.put(StateComponent.STATE_NORMAL, ani);*/
     }
 }

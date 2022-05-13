@@ -27,6 +27,7 @@ import com.github.grhscompsci2.galaga.ashley.systems.Box2DPhysicsSystem;
 import com.github.grhscompsci2.galaga.ashley.systems.CollisionSystem;
 import com.github.grhscompsci2.galaga.ashley.systems.EnemySystem;
 import com.github.grhscompsci2.galaga.ashley.systems.LevelSystem;
+import com.github.grhscompsci2.galaga.ashley.systems.MovementSystem;
 import com.github.grhscompsci2.galaga.ashley.systems.PhysicsDebugSystem;
 import com.github.grhscompsci2.galaga.ashley.systems.PhysicsSystem;
 import com.github.grhscompsci2.galaga.ashley.systems.PlayerControlSystem;
@@ -79,7 +80,8 @@ public class ArcadeScreen extends BaseDemoScreen {
     world.setContactListener(new B2dContactListener((MyGdxGame) game));
     bodyFactory = BodyFactory.getInstance(world);
     controller = new KeyboardController();
-    arcadeStage = new Stage(game.getViewport());
+    arcadeStage = new Stage(game.getViewport(),game.getBatch());
+    
     bulletFactory = new BulletFactory(engine, bodyFactory);
     EnemyFormation.init(engine, bodyFactory);
     PlayerEntity player = new PlayerEntity();
@@ -88,8 +90,8 @@ public class ArcadeScreen extends BaseDemoScreen {
     createBoundries();
     setUpTable();
 
-    engine.addSystem(new PhysicsDebugSystem(world, game.getCamera()));
-    engine.addSystem(new PhysicsSystem(world));
+    engine.addSystem(new Box2DPhysicsDebugSystem(world, game.getCamera()));
+    engine.addSystem(new Box2DPhysicsSystem(world));
     engine.addSystem(new CollisionSystem());
     engine.addSystem(new StateSystem());
     engine.addSystem(new SteeringSystem());
