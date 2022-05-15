@@ -11,12 +11,10 @@ public class LoadingScreen extends BaseDemoScreen {
 
   public LoadingScreen(MyGdxGame game) {
     super(game);
-    loadingStage = new Stage(game.getViewport());
   }
 
   @Override
-  public void render(float delta) {
-    super.render(delta);
+  public void update(float delta) {
     if (!Utility._assetManager.update()) {
       // stay here until it is all loaded.
     } else {
@@ -31,6 +29,7 @@ public class LoadingScreen extends BaseDemoScreen {
 
   @Override
   void childInit() {
+    loadingStage = new Stage(game.getViewport(), game.getBatch());
     Utility.loadAllMusicAsset();
     Utility.loadAllSoundAsset();
     Utility.loadTextureAtlasAsset();

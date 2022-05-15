@@ -15,32 +15,16 @@ import com.github.grhscompsci2.galaga.gdx.helpers.IGameProcessor.ScreenType;
 
 public class PauseScreen extends BaseDemoScreen {
 
-  private Stage pauseStage;
-
   public PauseScreen(MyGdxGame game) {
     super(game);
-    pauseStage = new Stage(game.getViewport());
-    setupTable();
   }
 
   @Override
-  public void render(float delta) {
-    super.render(delta);
+  public void update(float delta) {
+    super.update(delta);
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     Utility.background.render(delta, true);
-    pauseStage.draw();
-  }
-
-  @Override
-  public void dispose() {
-    pauseStage.dispose();
-  }
-
-  @Override
-  public void show() {
-    super.show();
-    Gdx.input.setInputProcessor(pauseStage);
   }
 
   private void setupTable() {
@@ -71,7 +55,6 @@ public class PauseScreen extends BaseDemoScreen {
         Gdx.app.exit();
       }
     });
-    pauseStage.addActor(table);
 
     loadGameButton.addListener(new ChangeListener() {
       @Override
@@ -87,11 +70,12 @@ public class PauseScreen extends BaseDemoScreen {
         game.switchScreens(ScreenType.Preferences);
       }
     });
+    stage.addActor(table);
   }
 
   @Override
   void childInit() {
-    // TODO Auto-generated method stub
+    setupTable();
 
   }
 }

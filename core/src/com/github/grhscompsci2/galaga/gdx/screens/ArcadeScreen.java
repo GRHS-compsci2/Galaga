@@ -42,7 +42,6 @@ public class ArcadeScreen extends BaseDemoScreen {
   private BodyFactory bodyFactory;
   private World world;
   private KeyboardController controller;
-  private Stage arcadeStage;
   private Label readyLabel;
   private Label p1ScoreLabel;
   private Label p2ScoreLabel;
@@ -62,16 +61,9 @@ public class ArcadeScreen extends BaseDemoScreen {
   }
 
   @Override
-  public void show() {
-    super.show();
-    Gdx.input.setInputProcessor(controller);
-  }
-
-  @Override
   protected void update(float deltaChange) {
     super.update(deltaChange);
     Utility.background.render(deltaChange, rest);
-    arcadeStage.draw();
   }
 
   @Override
@@ -80,7 +72,6 @@ public class ArcadeScreen extends BaseDemoScreen {
     world.setContactListener(new B2dContactListener((MyGdxGame) game));
     bodyFactory = BodyFactory.getInstance(world);
     controller = new KeyboardController();
-    arcadeStage = new Stage(game.getViewport(),game.getBatch());
     
     bulletFactory = new BulletFactory(engine, bodyFactory);
     EnemyFormation.init(engine, bodyFactory);
@@ -99,11 +90,6 @@ public class ArcadeScreen extends BaseDemoScreen {
     engine.addSystem(new EnemySystem(bulletFactory));
     engine.addSystem(new LevelSystem());
 
-  }
-
-  @Override
-  public void dispose() {
-    arcadeStage.dispose();
   }
 
   /**
@@ -168,7 +154,7 @@ public class ArcadeScreen extends BaseDemoScreen {
     table.add(highScoreLabel).width(Utility.SCREEN_WIDTH / 3);
     table.add(p2ScoreLabel).width(Utility.SCREEN_WIDTH / 3).row();
     table.add(readyLabel).height(Utility.SCREEN_HEIGHT - p1ScoreLabel.getHeight() * 2).colspan(3).row();
-    arcadeStage.addActor(table);
+    stage.addActor(table);
   }
 
   /**
@@ -186,8 +172,8 @@ public class ArcadeScreen extends BaseDemoScreen {
 
   private void createBoundries() {
     // Create Player bumpers to keep players on the field.
-    for (float x = 0f; x <= 28.0f; x += 28.0f) {
-      float y = 2.5f;
+    for (float x = 0f; x <= 224.0f; x += 224.0f) {
+      float y = 20f;
       float s1 = .25f;
       float s2 = .25f;
       BoundariesEntity be = new BoundariesEntity();
@@ -195,10 +181,10 @@ public class ArcadeScreen extends BaseDemoScreen {
       engine.addEntity(be);
     }
     // Create Bullet bumper to destroy bullets that go too high
-    float w = Utility.SCREEN_WIDTH_METERS - 0.5f;
-    float h = 2.0f;
-    float x = Utility.SCREEN_WIDTH_METERS / 2.0f;
-    float y = Utility.SCREEN_HEIGHT_METERS - h;
+    float w = Utility.SCREEN_WIDTH - 4f;
+    float h = 2f;
+    float x = Utility.SCREEN_WIDTH / 2.0f;
+    float y = Utility.SCREEN_HEIGHT - h;
 
     BoundariesEntity be2 = new BoundariesEntity();
     be2.init(engine, bodyFactory, x, y, w, h);

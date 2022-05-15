@@ -1,9 +1,11 @@
 package com.github.grhscompsci2.galaga.gdx.screens;
 
+import com.badlogic.gdx.Gdx;
 /**
  * Created by barry on 5/3/16 @ 6:55 PM.
  */
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
  * Lazy initialized Screens will wait until they are shown
@@ -12,32 +14,36 @@ import com.badlogic.gdx.ScreenAdapter;
  */
 public abstract class LazyInitScreen extends ScreenAdapter {
 
-    protected boolean isInitialized = false;
+  protected boolean isInitialized = false;
 
-    /**
-     * Do your initialization here.
-     */
-    protected abstract void init();
+  /**
+   * Do your initialization here.
+   */
+  protected abstract void init();
 
-    /**
-     * Perform any updates here which will fire each {this.render}
-     * call.
-     * @param deltaChange the time in seconds since the last update call
-     */
-    protected abstract void update(float deltaChange);
+  /**
+   * Perform any updates here which will fire each {this.render}
+   * call.
+   * 
+   * @param deltaChange the time in seconds since the last update call
+   */
+  protected abstract void update(float deltaChange);
 
-    @Override
-    public void show() {
-        super.show();
-        if(!isInitialized) {
-            init();
-            isInitialized = true;
-        }
+  @Override
+  public void show() {
+    super.show();
+
+    if (!isInitialized) {
+      init();
+      isInitialized = true;
     }
+  }
 
-    @Override
-    public void render(float delta) {
-        update(delta);
-        super.render(delta);
-    }
+  @Override
+  public void render(float delta) {
+    update(delta);
+    super.render(delta);
+  }
+
+
 }

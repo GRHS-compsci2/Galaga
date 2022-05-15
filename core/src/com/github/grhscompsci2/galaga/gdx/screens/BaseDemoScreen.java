@@ -1,6 +1,7 @@
 package com.github.grhscompsci2.galaga.gdx.screens;
 
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -33,7 +34,7 @@ public abstract class BaseDemoScreen extends LazyInitScreen {
     renderer = new RenderingSystem(game.getBatch(), game.getCamera(), Utility.PPM);
     stage = new Stage(game.getViewport(), game.getBatch());
   }
-
+  
   @Override
   protected void init() {
     baseInit();
@@ -43,11 +44,22 @@ public abstract class BaseDemoScreen extends LazyInitScreen {
     engine.addSystem(new DebugSystem(game.getCamera(), Color.BLUE, Color.MAGENTA, Input.Keys.TAB));
     engine.addSystem(new AnimationSystem());
   }
-
+  
   @Override
   protected void update(float deltaChange) {
+    stage.draw();
     float clippedDelta = Math.min(deltaChange, MAX_DELTA);
     engine.update(clippedDelta);
   }
+  
+  @Override
+  public void show() {
+    super.show();
+    Gdx.input.setInputProcessor(stage);
+  }
 
+  @Override
+  public void dispose() {
+    stage.dispose();
+  }
 }

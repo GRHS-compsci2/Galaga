@@ -18,18 +18,14 @@ import com.github.grhscompsci2.galaga.Utility;
 
 public class PreferencesScreen extends BaseDemoScreen {
 
-  private Stage preferencesStage;
-
   private Label titleLabel;
   private Label volumeMusicLabel;
   private Label volumeSoundLabel;
 
   public PreferencesScreen(MyGdxGame myGdxGame) {
     super(myGdxGame);
-    preferencesStage = new Stage(game.getViewport());
-    setupTable();
   }
-
+  
   private void setupTable() {
     Table table = new Table();
     table.setFillParent(true);
@@ -112,27 +108,19 @@ public class PreferencesScreen extends BaseDemoScreen {
     table.add(new Label("", skin)).colspan(3);
     table.row();
     table.add(backButton).colspan(3);
-    preferencesStage.addActor(table);
+    stage.addActor(table);
   }
 
   @Override
-  public void show() {
-    super.show();
-    Gdx.input.setInputProcessor(preferencesStage);
-  }
-
-  @Override
-  public void render(float delta) {
-    super.render(delta);
+  public void update(float delta) {
+    super.update(delta);
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     Utility.background.render(delta, true);
-    preferencesStage.draw();
   }
-
+  
   @Override
   void childInit() {
-    // TODO Auto-generated method stub
-
+    setupTable();
   }
 }
