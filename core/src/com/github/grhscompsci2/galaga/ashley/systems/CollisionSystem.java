@@ -6,7 +6,6 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
 import com.github.grhscompsci2.galaga.ashley.components.CollisionComponent;
-import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
 import com.github.grhscompsci2.galaga.ashley.components.TypeComponent;
 
@@ -17,7 +16,6 @@ public class CollisionSystem extends IteratingSystem {
   public CollisionSystem() {
     // only need to worry about player collisions
     super(Family.all(CollisionComponent.class)
-        .exclude(InactiveComponent.class)
         .get());
   }
 
@@ -42,9 +40,7 @@ public class CollisionSystem extends IteratingSystem {
     StateComponent sC = K2ComponentMappers.state.get(entity);
     if (sC.get() != StateComponent.STATE_DYING && sC.get() != StateComponent.STATE_DEAD) {
       switch (tC.type) {
-        case TypeComponent.BULLET:
-          sC.set(StateComponent.STATE_DEAD);
-          break;
+        case TypeComponent.PLAYER_BULLET:
         case TypeComponent.PLAYER:
         case TypeComponent.ENEMY:
           sC.set(StateComponent.STATE_DYING);

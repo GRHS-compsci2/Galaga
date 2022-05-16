@@ -40,14 +40,13 @@ public class B2dContactListener implements ContactListener {
       CollisionComponent col = ent.getComponent(CollisionComponent.class);
       CollisionComponent colb = colEnt.getComponent(CollisionComponent.class);
 
-      if (!K2ComponentMappers.collision.has(ent) && !K2ComponentMappers.inactive.has(colEnt)) {
-        if (col != null) {
-          col.collisionEntity = colEnt;
-        }
-        if (colb != null) {
-          colb.collisionEntity = ent;
-        }
+      if (col != null) {
+        col.collisionEntity = colEnt;
       }
+      if (colb != null) {
+        colb.collisionEntity = ent;
+      }
+
     }
   }
 

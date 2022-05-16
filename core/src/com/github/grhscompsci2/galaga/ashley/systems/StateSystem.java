@@ -3,15 +3,16 @@ package com.github.grhscompsci2.galaga.ashley.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Gdx;
 import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
 import com.github.grhscompsci2.galaga.ashley.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
-import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
 import com.github.grhscompsci2.galaga.ashley.components.TypeComponent;
 
 public class StateSystem extends IteratingSystem {
 
+  private String TAG = PlayerControlSystem.class.getSimpleName();
   public StateSystem() {
     super(Family.all(StateComponent.class, TypeComponent.class)
         .get());
@@ -32,7 +33,9 @@ public class StateSystem extends IteratingSystem {
 
   private void entityDead(Entity entity) {
     //put score stuff here too
+    Gdx.app.debug(TAG, entity+" is dead!");
     getEngine().removeEntity(entity);
+
   }
 
   private void entityDying(Entity entity) {

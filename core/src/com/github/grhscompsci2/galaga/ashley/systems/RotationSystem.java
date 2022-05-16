@@ -3,7 +3,6 @@ package com.github.grhscompsci2.galaga.ashley.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
 import com.github.grhscompsci2.galaga.ashley.components.RotationComponent;

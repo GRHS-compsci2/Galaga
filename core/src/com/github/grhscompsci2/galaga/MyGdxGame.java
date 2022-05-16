@@ -74,6 +74,11 @@ public class MyGdxGame extends Game implements IGameProcessor {
     menuScreen = new MenuScreen(this);
     pauseScreen = new PauseScreen(this);
 
+    multiplexer.addProcessor(arcadeScreen.getInputProcessor());
+    multiplexer.addProcessor(arcadeScreen.getKeyboardProcessor());
+    multiplexer.addProcessor(menuScreen.getInputProcessor());
+    multiplexer.addProcessor(pauseScreen.getInputProcessor());
+    multiplexer.addProcessor(preferencesScreen.getInputProcessor());
     Utility.setFromPrefs(prefManager);
     Gdx.input.setInputProcessor(multiplexer);
     switchScreens(ScreenType.Loading);

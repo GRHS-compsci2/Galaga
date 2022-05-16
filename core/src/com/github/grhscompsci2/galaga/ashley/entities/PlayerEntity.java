@@ -17,7 +17,7 @@ public class PlayerEntity extends Entity {
   public void setUp(PooledEngine engine, BodyFactory bodyFactory, float x, float y) {
 
     TextureComponent tex = engine.createComponent(TextureComponent.class);
-    tex.region = Utility.getTextureRegionAsset("playerShip1");
+    tex.region = Utility.getTextureRegionAsset("playerShip");
     super.add(tex);
 
     TransformComponent pos = engine.createComponent(TransformComponent.class);

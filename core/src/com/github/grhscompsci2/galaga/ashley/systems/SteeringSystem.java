@@ -9,7 +9,6 @@ import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.SteeringComponent;
 
 public class SteeringSystem extends IteratingSystem {
-    @SuppressWarnings("unchecked")
     public SteeringSystem() {
         super(Family.all(SteeringComponent.class)
         .exclude(InactiveComponent.class)

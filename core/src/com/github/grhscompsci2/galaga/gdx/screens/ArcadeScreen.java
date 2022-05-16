@@ -1,37 +1,31 @@
 package com.github.grhscompsci2.galaga.gdx.screens;
 
-import com.badlogic.ashley.core.PooledEngine;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntityListener;
+import com.badlogic.ashley.core.Family;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.github.grhscompsci2.galaga.EnemyFormation;
 import com.github.grhscompsci2.galaga.KeyboardController;
 import com.github.grhscompsci2.galaga.MyGdxGame;
 import com.github.grhscompsci2.galaga.Utility;
+import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
+import com.github.grhscompsci2.galaga.ashley.components.TypeComponent;
 import com.github.grhscompsci2.galaga.ashley.entities.BoundariesEntity;
 import com.github.grhscompsci2.galaga.ashley.entities.PlayerEntity;
 import com.github.grhscompsci2.galaga.ashley.entities.bullets.BulletFactory;
 import com.github.grhscompsci2.galaga.ashley.entities.enemies.LivesEntity;
-import com.github.grhscompsci2.galaga.ashley.systems.AnimationSystem;
 import com.github.grhscompsci2.galaga.ashley.systems.Box2DPhysicsDebugSystem;
 import com.github.grhscompsci2.galaga.ashley.systems.Box2DPhysicsSystem;
 import com.github.grhscompsci2.galaga.ashley.systems.CollisionSystem;
 import com.github.grhscompsci2.galaga.ashley.systems.EnemySystem;
 import com.github.grhscompsci2.galaga.ashley.systems.LevelSystem;
-import com.github.grhscompsci2.galaga.ashley.systems.MovementSystem;
-import com.github.grhscompsci2.galaga.ashley.systems.PhysicsDebugSystem;
-import com.github.grhscompsci2.galaga.ashley.systems.PhysicsSystem;
 import com.github.grhscompsci2.galaga.ashley.systems.PlayerControlSystem;
-import com.github.grhscompsci2.galaga.ashley.systems.RenderingSystem_old;
 import com.github.grhscompsci2.galaga.ashley.systems.StateSystem;
 import com.github.grhscompsci2.galaga.ashley.systems.SteeringSystem;
 import com.github.grhscompsci2.galaga.b2d.B2dContactListener;
@@ -58,6 +52,7 @@ public class ArcadeScreen extends BaseDemoScreen {
    */
   public ArcadeScreen(MyGdxGame myGdxGame) {
     super(myGdxGame);
+    controller = new KeyboardController();
   }
 
   @Override
@@ -71,16 +66,29 @@ public class ArcadeScreen extends BaseDemoScreen {
     world = new World(new Vector2(0, 0), true);
     world.setContactListener(new B2dContactListener((MyGdxGame) game));
     bodyFactory = BodyFactory.getInstance(world);
-    controller = new KeyboardController();
-    
     bulletFactory = new BulletFactory(engine, bodyFactory);
     EnemyFormation.init(engine, bodyFactory);
     PlayerEntity player = new PlayerEntity();
-    player.setUp(engine, bodyFactory, 1.0f, 1.0f);
+    player.setUp(engine, bodyFactory, 112f, 16.0f);
     engine.addEntity(player);
     createBoundries();
     setUpTable();
+    Family bodyFamily = Family.all(BodyComponent.class).get();
+    EntityListener b2dListener = new EntityListener() {
+      @Override
+      public void entityAdded(Entity entity) {
+        // TODO Auto-generated method stub
 
+      }
+
+      @Override
+      public void entityRemoved(Entity entity) {
+        bulletFactory.checkDead(entity);
+        if (entity.getComponent(BodyComponent.class) != null) {
+          world.destroyBody(entity.getComponent(BodyComponent.class).body);
+        }
+      }
+    };
     engine.addSystem(new Box2DPhysicsDebugSystem(world, game.getCamera()));
     engine.addSystem(new Box2DPhysicsSystem(world));
     engine.addSystem(new CollisionSystem());
@@ -89,7 +97,7 @@ public class ArcadeScreen extends BaseDemoScreen {
     engine.addSystem(new PlayerControlSystem(controller, (MyGdxGame) game, bulletFactory));
     engine.addSystem(new EnemySystem(bulletFactory));
     engine.addSystem(new LevelSystem());
-
+    engine.addEntityListener(b2dListener);
   }
 
   /**
@@ -189,5 +197,9 @@ public class ArcadeScreen extends BaseDemoScreen {
     BoundariesEntity be2 = new BoundariesEntity();
     be2.init(engine, bodyFactory, x, y, w, h);
     engine.addEntity(be2);
+  }
+
+  public InputProcessor getKeyboardProcessor() {
+    return controller;
   }
 }
