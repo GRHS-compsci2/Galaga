@@ -1,846 +1,293 @@
 
 galaga.png
-size: 512, 128
+size: 256, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-EnemyBullet3
-  rotate: false
-  xy: 470, 56
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
 bee1
   rotate: false
-  xy: 398, 56
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-bee10
-  rotate: false
-  xy: 178, 6
-  size: 16, 16
-  orig: 16, 16
+  xy: 114, 14
+  size: 9, 10
+  orig: 9, 10
   offset: 0, 0
   index: -1
 bee2
   rotate: false
-  xy: 124, 6
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-bee3
-  rotate: false
-  xy: 286, 20
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-bee4
-  rotate: false
-  xy: 380, 74
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-bee5
-  rotate: false
-  xy: 486, 110
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-bee6
-  rotate: false
-  xy: 214, 40
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-bee7
-  rotate: false
-  xy: 272, 92
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-bee8
-  rotate: false
-  xy: 200, 76
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-bee9
-  rotate: false
-  xy: 254, 56
-  size: 16, 16
-  orig: 16, 16
+  xy: 88, 2
+  size: 13, 10
+  orig: 13, 10
   offset: 0, 0
   index: -1
 bird1
   rotate: false
-  xy: 452, 92
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-bird2
-  rotate: false
-  xy: 98, 42
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-bird3
-  rotate: false
-  xy: 232, 2
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-bird4
-  rotate: false
-  xy: 308, 74
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-bird5
-  rotate: false
-  xy: 324, 110
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-bird6
-  rotate: false
-  xy: 362, 56
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-bird7
-  rotate: false
-  xy: 160, 24
-  size: 16, 16
-  orig: 16, 16
+  xy: 129, 63
+  size: 11, 12
+  orig: 11, 12
   offset: 0, 0
   index: -1
 butterfly1
   rotate: false
-  xy: 396, 110
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-butterfly10
-  rotate: false
-  xy: 142, 6
-  size: 16, 16
-  orig: 16, 16
+  xy: 87, 36
+  size: 9, 10
+  orig: 9, 10
   offset: 0, 0
   index: -1
 butterfly2
   rotate: false
-  xy: 452, 56
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-butterfly3
-  rotate: false
-  xy: 160, 6
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-butterfly4
-  rotate: false
-  xy: 286, 2
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-butterfly5
-  rotate: false
-  xy: 434, 92
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-butterfly6
-  rotate: false
-  xy: 218, 76
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-butterfly7
-  rotate: false
-  xy: 214, 4
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-butterfly8
-  rotate: false
-  xy: 290, 74
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-butterfly9
-  rotate: false
-  xy: 270, 110
-  size: 16, 16
-  orig: 16, 16
+  xy: 103, 2
+  size: 13, 10
+  orig: 13, 10
   offset: 0, 0
   index: -1
 dragonfly1
   rotate: false
-  xy: 398, 92
-  size: 16, 16
-  orig: 16, 16
+  xy: 98, 31
+  size: 15, 12
+  orig: 15, 12
   offset: 0, 0
   index: -1
-dragonfly2
+enemyBullet
   rotate: false
-  xy: 70, 10
-  size: 16, 16
-  orig: 16, 16
+  xy: 16, 2
+  size: 3, 8
+  orig: 3, 8
   offset: 0, 0
   index: -1
-dragonfly3
+enemyShip
   rotate: false
-  xy: 214, 22
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-dragonfly4
-  rotate: false
-  xy: 272, 74
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-dragonfly5
-  rotate: false
-  xy: 234, 110
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-dragonfly6
-  rotate: false
-  xy: 272, 56
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-dragonfly7
-  rotate: false
-  xy: 106, 24
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-enemyBullet1
-  rotate: false
-  xy: 344, 74
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-enemyBullet2
-  rotate: false
-  xy: 360, 110
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-enemyShip1
-  rotate: false
-  xy: 398, 74
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-enemyShip2
-  rotate: false
-  xy: 200, 58
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-enemyShip3
-  rotate: false
-  xy: 196, 4
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-enemyShip4
-  rotate: false
-  xy: 290, 92
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-enemyShip5
-  rotate: false
-  xy: 252, 110
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-enemyShip6
-  rotate: false
-  xy: 290, 56
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-enemyShip7
-  rotate: false
-  xy: 124, 24
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-enemyShip8
-  rotate: false
-  xy: 268, 20
-  size: 16, 16
-  orig: 16, 16
+  xy: 116, 44
+  size: 15, 16
+  orig: 15, 16
   offset: 0, 0
   index: -1
 explosion1
   rotate: false
-  xy: 166, 60
-  size: 32, 32
-  orig: 32, 32
+  xy: 2, 2
+  size: 7, 8
+  orig: 7, 8
   offset: 0, 0
   index: -1
 explosion2
   rotate: false
-  xy: 98, 60
-  size: 32, 32
-  orig: 32, 32
+  xy: 125, 11
+  size: 12, 13
+  orig: 12, 13
   offset: 0, 0
   index: -1
 explosion3
   rotate: false
-  xy: 200, 94
-  size: 32, 32
-  orig: 32, 32
+  xy: 222, 110
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 explosion4
   rotate: false
-  xy: 132, 60
-  size: 32, 32
-  orig: 32, 32
+  xy: 193, 98
+  size: 27, 28
+  orig: 27, 28
   offset: 0, 0
   index: -1
 explosion5
   rotate: false
   xy: 98, 94
-  size: 32, 32
-  orig: 32, 32
+  size: 31, 32
+  orig: 31, 32
   offset: 0, 0
   index: -1
 greenBat1
   rotate: false
-  xy: 488, 74
-  size: 16, 16
-  orig: 16, 16
+  xy: 88, 14
+  size: 15, 15
+  orig: 15, 15
   offset: 0, 0
   index: -1
 greenBat2
   rotate: false
-  xy: 236, 92
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-greenBat3
-  rotate: false
-  xy: 304, 20
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-greenBat4
-  rotate: false
-  xy: 470, 92
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-greenBat5
-  rotate: false
-  xy: 134, 42
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-greenBat6
-  rotate: false
-  xy: 250, 20
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-greenBat7
-  rotate: false
-  xy: 344, 92
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-greenBat8
-  rotate: false
-  xy: 378, 110
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-greenBat9
-  rotate: false
-  xy: 380, 56
-  size: 16, 16
-  orig: 16, 16
+  xy: 70, 30
+  size: 15, 16
+  orig: 15, 16
   offset: 0, 0
   index: -1
 levelx1
   rotate: false
-  xy: 308, 56
-  size: 16, 16
-  orig: 16, 16
+  xy: 133, 49
+  size: 7, 12
+  orig: 7, 12
   offset: 0, 0
   index: -1
 levelx10
   rotate: false
-  xy: 342, 110
-  size: 16, 16
-  orig: 16, 16
+  xy: 240, 94
+  size: 13, 14
+  orig: 13, 14
   offset: 0, 0
   index: -1
 levelx20
   rotate: false
-  xy: 170, 42
-  size: 16, 16
-  orig: 16, 16
+  xy: 36, 28
+  size: 15, 16
+  orig: 15, 16
   offset: 0, 0
   index: -1
 levelx40
   rotate: false
-  xy: 380, 92
-  size: 16, 16
-  orig: 16, 16
+  xy: 54, 12
+  size: 15, 16
+  orig: 15, 16
   offset: 0, 0
   index: -1
 levelx5
   rotate: false
-  xy: 414, 110
-  size: 16, 16
-  orig: 16, 16
+  xy: 105, 15
+  size: 7, 14
+  orig: 7, 14
   offset: 0, 0
   index: -1
 levelx50
   rotate: false
-  xy: 434, 56
-  size: 16, 16
-  orig: 16, 16
+  xy: 115, 26
+  size: 15, 16
+  orig: 15, 16
   offset: 0, 0
   index: -1
 phantom1
   rotate: false
-  xy: 488, 92
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-phantom2
-  rotate: false
-  xy: 178, 24
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-phantom3
-  rotate: false
-  xy: 304, 38
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-phantom4
-  rotate: false
-  xy: 452, 74
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-phantom5
-  rotate: false
-  xy: 116, 42
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-phantom6
-  rotate: false
-  xy: 250, 38
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-phantom7
-  rotate: false
-  xy: 326, 92
-  size: 16, 16
-  orig: 16, 16
+  xy: 146, 70
+  size: 11, 11
+  orig: 11, 11
   offset: 0, 0
   index: -1
 pinhead5
   rotate: false
-  xy: 232, 38
-  size: 16, 16
-  orig: 16, 16
+  xy: 222, 94
+  size: 16, 14
+  orig: 16, 14
   offset: 0, 0
   index: -1
 pinhead2
   rotate: false
-  xy: 232, 38
-  size: 16, 16
-  orig: 16, 16
+  xy: 222, 94
+  size: 16, 14
+  orig: 16, 14
   offset: 0, 0
   index: -1
 pinhead6
   rotate: false
-  xy: 308, 92
-  size: 16, 16
-  orig: 16, 16
+  xy: 36, 11
+  size: 16, 15
+  orig: 16, 15
   offset: 0, 0
   index: -1
 pinhead3
   rotate: false
-  xy: 308, 92
-  size: 16, 16
-  orig: 16, 16
+  xy: 36, 11
+  size: 16, 15
+  orig: 16, 15
   offset: 0, 0
   index: -1
 pinhead7
   rotate: false
-  xy: 288, 110
-  size: 16, 16
-  orig: 16, 16
+  xy: 98, 45
+  size: 16, 15
+  orig: 16, 15
   offset: 0, 0
   index: -1
 pinhead1
   rotate: false
-  xy: 288, 110
-  size: 16, 16
-  orig: 16, 16
+  xy: 98, 45
+  size: 16, 15
+  orig: 16, 15
   offset: 0, 0
   index: -1
 pinhead4
   rotate: false
-  xy: 288, 110
-  size: 16, 16
-  orig: 16, 16
+  xy: 98, 45
+  size: 16, 15
+  orig: 16, 15
   offset: 0, 0
   index: -1
-playerBullet1
+playerBullet
   rotate: false
-  xy: 152, 42
-  size: 16, 16
-  orig: 16, 16
+  xy: 11, 2
+  size: 3, 8
+  orig: 3, 8
   offset: 0, 0
   index: -1
-playerBullet2
+playerShip
   rotate: false
-  xy: 250, 2
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-playerBullet3
-  rotate: false
-  xy: 362, 92
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-playerShip1
-  rotate: false
-  xy: 362, 74
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-playerShip2
-  rotate: false
-  xy: 432, 110
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-playerShip3
-  rotate: false
-  xy: 488, 56
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-playerShip4
-  rotate: false
-  xy: 236, 74
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-playerShip5
-  rotate: false
-  xy: 304, 2
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-playerShip6
-  rotate: false
-  xy: 470, 74
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-playerShip7
-  rotate: false
-  xy: 88, 24
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-playerShip8
-  rotate: false
-  xy: 268, 38
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-probe2
-  rotate: false
-  xy: 88, 6
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-probe3
-  rotate: false
-  xy: 268, 2
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-probe4
-  rotate: false
-  xy: 416, 92
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-probe5
-  rotate: false
-  xy: 450, 110
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-probe6
-  rotate: false
-  xy: 196, 40
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-probe7
-  rotate: false
-  xy: 254, 92
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-probe9
-  rotate: false
-  xy: 236, 56
-  size: 16, 16
-  orig: 16, 16
+  xy: 71, 12
+  size: 15, 16
+  orig: 15, 16
   offset: 0, 0
   index: -1
 probe1
   rotate: false
-  xy: 236, 56
-  size: 16, 16
-  orig: 16, 16
+  xy: 240, 110
+  size: 13, 16
+  orig: 13, 16
   offset: 0, 0
   index: -1
 purpleBat1
   rotate: false
-  xy: 416, 56
-  size: 16, 16
-  orig: 16, 16
+  xy: 129, 77
+  size: 15, 15
+  orig: 15, 15
   offset: 0, 0
   index: -1
 purpleBat2
   rotate: false
-  xy: 106, 6
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-purpleBat3
-  rotate: false
-  xy: 286, 38
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-purpleBat4
-  rotate: false
-  xy: 416, 74
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-purpleBat5
-  rotate: false
-  xy: 468, 110
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-purpleBat6
-  rotate: false
-  xy: 196, 22
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-purpleBat7
-  rotate: false
-  xy: 254, 74
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-purpleBat8
-  rotate: false
-  xy: 70, 28
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-purpleBat9
-  rotate: false
-  xy: 326, 56
-  size: 16, 16
-  orig: 16, 16
+  xy: 53, 30
+  size: 15, 16
+  orig: 15, 16
   offset: 0, 0
   index: -1
 scorpion1
   rotate: false
-  xy: 434, 74
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-scorpion2
-  rotate: false
-  xy: 218, 58
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-scorpion3
-  rotate: false
-  xy: 232, 20
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-scorpion4
-  rotate: false
-  xy: 326, 74
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-scorpion5
-  rotate: false
-  xy: 306, 110
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-scorpion6
-  rotate: false
-  xy: 344, 56
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-scorpion7
-  rotate: false
-  xy: 142, 24
-  size: 16, 16
-  orig: 16, 16
+  xy: 146, 83
+  size: 11, 11
+  orig: 11, 11
   offset: 0, 0
   index: -1
 shipExplosion1
   rotate: false
-  xy: 132, 94
-  size: 32, 32
-  orig: 32, 32
+  xy: 162, 98
+  size: 29, 28
+  orig: 29, 28
   offset: 0, 0
   index: -1
 shipExplosion2
+  rotate: false
+  xy: 98, 62
+  size: 29, 30
+  orig: 29, 30
+  offset: 0, 0
+  index: -1
+shipExplosion3
   rotate: false
   xy: 2, 12
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-shipExplosion3
-  rotate: false
-  xy: 166, 94
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
 shipExplosion4
   rotate: false
-  xy: 36, 12
-  size: 32, 32
-  orig: 32, 32
+  xy: 131, 96
+  size: 29, 30
+  orig: 29, 30
   offset: 0, 0
   index: -1
 tractorBeam1
   rotate: false
-  xy: 50, 46
+  xy: 2, 46
   size: 46, 80
   orig: 46, 80
   offset: 0, 0
   index: -1
 tractorBeam2
   rotate: false
-  xy: 2, 46
-  size: 46, 80
-  orig: 46, 80
+  xy: 50, 48
+  size: 46, 78
+  orig: 46, 78
   offset: 0, 0
   index: -1
