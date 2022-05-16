@@ -10,7 +10,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
 import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
-import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.TransformComponent;
 
 public class PhysicsSystem extends IteratingSystem {
@@ -24,7 +23,6 @@ public class PhysicsSystem extends IteratingSystem {
 
   public PhysicsSystem(World world) {
     super(Family.all(BodyComponent.class, TransformComponent.class)
-        .exclude(InactiveComponent.class)
         .get());
     this.world = world;
     this.bodiesQueue = new Array<Entity>();
@@ -43,10 +41,10 @@ public class PhysicsSystem extends IteratingSystem {
       for (Entity entity : bodiesQueue) {
         TransformComponent tfm = K2ComponentMappers.transform.get(entity);
         BodyComponent bodyComp = K2ComponentMappers.body.get(entity);
-        Vector2 position = bodyComp.body.getPosition();
-        tfm.position.x = position.x;
-        tfm.position.y = position.y;
-        tfm.rotation = bodyComp.body.getAngle() * MathUtils.radiansToDegrees;
+
+        tfm.position.x = bodyComp.getX();
+        tfm.position.y = bodyComp.getY();
+        tfm.rotation = bodyComp.getAngle() * MathUtils.radiansToDegrees;
       }
     }
     bodiesQueue.clear();

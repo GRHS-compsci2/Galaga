@@ -85,7 +85,7 @@ public class ArcadeScreen extends BaseDemoScreen {
       public void entityRemoved(Entity entity) {
         bulletFactory.checkDead(entity);
         if (entity.getComponent(BodyComponent.class) != null) {
-          world.destroyBody(entity.getComponent(BodyComponent.class).body);
+          world.destroyBody(entity.getComponent(BodyComponent.class).getBody());
         }
       }
     };

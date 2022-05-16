@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.Utility;
@@ -44,11 +45,12 @@ public class EnemyEntity extends Entity {
     super.add(aComponent);
 
     BodyComponent b2d = engine.createComponent(BodyComponent.class);
-    b2d.body = factory.makeBoxPolyBody(-5, -5, tex.region.getRegionWidth() * 0.75f,
+    Body body = factory.makeBoxPolyBody(-5, -5, tex.region.getRegionWidth() * 0.75f,
         tex.region.getRegionHeight() * 0.75f, BodyFactory.STONE, BodyType.DynamicBody, BodyFactory.CATEGORY_ENEMY,
         BodyFactory.MASK_ENEMY, true);
-    b2d.body.setUserData(this);
-    b2d.body.setActive(false);
+    body.setUserData(this);
+    body.setActive(false);
+    b2d.setBody(body);
     super.add(b2d);
 
     CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);
@@ -63,7 +65,7 @@ public class EnemyEntity extends Entity {
     super.add(sComponent);
 
     SteeringComponent steeringComponent = engine.createComponent(SteeringComponent.class);
-    steeringComponent.body = b2d.body;
+    steeringComponent.body = b2d.getBody();
     super.add(steeringComponent);
 
     TransformComponent pos = engine.createComponent(TransformComponent.class);

@@ -3,6 +3,7 @@ package com.github.grhscompsci2.galaga.ashley.entities.bullets;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
@@ -21,13 +22,14 @@ public class BulletEntity extends Entity {
     super.add(tex);
 
     BodyComponent b2d = engine.createComponent(BodyComponent.class);
-    b2d.body = bodyFactory.makeBoxPolyBody(position.x, position.y, tex.region.getRegionWidth() * 0.75f,
+    Body body = bodyFactory.makeBoxPolyBody(position.x, position.y, tex.region.getRegionWidth() * 0.75f,
         tex.region.getRegionHeight() * 0.75f, BodyFactory.STONE, BodyType.DynamicBody,
         BodyFactory.CATEGORY_BULLET, BodyFactory.MASK_BULLET, true);
-    b2d.body.setBullet(true);
-    bodyFactory.makeAllFixturesSensors(b2d.body);
-    b2d.body.setUserData(this);
-    b2d.body.setLinearVelocity(xVel, yVel);
+    body.setBullet(true);
+    bodyFactory.makeAllFixturesSensors(body);
+    body.setUserData(this);
+    body.setLinearVelocity(xVel, yVel);
+    b2d.setBody(body);
     add(b2d);
 
     CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);

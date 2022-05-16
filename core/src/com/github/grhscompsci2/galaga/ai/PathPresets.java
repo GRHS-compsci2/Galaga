@@ -3,6 +3,7 @@ package com.github.grhscompsci2.galaga.ai;
 import com.badlogic.gdx.ai.steer.utils.paths.LinePath;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.github.grhscompsci2.galaga.Utility;
 
 public class PathPresets {
   public static LinePath<Vector2> entryPath1;
@@ -15,7 +16,7 @@ public class PathPresets {
   private static final float d = r / 4;
   private static final float x2 = 112 + r / 2;
   private static final float y2 = y1 + 4 * r;
-  private static final int MIDDLE_X = 224 / 2;
+  private static final int MIDDLE_X = (int)Utility.pixelsToMeters(224 / 2);
 
   private static final int ENTRY_PARABOLA_TOP_RIGHT = 0;
   private static final int ENTRY_PARABOLA_TRANSITION = 1;
@@ -80,30 +81,32 @@ public class PathPresets {
       switch (which) {
         case ENTRY_PARABOLA_TOP_RIGHT:
           x = (float) (Math.pow((y - y2) / d, 2) + x2 - r);
-          arr.add(new Vector2(x, y));
+          arr.add(new Vector2(x, y).scl(1/Utility.PPM));
           y += stepSize;
           break;
         case ENTRY_PARABOLA_TRANSITION:
           x = (float) (-1 * Math.pow((y - y1) / d, 2) + x1 + r);
-          arr.add(new Vector2(x, y));
+          arr.add(new Vector2(x, y).scl(1/Utility.PPM));
           y += stepSize;
           break;
         case ENTRY_CIRCLE_BOTTOM_RIGHT:
           y = y1 - (float) Math.sqrt((Math.pow(r, 2)) - (Math.pow(x - x1, 2)));
-          arr.add(new Vector2(x, y));
+          arr.add(new Vector2(x, y).scl(1/Utility.PPM));
           x += stepSize;
           break;
         case ENTRY_PARABOLA_EXIT:
           y = (float) (Math.pow((x - x1) / d, 2) + y1 - r);
-          arr.add(new Vector2(x, y));
+          arr.add(new Vector2(x, y).scl(1/Utility.PPM));
           x += stepSize;
           break;
         case ENTRY_PARABOLA_BOTTOM_RIGHT:
           x = (float) (Math.pow((y - y1) / d, 2) + x1 - r);
+          arr.add(new Vector2(x, y).scl(1/Utility.PPM));
           y += stepSize;
           break;
         case ENTRY_CIRCLE_TOP_LEFT:
           x = y1 - (float) Math.sqrt((Math.pow(r, 2)) - (Math.pow(x - x1, 2)));
+          arr.add(new Vector2(x, y).scl(1/Utility.PPM));
           y += stepSize;
           break;
       }

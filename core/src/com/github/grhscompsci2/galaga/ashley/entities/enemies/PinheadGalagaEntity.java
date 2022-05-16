@@ -16,7 +16,7 @@ import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 
 public class PinheadGalagaEntity extends Entity {
     public void init(Engine engine, BodyFactory bodyFactory) {
-
+/*
         float x = (float) (Math.random() * 16 + 1);
         float y = (float) (Math.random() * 16 + 1);
 
@@ -53,6 +53,6 @@ public class PinheadGalagaEntity extends Entity {
         BodyComponent b2d = engine.createComponent(BodyComponent.class);
         b2d.body = bodyFactory.makeBoxPolyBody(x, y, 1.5f, 1.5f, BodyFactory.STONE, BodyType.DynamicBody,
                 BodyFactory.CATEGORY_ENEMY, BodyFactory.MASK_ENEMY, true);
-        super.add(b2d);
+        super.add(b2d);*/
     }
 }

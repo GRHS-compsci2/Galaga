@@ -26,12 +26,6 @@ import com.github.grhscompsci2.galaga.ashley.components.TransformComponent;
  */
 public class RenderingSystem extends IteratingSystem {
 
-  private float PPM = Utility.PPM;
-  // this gets the height and width of our camera frustrum based off the width and
-  // height of the screen and our pixel per meter ratio
-  final float FRUSTUM_WIDTH = Gdx.graphics.getWidth() / PPM;
-  final float FRUSTUM_HEIGHT = Gdx.graphics.getHeight() / PPM;
-
   private SpriteBatch batch;
   private Array<Entity> renderQueue;
   private Comparator<Entity> comparator;
@@ -39,10 +33,9 @@ public class RenderingSystem extends IteratingSystem {
 
   private Color tintPlaceholder = Color.WHITE.cpy();
 
-  public RenderingSystem(SpriteBatch batch, OrthographicCamera cam, float pixelsPerMeter) {
+  public RenderingSystem(SpriteBatch batch, OrthographicCamera cam) {
     super(Family.all(TransformComponent.class, TextureComponent.class).get());// , new ZComparator());
-    PPM = pixelsPerMeter;
-
+ 
     renderQueue = new Array<>();
     comparator = new ZComparator();
 
@@ -100,8 +93,8 @@ public class RenderingSystem extends IteratingSystem {
       Color c = batch.getColor();
       tintPlaceholder.set(t.tint.r, t.tint.g, t.tint.b, t.tint.a);
       batch.setColor(tintPlaceholder);
-      float width = pixelsToMeters(tex.region.getRegionWidth());
-      float height = pixelsToMeters(tex.region.getRegionHeight());
+      float width = tex.region.getRegionWidth();
+      float height = tex.region.getRegionHeight();
       float halfWidth = width / 2f;
       float halfHeight = height / 2f;
       // Allow for Offset
@@ -131,10 +124,10 @@ public class RenderingSystem extends IteratingSystem {
   }
 
   private float pixelsToMeters(float pixelValue) {
-    return pixelValue * (1.0f / 1);
+    return pixelValue * (1.0f / Utility.PPM);
   }
 
   private float MetersToPixels(float meterValue) {
-    return PPM * meterValue;
+    return Utility.PPM * meterValue;
   }
 }

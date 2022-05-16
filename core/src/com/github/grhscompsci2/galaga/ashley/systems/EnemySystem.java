@@ -93,7 +93,7 @@ public class EnemySystem extends IteratingSystem {
       steeringComponent.currentMode = SteeringState.GO;
     }
     Vector2 idlePosition = enemyComponent.updateHome();
-    b2dBodyComponent.body.setTransform(idlePosition, 0);
+    b2dBodyComponent.setTransform(idlePosition, 0);
     transformComponent.setPosition(idlePosition.x, idlePosition.y);
   }
 

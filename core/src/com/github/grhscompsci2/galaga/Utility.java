@@ -221,4 +221,12 @@ public final class Utility {
       musicVol = prefManager.getStoredFloat("MusicVol", 1.0f);
     }
   }
+
+  public static float pixelsToMeters(float x) {
+    return x/PPM;
+  }
+
+  public static float metersToPixels(float x) {
+    return x*PPM;
+  }
 }

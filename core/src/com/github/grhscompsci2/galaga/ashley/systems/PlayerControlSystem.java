@@ -34,14 +34,14 @@ public class PlayerControlSystem extends IteratingSystem {
     PlayerComponent player = K2ComponentMappers.player.get(entity);
 
     if (controller.left) {
-      b2body.body.setLinearVelocity((player.speed * -1), 0);
+      b2body.setLinearVelocity((player.speed * -1), 0);
     }
     if (controller.right) {
-      b2body.body.setLinearVelocity(player.speed, 0);
+      b2body.setLinearVelocity(player.speed, 0);
     }
 
     if (!controller.left && !controller.right) {
-      b2body.body.setLinearVelocity(0, 0);
+      b2body.setLinearVelocity(0, 0);
     }
     if (controller.esc) {
       controller.esc = false;
@@ -51,8 +51,8 @@ public class PlayerControlSystem extends IteratingSystem {
     if (controller.spacebar && bulletFactory.getNumPlayerBullets() < 3
         && (player.timeSinceLastShot >= player.shootDelay || bulletFactory.getNumPlayerBullets() == 0)) {
       TextureComponent tex = K2ComponentMappers.texture.get(entity);
-      float initialX = b2body.body.getPosition().x;
-      float initialY = b2body.body.getPosition().y + tex.region.getRegionHeight();
+      float initialX = b2body.getX();
+      float initialY = b2body.getY() + tex.region.getRegionHeight();
 
       bulletFactory.playerFire(new Vector2(initialX, initialY), 0f, 800f);
 

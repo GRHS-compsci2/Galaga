@@ -2,6 +2,7 @@ package com.github.grhscompsci2.galaga.ashley.entities;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
 import com.github.grhscompsci2.galaga.ashley.components.CollisionComponent;
@@ -18,9 +19,10 @@ public class BoundariesEntity extends Entity {
         super.add(sComponent);
 
         BodyComponent b2d = engine.createComponent(BodyComponent.class);
-        b2d.body = bodyFactory.makeBoxPolyBody(x, y, width, height, BodyFactory.STONE, BodyType.StaticBody,
+        Body body = bodyFactory.makeBoxPolyBody(x, y, width, height, BodyFactory.STONE, BodyType.StaticBody,
                 BodyFactory.CATEGORY_ENEMY, BodyFactory.MASK_ENEMY, true);
-        b2d.body.setUserData(this);
+        body.setUserData(this);
+        b2d.setBody(body);
         super.add(b2d);
 
         CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);

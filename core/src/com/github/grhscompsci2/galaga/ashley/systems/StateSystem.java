@@ -43,9 +43,9 @@ public class StateSystem extends IteratingSystem {
     BodyComponent b2d = K2ComponentMappers.body.get(entity);
     StateComponent state = K2ComponentMappers.state.get(entity);
     // set the rotation to zero
-    b2d.body.setTransform(b2d.body.getPosition().x, b2d.body.getPosition().y, 0);
+    b2d.getBody().setTransform(b2d.getX(), b2d.getY(), 0);
     // Freeze the hit thing
-    b2d.body.setActive(false);
+    b2d.getBody().setActive(false);
     // is there an animation for a hit?
     if (ani != null && ani.animations.containsKey(state.get())) {
       if (ani.animations.get(state.get()).isAnimationFinished(state.time)) {

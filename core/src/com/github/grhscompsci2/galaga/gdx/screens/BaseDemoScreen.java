@@ -33,7 +33,7 @@ public abstract class BaseDemoScreen extends LazyInitScreen {
 
   private void baseInit() {
     engine = new PooledEngine();
-    renderer = new RenderingSystem(game.getBatch(), game.getCamera(), Utility.PPM);
+    renderer = new RenderingSystem(game.getBatch(), game.getCamera());
   }
   
   @Override
