@@ -9,7 +9,6 @@ import com.github.grhscompsci2.galaga.KeyboardController;
 import com.github.grhscompsci2.galaga.MyGdxGame;
 import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
 import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
-import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.PlayerComponent;
 import com.github.grhscompsci2.galaga.ashley.components.TextureComponent;
 import com.github.grhscompsci2.galaga.ashley.entities.bullets.BulletFactory;

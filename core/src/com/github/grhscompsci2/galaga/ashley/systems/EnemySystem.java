@@ -9,7 +9,6 @@ import com.github.grhscompsci2.galaga.ai.SteeringPresets;
 import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
 import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
 import com.github.grhscompsci2.galaga.ashley.components.EnemyComponent;
-import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
 import com.github.grhscompsci2.galaga.ashley.components.SteeringComponent;
 import com.github.grhscompsci2.galaga.ashley.components.TransformComponent;
@@ -25,7 +24,6 @@ public class EnemySystem extends IteratingSystem {
   public EnemySystem(BulletFactory bulletFactory) {
     // get all of the entites with the enemy component
     super(Family.all(EnemyComponent.class)
-        .exclude(InactiveComponent.class)
         .get());
     this.bulletFactory=bulletFactory;
   }

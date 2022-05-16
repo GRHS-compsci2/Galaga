@@ -7,7 +7,6 @@ import com.github.grhscompsci2.galaga.ai.PathPresets;
 import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
 import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
 import com.github.grhscompsci2.galaga.ashley.components.EnemyComponent;
-import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
 import com.github.grhscompsci2.galaga.ashley.entities.enemies.BeeGalagaEntity;
 import com.github.grhscompsci2.galaga.ashley.entities.enemies.ButterflyGalagaEntity;
@@ -119,7 +118,6 @@ public class EnemyFormation {
       sc.set(StateComponent.STATE_ENTRY);
       ec.setPath(waves[level][group][position].getPath());
       b2dc.body.setActive(true);
-      entity.remove(InactiveComponent.class);
       position++;
     }
     if (waveDone && position == waves[level][group].length) {

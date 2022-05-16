@@ -24,7 +24,6 @@ public class K2ComponentMappers {
   public static ComponentMapper<FPSComponent> fps = ComponentMapper.getFor(FPSComponent.class);
   public static ComponentMapper<FollowerComponent> follower = ComponentMapper.getFor(FollowerComponent.class);
   public static ComponentMapper<HealthComponent> health = ComponentMapper.getFor(HealthComponent.class);
-  public static ComponentMapper<InactiveComponent> inactive = ComponentMapper.getFor(InactiveComponent.class);
   public static ComponentMapper<KinematicComponent> kinematic = ComponentMapper.getFor(KinematicComponent.class);
   public static ComponentMapper<MoveToComponent> moveTo = ComponentMapper.getFor(MoveToComponent.class);
   public static ComponentMapper<MultiBoundsComponent> multiBounds = ComponentMapper.getFor(MultiBoundsComponent.class);

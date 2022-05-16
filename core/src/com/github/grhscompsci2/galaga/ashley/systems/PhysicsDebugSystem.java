@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
-import com.github.grhscompsci2.galaga.ashley.components.InactiveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.TransformComponent;
 
 public class PhysicsDebugSystem extends IteratingSystem {
@@ -20,7 +19,6 @@ public class PhysicsDebugSystem extends IteratingSystem {
 
   public PhysicsDebugSystem(World world, OrthographicCamera camera) {
     super(Family.all(TransformComponent.class, BodyComponent.class)
-        .exclude(InactiveComponent.class)
         .get());
     debugRenderer = new Box2DDebugRenderer();
     this.world = world;
