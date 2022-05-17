@@ -7,6 +7,7 @@ import com.badlogic.gdx.ai.steer.utils.paths.LinePath;
 import com.badlogic.gdx.ai.steer.utils.paths.LinePath.LinePathParam;
 import com.badlogic.gdx.math.Vector2;
 import com.github.grhscompsci2.galaga.EnemyFormation;
+import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.ai.PathPresets;
 
 public class EnemyComponent implements Component {
@@ -27,8 +28,8 @@ public class EnemyComponent implements Component {
    */
   public void initPaths(Vector2 home, LinePath<Vector2> entryPath) {
     // set the home position
-    this.home = home;
-    realHome = home.cpy();
+    this.home = home.cpy().scl(Utility.MPP);
+    realHome = this.home.cpy();
     // create LinePaths (curves) for each path
     path = entryPath;
   }

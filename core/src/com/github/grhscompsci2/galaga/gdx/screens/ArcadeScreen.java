@@ -73,7 +73,7 @@ public class ArcadeScreen extends BaseDemoScreen {
     engine.addEntity(player);
     createBoundries();
     setUpTable();
-    Family bodyFamily = Family.all(BodyComponent.class).get();
+   // Family bodyFamily = Family.all(BodyComponent.class).get();
     EntityListener b2dListener = new EntityListener() {
       @Override
       public void entityAdded(Entity entity) {
@@ -98,6 +98,7 @@ public class ArcadeScreen extends BaseDemoScreen {
     engine.addSystem(new EnemySystem(bulletFactory));
     engine.addSystem(new LevelSystem());
     engine.addEntityListener(b2dListener);
+    Utility.playMusicAsset(Utility.themeMusic);
   }
 
   /**

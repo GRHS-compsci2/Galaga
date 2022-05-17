@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
@@ -72,7 +73,7 @@ public class RenderingSystem extends IteratingSystem {
                   eComponent.getPath().getSegments().get(i).getEnd());
             }
           else {
-            // sr.line(t.position, new Vector3(eComponent.getHome(), 0));
+            sr.line(t.position, new Vector3(eComponent.getHome(), 0));
           }
           sr.end();
         }

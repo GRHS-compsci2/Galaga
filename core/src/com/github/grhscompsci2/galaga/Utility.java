@@ -38,6 +38,7 @@ public final class Utility {
   public static int SCREEN_HEIGHT = 288;
   public static final float SPRITE_WIDTH = 1.5f;
   public static final float ANI_FRAME_RATE = 0.5f;
+  public static final float MPP = 0.125f;
 
   public static float SCREEN_WIDTH_METERS = SCREEN_WIDTH / PPM;
   public static float SCREEN_HEIGHT_METERS = SCREEN_HEIGHT / PPM;

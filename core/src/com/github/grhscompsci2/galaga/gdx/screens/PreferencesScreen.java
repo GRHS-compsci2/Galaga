@@ -113,10 +113,8 @@ public class PreferencesScreen extends BaseDemoScreen {
 
   @Override
   public void update(float delta) {
-    super.update(delta);
-    Gdx.gl.glClearColor(0, 0, 0, 1);
-    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     Utility.background.render(delta, true);
+    super.update(delta);
   }
   
   @Override

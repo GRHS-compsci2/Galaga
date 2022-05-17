@@ -76,6 +76,6 @@ public class EnemyEntity extends Entity {
     add(typeComponent);
   }
 
-  public void init(PooledEngine engine, BodyFactory bodyFactory, Vector2 vector2) {
+  public void init(PooledEngine engine, BodyFactory bodyFactory, Vector2 home) {
   }
 }

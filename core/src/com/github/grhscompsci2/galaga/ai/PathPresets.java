@@ -81,32 +81,32 @@ public class PathPresets {
       switch (which) {
         case ENTRY_PARABOLA_TOP_RIGHT:
           x = (float) (Math.pow((y - y2) / d, 2) + x2 - r);
-          arr.add(new Vector2(x, y).scl(1/Utility.PPM));
+          arr.add(new Vector2(x, y).scl(Utility.MPP));
           y += stepSize;
           break;
         case ENTRY_PARABOLA_TRANSITION:
           x = (float) (-1 * Math.pow((y - y1) / d, 2) + x1 + r);
-          arr.add(new Vector2(x, y).scl(1/Utility.PPM));
+          arr.add(new Vector2(x, y).scl(Utility.MPP));
           y += stepSize;
           break;
         case ENTRY_CIRCLE_BOTTOM_RIGHT:
           y = y1 - (float) Math.sqrt((Math.pow(r, 2)) - (Math.pow(x - x1, 2)));
-          arr.add(new Vector2(x, y).scl(1/Utility.PPM));
+          arr.add(new Vector2(x, y).scl(Utility.MPP));
           x += stepSize;
           break;
         case ENTRY_PARABOLA_EXIT:
           y = (float) (Math.pow((x - x1) / d, 2) + y1 - r);
-          arr.add(new Vector2(x, y).scl(1/Utility.PPM));
+          arr.add(new Vector2(x, y).scl(Utility.MPP));
           x += stepSize;
           break;
         case ENTRY_PARABOLA_BOTTOM_RIGHT:
           x = (float) (Math.pow((y - y1) / d, 2) + x1 - r);
-          arr.add(new Vector2(x, y).scl(1/Utility.PPM));
+          arr.add(new Vector2(x, y).scl(Utility.MPP));
           y += stepSize;
           break;
         case ENTRY_CIRCLE_TOP_LEFT:
           x = y1 - (float) Math.sqrt((Math.pow(r, 2)) - (Math.pow(x - x1, 2)));
-          arr.add(new Vector2(x, y).scl(1/Utility.PPM));
+          arr.add(new Vector2(x, y).scl(Utility.MPP));
           y += stepSize;
           break;
       }
