@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
 import com.github.grhscompsci2.galaga.EnemyFormation;
+import com.github.grhscompsci2.galaga.Utility;
 import com.github.grhscompsci2.galaga.ai.SteeringPresets;
 import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
 import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
@@ -94,7 +95,7 @@ public class EnemySystem extends IteratingSystem {
     }
     Vector2 idlePosition = enemyComponent.updateHome();
     b2dBodyComponent.setTransform(idlePosition, 0);
-    transformComponent.setPosition(idlePosition.x, idlePosition.y);
+    transformComponent.setPosition(idlePosition.x*Utility.PPM, idlePosition.y*Utility.PPM);
   }
 
 }

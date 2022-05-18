@@ -96,11 +96,11 @@ public class EnemyFormation {
   public static void init() {
     PathPresets.init();
     float centerX = (Utility.SCREEN_WIDTH) / 2;
-    float y = Utility.SCREEN_HEIGHT*7/8;
+    float y = Utility.SCREEN_HEIGHT * 7 / 8;
     for (int i = 0; i < formation.length; i++) {
-      float xStart = centerX - (formation[i].length) + 1;
+      float xStart = centerX - (formation[i].length * Utility.PPM) + 1;
       for (int j = 0; j < formation[i].length; j++) {
-        float x = xStart + (j * 8);
+        float x = xStart + (j * 16) + 8;
         Gdx.app.debug(TAG, "X:" + x + "Y:" + y);
         formation[i][j].init(engine, bodyFactory, new Vector2(x, y));
         engine.addEntity(formation[i][j]);
@@ -136,8 +136,8 @@ public class EnemyFormation {
     }
     waveTimer += deltaTime;
     if (waveTimer >= LAUNCH_DELAY) {
-      // Gdx.app.debug(TAG, "Level:" + level + " group:" + group + " position:" +
-      // position);
+      Gdx.app.debug(TAG, "Level:" + level + " group:" + group + " position:" +
+          position);
       waveTimer = 0;
     }
   }
@@ -165,6 +165,22 @@ public class EnemyFormation {
    * @param deltaTime the elapsed time
    */
   public static void updateFormation(float deltaTime) {
+    updateFormation(deltaTime, StateComponent.STATE_ENTRY_IDLE);
+  }
+
+  public static void updateFormation(float deltaTime, String state) {
+    switch (state) {
+      case StateComponent.STATE_ENTRY_IDLE:
+        bounce(deltaTime);
+        break;
+      case StateComponent.STATE_SWARMING:
+        swarm(deltaTime);
+        break;
+    }
+
+  }
+
+  private static void swarm(float deltaTime) {
     if (goingLeft) {
       idleTime += 2 * deltaTime;
     } else {
@@ -176,7 +192,22 @@ public class EnemyFormation {
       goingLeft = !goingLeft;
     }
 
-    idler.set(idleTime, 0);
+    //idler.set(idleTime, 0);
+  }
+
+  private static void bounce(float deltaTime) {
+    if (goingLeft) {
+      idleTime += 2 * deltaTime;
+    } else {
+      idleTime -= 2 * deltaTime;
+    }
+
+    if (Math.abs(idleTime) > 2.5 * Utility.SPRITE_WIDTH) {
+      idleTime = Math.copySign((float) (2.5 * Utility.SPRITE_WIDTH), idleTime);
+      goingLeft = !goingLeft;
+    }
+
+    //idler.set(idleTime, 0);
   }
 
   public static Vector2 getIdle() {

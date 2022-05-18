@@ -62,7 +62,7 @@ public class EnemyComponent implements Component {
    * @param vector2
    */
   public boolean areWeThereYet(float tolerance, Vector2 position) {
-    Vector2 extremity = path.getEndPoint();
+    Vector2 extremity = getLastPoint();
     if (position.dst2(extremity) < tolerance * tolerance) {
       return true;
     }

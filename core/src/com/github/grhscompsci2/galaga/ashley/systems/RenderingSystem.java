@@ -69,11 +69,11 @@ public class RenderingSystem extends IteratingSystem {
           sr.setColor(Color.WHITE);
           if (sComponent.get() == StateComponent.STATE_ENTRY)
             for (int i = 0; i < eComponent.getPath().getSegments().size; i++) {
-              sr.line(eComponent.getPath().getSegments().get(i).getBegin(),
-                  eComponent.getPath().getSegments().get(i).getEnd());
+              sr.line(eComponent.getPath().getSegments().get(i).getBegin().cpy().scl(Utility.PPM),
+                  eComponent.getPath().getSegments().get(i).getEnd().cpy().scl(Utility.PPM));
             }
           else {
-            sr.line(t.position, new Vector3(eComponent.getHome(), 0));
+            sr.line(t.position.cpy().scl(Utility.MPP), new Vector3(eComponent.getHome(), 0));
           }
           sr.end();
         }

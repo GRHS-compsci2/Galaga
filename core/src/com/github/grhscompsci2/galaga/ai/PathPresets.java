@@ -58,7 +58,7 @@ public class PathPresets {
   public static Array<Vector2> genPath4() {
     Array<Vector2> wayPoints;
     wayPoints = new Array<>();
-    wayPoints.addAll(genPoints(224f, 128, 1, ENTRY_PARABOLA_BOTTOM_RIGHT));
+    wayPoints.addAll(genPoints(23f, 142f, 1, ENTRY_PARABOLA_BOTTOM_RIGHT));
     wayPoints.addAll(genPoints(128f, 218f, 1, ENTRY_CIRCLE_TOP_LEFT));
     wayPoints.addAll(genPoints(218f, 173f, 1, ENTRY_CIRCLE_BOTTOM_RIGHT));
     wayPoints.addAll(genPoints(173f, 132f, 1, ENTRY_PARABOLA_EXIT));
@@ -105,9 +105,9 @@ public class PathPresets {
           y += stepSize;
           break;
         case ENTRY_CIRCLE_TOP_LEFT:
-          x = y1 - (float) Math.sqrt((Math.pow(r, 2)) - (Math.pow(x - x1, 2)));
+          y = y1 + (float) Math.sqrt((Math.pow(r, 2)) - (Math.pow(x - x1, 2)));
           arr.add(new Vector2(x, y).scl(Utility.MPP));
-          y += stepSize;
+          x += stepSize;
           break;
       }
     }

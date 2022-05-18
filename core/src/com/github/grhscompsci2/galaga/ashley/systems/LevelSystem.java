@@ -7,8 +7,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.EnemyFormation;
 import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
+import com.github.grhscompsci2.galaga.ashley.components.BodyComponent;
 import com.github.grhscompsci2.galaga.ashley.components.EnemyComponent;
-import com.github.grhscompsci2.galaga.ashley.components.RemoveComponent;
 import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
 
 public class LevelSystem extends IteratingSystem {
@@ -17,7 +17,6 @@ public class LevelSystem extends IteratingSystem {
 
   public LevelSystem() {
     super(Family.all(EnemyComponent.class)
-        .exclude(RemoveComponent.class)
         .get());
     enemies = new Array<Entity>();
   }
@@ -26,7 +25,6 @@ public class LevelSystem extends IteratingSystem {
     super.update(deltaTime);
     if (EnemyFormation.stillLaunching()) {
       EnemyFormation.launchNext(deltaTime);
-      // Gdx.app.debug(TAG, "Waited "+deltaTime);
     }
 
     EnemyFormation.setWaveDone(true);
@@ -44,8 +42,10 @@ public class LevelSystem extends IteratingSystem {
 
   @Override
   protected void processEntity(Entity entity, float deltaTime) {
-    // TODO Auto-generated method stub
-    enemies.add(entity);
+    BodyComponent body = K2ComponentMappers.body.get(entity);
+    if (body.getBody().isActive()) {
+      enemies.add(entity);
+    }
   }
 
 }

@@ -54,7 +54,7 @@ public class PlayerControlSystem extends IteratingSystem {
       float initialX = b2body.getX();
       float initialY = b2body.getY() + tex.region.getRegionHeight();
 
-      bulletFactory.playerFire(new Vector2(initialX, initialY), 0f, 800f);
+      bulletFactory.playerFire(new Vector2(initialX, initialY), 0f, 400f);
 
       player.timeSinceLastShot = 0;
       player.numMissiles++;

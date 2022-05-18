@@ -14,9 +14,9 @@ public class SteeringPresets {
       LinePath<Vector2> linePath) {
     FollowPath<Vector2, LinePathParam> followPath = new FollowPath<Vector2, LinePathParam>(
         follower, linePath, 1f)
-        .setTimeToTarget(0.01f)
-        .setArrivalTolerance(1f)
-        .setDecelerationRadius(0)
+        .setTimeToTarget(0.1f)
+        .setArrivalTolerance(01f)
+        .setDecelerationRadius(0f)
         .setPredictionTime(0);
     followPath.setTarget(new Box2dLocation(linePath.getStartPoint()));
     return followPath;
@@ -28,8 +28,8 @@ public class SteeringPresets {
     waypoints.add(point);
     LinePath<Vector2> path = new LinePath<Vector2>(waypoints, true);
     FollowPath<Vector2, LinePathParam> followPath = new FollowPath<Vector2, LinePathParam>(follower, path, 0.1f)
-        .setTimeToTarget(0.1f*8)
-        .setArrivalTolerance(2f*8)
+        .setTimeToTarget(0.1f)
+        .setArrivalTolerance(2f)
         .setDecelerationRadius(0)
         .setPredictionTime(0);
     followPath.setTarget(new Box2dLocation(path.getStartPoint()));
