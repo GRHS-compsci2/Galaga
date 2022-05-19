@@ -39,7 +39,7 @@ public class PathPresets {
     wayPoints.addAll(genPoints(288f, 238f, 1, ENTRY_PARABOLA_TOP_RIGHT));
     wayPoints.addAll(genPoints(238f, 142f, 1, ENTRY_PARABOLA_TRANSITION));
     wayPoints.addAll(genPoints(218f, 173f, 1, ENTRY_CIRCLE_BOTTOM_RIGHT));
-    wayPoints.addAll(genPoints(173f, 132f, 1, ENTRY_PARABOLA_EXIT));
+    wayPoints.addAll(genPoints(173f, 112f, 1, ENTRY_PARABOLA_EXIT));
     return wayPoints;
   }
 
@@ -61,7 +61,7 @@ public class PathPresets {
     wayPoints.addAll(genPoints(23f, 142f, 1, ENTRY_PARABOLA_BOTTOM_RIGHT));
     wayPoints.addAll(genPoints(128f, 218f, 1, ENTRY_CIRCLE_TOP_LEFT));
     wayPoints.addAll(genPoints(218f, 173f, 1, ENTRY_CIRCLE_BOTTOM_RIGHT));
-    wayPoints.addAll(genPoints(173f, 132f, 1, ENTRY_PARABOLA_EXIT));
+    wayPoints.addAll(genPoints(173f, 112f, 1, ENTRY_PARABOLA_EXIT));
     return wayPoints;
   }
 

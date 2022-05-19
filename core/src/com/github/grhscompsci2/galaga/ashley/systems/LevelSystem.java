@@ -34,6 +34,14 @@ public class LevelSystem extends IteratingSystem {
         EnemyFormation.setWaveDone(false);
       }
     }
+    if (!EnemyFormation.stillLaunching()) {
+      for (Entity e : enemies) {
+        StateComponent stateComponent = K2ComponentMappers.state.get(e);
+        if (stateComponent.get() != StateComponent.STATE_SWARMING) {
+          stateComponent.set(StateComponent.STATE_SWARMING);
+        }
+      }
+    }
     if (enemies.isEmpty() && !EnemyFormation.stillLaunching()) {
       EnemyFormation.nextLevel();
     }

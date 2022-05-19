@@ -9,13 +9,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.github.grhscompsci2.galaga.Utility;
+import com.github.grhscompsci2.galaga.ashley.K2ComponentMappers;
 import com.github.grhscompsci2.galaga.ashley.components.AnimationComponent;
 import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 
 public class ButterflyGalagaEntity extends EnemyEntity {
-  public void init(PooledEngine engine, BodyFactory bodyFactory, Vector2 home) {
-    super.init(engine, bodyFactory, home,"butterfly1");
+  public void init(PooledEngine engine, BodyFactory bodyFactory, Vector2 home, int i, int j) {
+    super.init(engine, bodyFactory, home, "butterfly1", i, j);
 
     Array<TextureRegion> keyFrames = new Array<TextureRegion>();
     keyFrames.add(Utility.getTextureRegionAsset("butterfly1"));
@@ -24,9 +25,13 @@ public class ButterflyGalagaEntity extends EnemyEntity {
     Animation<TextureRegion> ani = new Animation<TextureRegion>(Utility.ANI_FRAME_RATE, keyFrames,
         PlayMode.LOOP);
 
-    AnimationComponent aComponent =getComponent(AnimationComponent.class);
+    AnimationComponent aComponent = K2ComponentMappers.animation.get(this);
     aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
     aComponent.animations.put(StateComponent.STATE_ENTRY_IDLE, ani);
     aComponent.animations.put(StateComponent.STATE_ENTRY, ani);
+    aComponent.animations.put(StateComponent.STATE_ENTRY_GO_HOME, ani);
+    aComponent.animations.put(StateComponent.STATE_NORMAL, ani);
+    aComponent.animations.put(StateComponent.STATE_SWARMING, ani);
+   // add(aComponent);
   }
 }

@@ -28,8 +28,8 @@ public class SteeringComponent implements Steerable<Vector2>, Component, Poolabl
   public FollowPath<Vector2, LinePathParam> followPath;
   // Steering Data
   // Don't go too fast
-  float maxLinearSpeed = 10f;
-  float maxAngularSpeed = 20f;
+  float maxLinearSpeed = 25f;
+  float maxAngularSpeed = 50f;
   // accellerate and decellerate almost instantly
   float maxLinearAcceleration = 1000.0f;
   float maxAngularAcceleration = 1000.0f;

@@ -13,8 +13,8 @@ import com.github.grhscompsci2.galaga.ashley.components.StateComponent;
 import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 
 public class GreenBatGalagaEntity extends EnemyEntity {
-  public void init(PooledEngine engine, BodyFactory bodyFactory, Vector2 home) {
-    super.init(engine, bodyFactory, home,"greenBat1");
+  public void init(PooledEngine engine, BodyFactory bodyFactory, Vector2 home, int i, int j) {
+    super.init(engine, bodyFactory, home, "greenBat1", i, j);
     Array<TextureRegion> keyFrames = new Array<TextureRegion>();
     keyFrames.add(Utility.getTextureRegionAsset("greenBat1"));
     keyFrames.add(Utility.getTextureRegionAsset("greenBat2"));

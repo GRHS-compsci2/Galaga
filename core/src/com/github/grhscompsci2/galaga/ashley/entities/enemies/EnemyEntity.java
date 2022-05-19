@@ -24,7 +24,7 @@ import com.github.grhscompsci2.galaga.b2d.BodyFactory;
 
 public class EnemyEntity extends Entity {
 
-  public void init(PooledEngine engine, BodyFactory factory, Vector2 home, String textureName) {
+  public void init(PooledEngine engine, BodyFactory factory, Vector2 home, String textureName, int i, int j) {
 
     TextureComponent tex = engine.createComponent(TextureComponent.class);
     tex.region = Utility.getTextureRegionAsset(textureName);
@@ -57,7 +57,7 @@ public class EnemyEntity extends Entity {
     add(collisionComponent);
 
     EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
-    enemyComponent.initPaths(home, PathPresets.entryPath1);
+    enemyComponent.initPaths(home, PathPresets.entryPath1, i, j);
     super.add(enemyComponent);
 
     StateComponent sComponent = engine.createComponent(StateComponent.class);
@@ -76,6 +76,6 @@ public class EnemyEntity extends Entity {
     add(typeComponent);
   }
 
-  public void init(PooledEngine engine, BodyFactory bodyFactory, Vector2 home) {
+  public void init(PooledEngine engine, BodyFactory bodyFactory, Vector2 home, int i, int j) {
   }
 }

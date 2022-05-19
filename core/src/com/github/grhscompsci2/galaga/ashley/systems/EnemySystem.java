@@ -31,7 +31,7 @@ public class EnemySystem extends IteratingSystem {
 
   public void update(float deltaTime) {
     super.update(deltaTime);
-    EnemyFormation.updateFormation(deltaTime);
+    EnemyFormation.updateFormationTime(deltaTime);
   }
 
   @Override
@@ -48,6 +48,9 @@ public class EnemySystem extends IteratingSystem {
         break;
       case StateComponent.STATE_ENTRY_IDLE:
         entryIdle(entity);
+        break;
+      case StateComponent.STATE_SWARMING:
+        swarm(entity);
         break;
     }
   }
@@ -76,7 +79,7 @@ public class EnemySystem extends IteratingSystem {
     StateComponent stateComponent = K2ComponentMappers.state.get(entity);
     // Go to the home position
     steerCom.setSteeringBehavior(
-        SteeringPresets.goPoint(steerCom, enemyComponent.updateHome(), 0.5f));
+        SteeringPresets.goPoint(steerCom, enemyComponent.updateIdleHome()));
     enemyComponent.setPath(steerCom.followPath.getPath());
     if (enemyComponent.areWeThereYet(steerCom.followPath.getArrivalTolerance(), steerCom.getPosition())) {
       steerCom.currentMode = SteeringState.STOP;
@@ -93,9 +96,19 @@ public class EnemySystem extends IteratingSystem {
       steeringComponent.steeringBehavior = null;
       steeringComponent.currentMode = SteeringState.GO;
     }
-    Vector2 idlePosition = enemyComponent.updateHome();
-    b2dBodyComponent.setTransform(idlePosition, 0);
+    Vector2 idlePosition = enemyComponent.updateIdleHome();
+    b2dBodyComponent.setTransform(idlePosition.cpy().scl(Utility.MPP), 0);
     transformComponent.setPosition(idlePosition.x*Utility.PPM, idlePosition.y*Utility.PPM);
+  }
+  
+  
+  private void swarm(Entity entity){
+    BodyComponent b2dBodyComponent = K2ComponentMappers.body.get(entity);
+    EnemyComponent enemyComponent = K2ComponentMappers.enemy.get(entity);
+    TransformComponent transformComponent = K2ComponentMappers.transform.get(entity);
+    Vector2 swarmPosition=enemyComponent.updateSwarmHome();
+    b2dBodyComponent.setTransform(swarmPosition.cpy().scl(Utility.MPP), 0);
+    transformComponent.setPosition(swarmPosition.x*Utility.PPM, swarmPosition.y*Utility.PPM);
   }
 
 }

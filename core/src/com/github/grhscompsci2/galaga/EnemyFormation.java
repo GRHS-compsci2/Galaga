@@ -19,10 +19,10 @@ public class EnemyFormation {
 
   private static final float LAUNCH_DELAY = 0.25f;
   private static float waveTimer = 0;
-  private static float idleTime = 0;
+  private static float formationTime = 0;
   private static boolean launching = true;
   private static boolean waveDone = false;
-  private static boolean goingLeft = false;
+  private static boolean goingUp = false;
 
   private static int level = 0;
   private static int group = 0;
@@ -52,7 +52,7 @@ public class EnemyFormation {
               new Wave(4, 1, 1), new Wave(4, 9, 1), new Wave(4, 0, 1) }
       }
   };
-  public static EnemyEntity[][] formation = {
+  public static EnemyEntity[][] enemies = {
 
       // bat rows
       {
@@ -83,9 +83,26 @@ public class EnemyFormation {
       }
   };
 
+  private static Vector2[][] formation = {
+      { new Vector2(88, 252), new Vector2(104, 252), new Vector2(120, 252), new Vector2(136, 252) },
+      { new Vector2(56, 236), new Vector2(72, 236), new Vector2(88, 236), new Vector2(104, 236), new Vector2(120, 236),
+          new Vector2(136, 236), new Vector2(152, 236), new Vector2(168, 236) },
+      { new Vector2(56, 220), new Vector2(72, 220), new Vector2(88, 220), new Vector2(104, 220), new Vector2(120, 220),
+          new Vector2(136, 220), new Vector2(152, 220), new Vector2(168, 220) },
+      { new Vector2(40, 204), new Vector2(56, 204), new Vector2(72, 204), new Vector2(88, 204), new Vector2(104, 204),
+          new Vector2(120, 204), new Vector2(136, 204), new Vector2(152, 204), new Vector2(168, 204),
+          new Vector2(184, 204) },
+      { new Vector2(40, 188), new Vector2(56, 188), new Vector2(72, 188), new Vector2(88, 188), new Vector2(104, 188),
+          new Vector2(120, 188), new Vector2(136, 188), new Vector2(152, 188), new Vector2(168, 188),
+          new Vector2(184, 188) }
+  };
   private static PooledEngine engine;
 
   private static BodyFactory bodyFactory;
+
+  private static int i;
+
+  private static int j;
 
   public static void init(PooledEngine e, BodyFactory f) {
     engine = e;
@@ -95,23 +112,17 @@ public class EnemyFormation {
 
   public static void init() {
     PathPresets.init();
-    float centerX = (Utility.SCREEN_WIDTH) / 2;
-    float y = Utility.SCREEN_HEIGHT * 7 / 8;
-    for (int i = 0; i < formation.length; i++) {
-      float xStart = centerX - (formation[i].length * Utility.PPM) + 1;
-      for (int j = 0; j < formation[i].length; j++) {
-        float x = xStart + (j * 16) + 8;
-        Gdx.app.debug(TAG, "X:" + x + "Y:" + y);
-        formation[i][j].init(engine, bodyFactory, new Vector2(x, y));
-        engine.addEntity(formation[i][j]);
+    for (int i = 0; i < enemies.length; i++) {
+      for (int j = 0; j < enemies[i].length; j++) {
+        enemies[i][j].init(engine, bodyFactory, formation[i][j], i, j);
+        engine.addEntity(enemies[i][j]);
       }
-      y -= 16;
     }
   }
 
   public static void launchNext(float deltaTime) {
     if (waveTimer == 0 && position < waves[level][group].length) {
-      EnemyEntity entity = formation[waves[level][group][position].getX()][waves[level][group][position].getY()];
+      EnemyEntity entity = enemies[waves[level][group][position].getX()][waves[level][group][position].getY()];
       StateComponent sc = K2ComponentMappers.state.get(entity);
       EnemyComponent ec = K2ComponentMappers.enemy.get(entity);
       BodyComponent b2dc = K2ComponentMappers.body.get(entity);
@@ -164,54 +175,48 @@ public class EnemyFormation {
    * 
    * @param deltaTime the elapsed time
    */
-  public static void updateFormation(float deltaTime) {
-    updateFormation(deltaTime, StateComponent.STATE_ENTRY_IDLE);
-  }
-
-  public static void updateFormation(float deltaTime, String state) {
-    switch (state) {
-      case StateComponent.STATE_ENTRY_IDLE:
-        bounce(deltaTime);
-        break;
-      case StateComponent.STATE_SWARMING:
-        swarm(deltaTime);
-        break;
-    }
-
-  }
-
-  private static void swarm(float deltaTime) {
-    if (goingLeft) {
-      idleTime += 2 * deltaTime;
+  public static void updateFormationTime(float deltaTime) {
+    if (goingUp) {
+      formationTime += 2 * deltaTime;
     } else {
-      idleTime -= 2 * deltaTime;
+      formationTime -= 2 * deltaTime;
     }
 
-    if (Math.abs(idleTime) > 2.5 * Utility.SPRITE_WIDTH) {
-      idleTime = Math.copySign((float) (2.5 * Utility.SPRITE_WIDTH), idleTime);
-      goingLeft = !goingLeft;
+    if (formationTime >= 8) {
+      formationTime = 8;
+      goingUp = !goingUp;
+    } else if (formationTime <= 0) {
+      formationTime = 0;
+      goingUp = !goingUp;
     }
-
-    //idler.set(idleTime, 0);
   }
 
-  private static void bounce(float deltaTime) {
-    if (goingLeft) {
-      idleTime += 2 * deltaTime;
+  public static Vector2 getSwarmVector(int i, int j) {
+  
+    float xPos = 0;
+    if (i == 0) {
+      xPos = calcSwarmX(j + 3);
+    } else if (i < 3) {
+      xPos = calcSwarmX(j + 1);
     } else {
-      idleTime -= 2 * deltaTime;
+      xPos = calcSwarmX(j);
     }
 
-    if (Math.abs(idleTime) > 2.5 * Utility.SPRITE_WIDTH) {
-      idleTime = Math.copySign((float) (2.5 * Utility.SPRITE_WIDTH), idleTime);
-      goingLeft = !goingLeft;
-    }
-
-    //idler.set(idleTime, 0);
+    return new Vector2(xPos, formation[i][j].y);
   }
 
-  public static Vector2 getIdle() {
-    return idler;
+  private static float calcSwarmX(int i) {
+    // format formation time to be between 0 and 2
+    float swarmTime = formationTime*2.5f;
+    float[] m = { -1.6f, -1.2444f, -0.8889f, -0.5333f, -0.1778f, 0.1778f, 0.5333f, 0.889f, 1.2444f, 1.6f };
+    float[] c = { 41.6f, 57.244f, 72.899f, 88.533f, 104.18f, 119.82f, 135.47f, 151.11f, 166.76f, 182.4f };
+    return m[i] * swarmTime + c[i];
+  }
+
+  public static Vector2 getBounceVector() {
+    // format formationTime to be between -4 and 4
+    float bounceTime = formationTime - 4;
+    return new Vector2(bounceTime, 0);
   }
 
   public static void nextLevel() {
@@ -221,4 +226,5 @@ public class EnemyFormation {
     position = 0;
     launching = true;
   }
+
 }

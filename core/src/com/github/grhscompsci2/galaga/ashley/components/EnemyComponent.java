@@ -19,19 +19,26 @@ public class EnemyComponent implements Component {
   private Vector2 realHome;
   // array to hold all possible paths
   private LinePath<Vector2> path;
+  private int i;
+  private int j;
 
   /**
    * Initialize the arrays for the paths
    * 
+   * @param j
+   * @param i
+   * 
    * @param x the x coordinate of the home position
    * @param y the y coordinate of the home position
    */
-  public void initPaths(Vector2 home, LinePath<Vector2> entryPath) {
+  public void initPaths(Vector2 home, LinePath<Vector2> entryPath, int i, int j) {
     // set the home position
     this.home = home.cpy().scl(Utility.MPP);
     realHome = this.home.cpy();
     // create LinePaths (curves) for each path
     path = entryPath;
+    this.i = i;
+    this.j = j;
   }
 
   /**
@@ -63,7 +70,8 @@ public class EnemyComponent implements Component {
    */
   public boolean areWeThereYet(float tolerance, Vector2 position) {
     Vector2 extremity = getLastPoint();
-    if (position.dst2(extremity) < tolerance * tolerance) {
+    float destination=position.dst2(extremity);
+    if (position.dst2(extremity) < tolerance) {
       return true;
     }
     return false;
@@ -73,9 +81,15 @@ public class EnemyComponent implements Component {
     return home;
   }
 
-  public Vector2 updateHome() {
+  public Vector2 updateIdleHome() {
     home = realHome.cpy();
-    home.add(EnemyFormation.getIdle());
+    home.add(EnemyFormation.getBounceVector());
+    return home;
+  }
+
+  public Vector2 updateSwarmHome() {
+    home = realHome.cpy();
+    home = EnemyFormation.getSwarmVector(i, j).scl(Utility.MPP);
     return home;
   }
 
@@ -92,13 +106,13 @@ public class EnemyComponent implements Component {
       case 1:
         this.path = PathPresets.entryPath1;
         break;
-        case 2:
+      case 2:
         this.path = PathPresets.entryPath2;
         break;
-        case 3:
+      case 3:
         this.path = PathPresets.entryPath3;
         break;
-        case 4:
+      case 4:
         this.path = PathPresets.entryPath4;
         break;
     }
