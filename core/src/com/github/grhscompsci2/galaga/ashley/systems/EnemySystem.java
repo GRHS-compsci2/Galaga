@@ -89,26 +89,26 @@ public class EnemySystem extends IteratingSystem {
 
   private void entryIdle(Entity entity) {
     SteeringComponent steeringComponent = K2ComponentMappers.steering.get(entity);
-    BodyComponent b2dBodyComponent = K2ComponentMappers.body.get(entity);
-    EnemyComponent enemyComponent = K2ComponentMappers.enemy.get(entity);
-    TransformComponent transformComponent = K2ComponentMappers.transform.get(entity);
+    BodyComponent bodyC = K2ComponentMappers.body.get(entity);
+    EnemyComponent enemyC = K2ComponentMappers.enemy.get(entity);
+    TransformComponent transC = K2ComponentMappers.transform.get(entity);
     if (steeringComponent.currentMode != SteeringState.GO) {
       steeringComponent.steeringBehavior = null;
       steeringComponent.currentMode = SteeringState.GO;
     }
-    Vector2 idlePosition = enemyComponent.updateIdleHome();
-    b2dBodyComponent.setTransform(idlePosition.cpy().scl(Utility.MPP), 0);
-    transformComponent.setPosition(idlePosition.x*Utility.PPM, idlePosition.y*Utility.PPM);
+    Vector2 idlePosition = enemyC.updateIdleHome();
+    bodyC.setTransform(idlePosition.cpy().scl(Utility.MPP), 0);
+    transC.setPosition(idlePosition.x*Utility.PPM, idlePosition.y*Utility.PPM);
   }
   
   
   private void swarm(Entity entity){
-    BodyComponent b2dBodyComponent = K2ComponentMappers.body.get(entity);
-    EnemyComponent enemyComponent = K2ComponentMappers.enemy.get(entity);
-    TransformComponent transformComponent = K2ComponentMappers.transform.get(entity);
-    Vector2 swarmPosition=enemyComponent.updateSwarmHome();
-    b2dBodyComponent.setTransform(swarmPosition.cpy().scl(Utility.MPP), 0);
-    transformComponent.setPosition(swarmPosition.x*Utility.PPM, swarmPosition.y*Utility.PPM);
+    BodyComponent bodyC = K2ComponentMappers.body.get(entity);
+    EnemyComponent enemyC = K2ComponentMappers.enemy.get(entity);
+    TransformComponent transC = K2ComponentMappers.transform.get(entity);
+    Vector2 swarmPosition=enemyC.updateSwarmHome();
+    bodyC.setTransform(swarmPosition.cpy().scl(Utility.MPP), 0);
+    transC.setPosition(swarmPosition.x*Utility.PPM, swarmPosition.y*Utility.PPM);
   }
 
 }

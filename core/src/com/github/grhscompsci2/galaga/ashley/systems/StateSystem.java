@@ -20,8 +20,8 @@ public class StateSystem extends IteratingSystem {
 
   @Override
   protected void processEntity(Entity entity, float deltaTime) {
-    StateComponent state = K2ComponentMappers.state.get(entity);
-    switch (state.get()) {
+    StateComponent stateC = K2ComponentMappers.state.get(entity);
+    switch (stateC.get()) {
       case StateComponent.STATE_DYING:
         entityDying(entity);
         break;
@@ -39,20 +39,20 @@ public class StateSystem extends IteratingSystem {
   }
 
   private void entityDying(Entity entity) {
-    AnimationComponent ani = K2ComponentMappers.animation.get(entity);
-    BodyComponent b2d = K2ComponentMappers.body.get(entity);
-    StateComponent state = K2ComponentMappers.state.get(entity);
+    AnimationComponent aniC = K2ComponentMappers.animation.get(entity);
+    BodyComponent bodyC = K2ComponentMappers.body.get(entity);
+    StateComponent stateC = K2ComponentMappers.state.get(entity);
     // set the rotation to zero
-    b2d.getBody().setTransform(b2d.getX(), b2d.getY(), 0);
+    bodyC.setRotation(0);
     // Freeze the hit thing
-    b2d.getBody().setActive(false);
+    bodyC.getBody().setActive(false);
     // is there an animation for a hit?
-    if (ani != null && ani.animations.containsKey(state.get())) {
-      if (ani.animations.get(state.get()).isAnimationFinished(state.time)) {
-        state.set(StateComponent.STATE_DEAD);
+    if (aniC != null && aniC.animations.containsKey(stateC.get())) {
+      if (aniC.animations.get(stateC.get()).isAnimationFinished(stateC.time)) {
+        stateC.set(StateComponent.STATE_DEAD);
       }
     } else {
-      state.set(StateComponent.STATE_DEAD);
+      stateC.set(StateComponent.STATE_DEAD);
     }
   }
 }

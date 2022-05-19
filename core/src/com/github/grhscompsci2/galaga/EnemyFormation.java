@@ -123,12 +123,12 @@ public class EnemyFormation {
   public static void launchNext(float deltaTime) {
     if (waveTimer == 0 && position < waves[level][group].length) {
       EnemyEntity entity = enemies[waves[level][group][position].getX()][waves[level][group][position].getY()];
-      StateComponent sc = K2ComponentMappers.state.get(entity);
-      EnemyComponent ec = K2ComponentMappers.enemy.get(entity);
-      BodyComponent b2dc = K2ComponentMappers.body.get(entity);
-      sc.set(StateComponent.STATE_ENTRY);
-      ec.setPath(waves[level][group][position].getPath());
-      b2dc.getBody().setActive(true);
+      StateComponent state = K2ComponentMappers.state.get(entity);
+      EnemyComponent enemy = K2ComponentMappers.enemy.get(entity);
+      BodyComponent body = K2ComponentMappers.body.get(entity);
+      state.set(StateComponent.STATE_ENTRY);
+      enemy.setPath(waves[level][group][position].getPath());
+      body.getBody().setActive(true);
       position++;
     }
     if (waveDone && position == waves[level][group].length) {

@@ -48,7 +48,15 @@ public class BodyComponent implements Component, Pool.Poolable {
     body.setLinearVelocity(new Vector2(vX, vY).scl(Utility.PPM));
   }
 
-  public void setTransform(Vector2 position, int angle) {
+  public void setTransform(Vector2 position, float angle) {
     body.setTransform(position.cpy().scl(Utility.PPM), angle);
+  }
+
+  public void setRotation(float angle) {
+    body.setTransform(body.getPosition(), angle);
+  }
+
+  public void setActive(boolean active) {
+    body.setActive(active);
   }
 }

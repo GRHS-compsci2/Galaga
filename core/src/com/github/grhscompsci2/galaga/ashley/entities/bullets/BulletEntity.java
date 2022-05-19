@@ -21,7 +21,7 @@ public class BulletEntity extends Entity {
     tex.region = Utility.getTextureRegionAsset(fileName);
     super.add(tex);
 
-    BodyComponent b2d = engine.createComponent(BodyComponent.class);
+    BodyComponent bodyC = engine.createComponent(BodyComponent.class);
     Body body = bodyFactory.makeBoxPolyBody(position.x, position.y, tex.region.getRegionWidth() * 0.75f,
         tex.region.getRegionHeight() * 0.75f, BodyFactory.STONE, BodyType.DynamicBody,
         BodyFactory.CATEGORY_BULLET, BodyFactory.MASK_BULLET, true);
@@ -29,8 +29,8 @@ public class BulletEntity extends Entity {
     bodyFactory.makeAllFixturesSensors(body);
     body.setUserData(this);
     body.setLinearVelocity(xVel, yVel);
-    b2d.setBody(body);
-    add(b2d);
+    bodyC.setBody(body);
+    add(bodyC);
 
     CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);
     add(collisionComponent);

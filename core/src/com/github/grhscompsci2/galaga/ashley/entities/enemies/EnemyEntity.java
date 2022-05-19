@@ -44,14 +44,14 @@ public class EnemyEntity extends Entity {
     aComponent.animations.put(StateComponent.STATE_DYING, explosionAni);
     super.add(aComponent);
 
-    BodyComponent b2d = engine.createComponent(BodyComponent.class);
+    BodyComponent bodyC = engine.createComponent(BodyComponent.class);
     Body body = factory.makeBoxPolyBody(-5, -5, tex.region.getRegionWidth() * 0.75f,
         tex.region.getRegionHeight() * 0.75f, BodyFactory.STONE, BodyType.DynamicBody, BodyFactory.CATEGORY_ENEMY,
         BodyFactory.MASK_ENEMY, true);
     body.setUserData(this);
     body.setActive(false);
-    b2d.setBody(body);
-    super.add(b2d);
+    bodyC.setBody(body);
+    super.add(bodyC);
 
     CollisionComponent collisionComponent = engine.createComponent(CollisionComponent.class);
     add(collisionComponent);
@@ -65,7 +65,7 @@ public class EnemyEntity extends Entity {
     super.add(sComponent);
 
     SteeringComponent steeringComponent = engine.createComponent(SteeringComponent.class);
-    steeringComponent.body = b2d.getBody();
+    steeringComponent.body = bodyC.getBody();
     super.add(steeringComponent);
 
     TransformComponent pos = engine.createComponent(TransformComponent.class);

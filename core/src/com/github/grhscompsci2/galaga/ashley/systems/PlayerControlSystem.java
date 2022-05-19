@@ -30,18 +30,18 @@ public class PlayerControlSystem extends IteratingSystem {
 
   @Override
   protected void processEntity(Entity entity, float deltaTime) {
-    BodyComponent b2body = K2ComponentMappers.body.get(entity);
-    PlayerComponent player = K2ComponentMappers.player.get(entity);
+    BodyComponent bodyC = K2ComponentMappers.body.get(entity);
+    PlayerComponent playerC = K2ComponentMappers.player.get(entity);
 
     if (controller.left) {
-      b2body.setLinearVelocity((player.speed * -1), 0);
+      bodyC.setLinearVelocity((playerC.speed * -1), 0);
     }
     if (controller.right) {
-      b2body.setLinearVelocity(player.speed, 0);
+      bodyC.setLinearVelocity(playerC.speed, 0);
     }
 
     if (!controller.left && !controller.right) {
-      b2body.setLinearVelocity(0, 0);
+      bodyC.setLinearVelocity(0, 0);
     }
     if (controller.esc) {
       controller.esc = false;
@@ -49,19 +49,19 @@ public class PlayerControlSystem extends IteratingSystem {
     }
 
     if (controller.spacebar && bulletFactory.getNumPlayerBullets() < 3
-        && (player.timeSinceLastShot >= player.shootDelay || bulletFactory.getNumPlayerBullets() == 0)) {
+        && (playerC.timeSinceLastShot >= playerC.shootDelay || bulletFactory.getNumPlayerBullets() == 0)) {
       TextureComponent tex = K2ComponentMappers.texture.get(entity);
-      float initialX = b2body.getX();
-      float initialY = b2body.getY() + tex.region.getRegionHeight();
+      float initialX = bodyC.getX();
+      float initialY = bodyC.getY() + tex.region.getRegionHeight();
 
       bulletFactory.playerFire(new Vector2(initialX, initialY), 0f, 400f);
 
-      player.timeSinceLastShot = 0;
-      player.numMissiles++;
+      playerC.timeSinceLastShot = 0;
+      playerC.numMissiles++;
     }
 
-    if (bulletFactory.getNumPlayerBullets() > 0 && player.timeSinceLastShot <= player.shootDelay) {
-      player.timeSinceLastShot += deltaTime;
+    if (bulletFactory.getNumPlayerBullets() > 0 && playerC.timeSinceLastShot <= playerC.shootDelay) {
+      playerC.timeSinceLastShot += deltaTime;
     }
   }
 

@@ -25,12 +25,12 @@ public class PlayerEntity extends Entity {
     pos.setPosition(x, y);
     super.add(pos);
 
-    BodyComponent b2d = engine.createComponent(BodyComponent.class);
+    BodyComponent bodyC = engine.createComponent(BodyComponent.class);
     Body body = bodyFactory.makeBoxPolyBody(x, y, tex.region.getRegionWidth() * 0.75f,
         tex.region.getRegionHeight() * 0.75f, BodyFactory.STONE, BodyType.DynamicBody,
         BodyFactory.CATEGORY_PLAYER, BodyFactory.MASK_PLAYER, true);
-    b2d.setBody(body);
-    super.add(b2d);
+    bodyC.setBody(body);
+    super.add(bodyC);
 
     PlayerComponent player = engine.createComponent(PlayerComponent.class);
     super.add(player);

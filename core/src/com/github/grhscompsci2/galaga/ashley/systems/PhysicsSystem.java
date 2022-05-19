@@ -40,11 +40,11 @@ public class PhysicsSystem extends IteratingSystem {
       // Entity Queue
       for (Entity entity : bodiesQueue) {
         TransformComponent tfm = K2ComponentMappers.transform.get(entity);
-        BodyComponent bodyComp = K2ComponentMappers.body.get(entity);
+        BodyComponent bodyC = K2ComponentMappers.body.get(entity);
 
-        tfm.position.x = bodyComp.getX();
-        tfm.position.y = bodyComp.getY();
-        tfm.rotation = bodyComp.getAngle() * MathUtils.radiansToDegrees;
+        tfm.position.x = bodyC.getX();
+        tfm.position.y = bodyC.getY();
+        tfm.rotation = bodyC.getAngle() * MathUtils.radiansToDegrees;
       }
     }
     bodiesQueue.clear();

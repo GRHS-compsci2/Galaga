@@ -50,8 +50,8 @@ public class LevelSystem extends IteratingSystem {
 
   @Override
   protected void processEntity(Entity entity, float deltaTime) {
-    BodyComponent body = K2ComponentMappers.body.get(entity);
-    if (body.getBody().isActive()) {
+    BodyComponent bodyC = K2ComponentMappers.body.get(entity);
+    if (bodyC.getBody().isActive()) {
       enemies.add(entity);
     }
   }
