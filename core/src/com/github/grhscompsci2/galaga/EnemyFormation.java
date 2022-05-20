@@ -114,6 +114,14 @@ public class EnemyFormation {
     PathPresets.init();
     for (int i = 0; i < enemies.length; i++) {
       for (int j = 0; j < enemies[i].length; j++) {
+        if(i==0){
+          enemies[i][j]=new GreenBatGalagaEntity();
+        } else if (i<3){
+          enemies[i][j]=new BeeGalagaEntity();
+        }
+        else {
+          enemies[i][j]=new ButterflyGalagaEntity();
+        }
         enemies[i][j].init(engine, bodyFactory, formation[i][j], i, j);
         engine.addEntity(enemies[i][j]);
       }
@@ -192,7 +200,7 @@ public class EnemyFormation {
   }
 
   public static Vector2 getSwarmVector(int i, int j) {
-  
+
     float xPos = 0;
     if (i == 0) {
       xPos = calcSwarmX(j + 3);
@@ -207,7 +215,7 @@ public class EnemyFormation {
 
   private static float calcSwarmX(int i) {
     // format formation time to be between 0 and 2
-    float swarmTime = formationTime*2.5f;
+    float swarmTime = formationTime * 2.5f;
     float[] m = { -1.6f, -1.2444f, -0.8889f, -0.5333f, -0.1778f, 0.1778f, 0.5333f, 0.889f, 1.2444f, 1.6f };
     float[] c = { 41.6f, 57.244f, 72.899f, 88.533f, 104.18f, 119.82f, 135.47f, 151.11f, 166.76f, 182.4f };
     return m[i] * swarmTime + c[i];
@@ -224,7 +232,7 @@ public class EnemyFormation {
     level = 0;
     group = 0;
     position = 0;
-    launching = true;
+    launching = true; 
   }
 
 }

@@ -69,11 +69,10 @@ public class ArcadeScreen extends BaseDemoScreen {
     bulletFactory = new BulletFactory(engine, bodyFactory);
     EnemyFormation.init(engine, bodyFactory);
     PlayerEntity player = new PlayerEntity();
-    player.setUp(engine, bodyFactory, 112f, 16.0f);
+    player.setUp(engine, bodyFactory, Utility.SCREEN_WIDTH / 2, Utility.SCREEN_HEIGHT / 16);
     engine.addEntity(player);
     createBoundries();
     setUpTable();
-   // Family bodyFamily = Family.all(BodyComponent.class).get();
     EntityListener b2dListener = new EntityListener() {
       @Override
       public void entityAdded(Entity entity) {
@@ -89,6 +88,7 @@ public class ArcadeScreen extends BaseDemoScreen {
         }
       }
     };
+
     engine.addSystem(new Box2DPhysicsDebugSystem(world, game.getCamera()));
     engine.addSystem(new Box2DPhysicsSystem(world));
     engine.addSystem(new CollisionSystem());
